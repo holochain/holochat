@@ -107,7 +107,23 @@ var activeRoom;
      "json"
    );
  }
+//TODO this METHORD will retrive the post it has to be displayed
+ function getTag (tag) {
+    $.post("/fn/messages/getPostsByTag",tag,function(arr) {
+     arr=JSON.parse(arr);
+     console.log("posts: " + JSON.stringify(arr));
+//TODO Display the posts
 
+        }
+    );
+}
+function openTag(){$('#tagDialog').modal('show');}
+
+function passTag() {
+    var hashtag = $("#tagHandle").val();
+    getTag(hashtag);
+    $('#tagDialog').modal('hide');
+  }
 
  $(window).ready(function() {
     $.post("/fn/profiles/isRegistered", "",
@@ -129,6 +145,8 @@ var activeRoom;
     $("#room-name-button").click(addRoom)
     $("#rooms").on("click", "li", selectRoom)
     $("#message-button").click(sendMessage)
+    $('#tagButton').click(openTag);
+    $('#submitTag').click(passTag);
 
     $("#room-name-input").keyup(function(event){
         if(event.keyCode == 13) $("#room-name-button").click()
