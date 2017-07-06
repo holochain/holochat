@@ -16,7 +16,80 @@
         "H": null
     },
     "Zomes": [
-        {
+      {
+          "Name": "anchor",
+          "Description": "Anchor zome",
+          "RibosomeType": "js",
+          "CodeFile": "anchor.js",
+          "Entries": [
+              {
+                  "Name": "anchor",
+                  "DataFormat": "json",
+                  "SchemaFile": "anchor.json",
+                  "Sharing": "public"
+              },  {
+                    "Name": "anchor_main",
+                    "DataFormat": "json",
+                    "SchemaFile": "anchor.json",
+                    "Sharing": "public"
+                },
+              {
+                  "Name": "anchor_links",
+                  "DataFormat": "links",
+                  "Sharing": "public"
+              }
+          ],
+          "Functions": [
+              {
+                  "Name": "AnchorTypeCreate",
+                  "CallingType": "string",
+                  "Exposure":"public"
+              },
+              {
+                  "Name": "getMainAchorHash",
+                  "CallingType": "string",
+                  "Exposure":"public"
+              },
+              {
+                  "Name": "getAnchorTypeHash",
+                  "CallingType": "string",
+                  "Exposure":"public"
+              },
+              {
+                  "Name": "addAnchor",
+                  "CallingType": "string",
+                  "Exposure":"public"
+              },{
+                  "Name": "anchor_type_create",
+                  "CallingType": "string",
+                  "Exposure":"public"
+              },{
+                  "Name": "anchor_create",
+                  "CallingType": "json",
+                  "Exposure":"public"
+              },{
+                  "Name": "anchor_link",
+                  "CallingType": "string",
+                  "Exposure":"public"
+              },{
+                  "Name": "anchor_update",
+                  "CallingType": "string",
+                  "Exposure":"public"
+              },{
+                  "Name": "anchor_updatelink",
+                  "CallingType": "string",
+                  "Exposure":"public"
+              },{
+                  "Name": "anchor_type_list",
+                  "CallingType": "string",
+                  "Exposure":"public"
+              },{
+                  "Name": "doGetLinkLoad",
+                  "CallingType": "string",
+                  "Exposure":"public"
+              }
+            ]
+        },{
             "Name": "chat",
             "Description": "chat code",
             "RibosomeType": "js",

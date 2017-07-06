@@ -1,4 +1,3 @@
-//TODO callingHashTag
 function callingHashTag(x)
 {
   //hashTag_List=  call("hashtag","detectHashtag",x.content);
@@ -15,30 +14,12 @@ function callingHashTag(x)
 
 }
 
-
-
-//TODO Search A Hashtag in the DHS
-function searchHashTag(hashTag_List,post)
-{
- for (var i = 0; i < hashTag_List.length; i++)
- {
-//   debug("SEARCHING :");
-data=getHashTag(hashTag_List[i]);
-debug("Data"+data);
-
-  if (data != "") {
-    debug("HASHTAG matched IN DHT");
-
-    linkHashTags(hashTag_List[i],post); //follow)() changed
-    debug("linkHashTags done");
-  }else {
-    debug("HASHTAG no match found");
-    createHashTag(hashTag_List[i],post);
-  //  addHashTag(hashTag_List[i],post);
-  }
+/*************
+CODE using the anchor Zomes
+********/
+function genesis(){
+  call("anchor","anchor_type_create","hashTag");
 }
-}
-
 
 //TODO check this METHORD
 function createHashTag(hashTag,post)
@@ -52,48 +33,101 @@ function createHashTag(hashTag,post)
 
    if (data != "") {
     debug("HASHTAG FOUND IN DHT");
-    linkHashTags(hashTag,post); //follow)() changed
+   linkHashTags(hashTag,post); //follow)() changed
     }
     else {
       var a=hashTag;
       debug("HASHTAG Again not found");
-     debug("CREATING Again HASHTAG COMPLETE")
-      createHashTag(a,post);
+     debug("CREATING Again HASHTAG ")
+     createHashTag(a,post);
 
       }
 
 }
+
+//Linking a Post to a hashTag
+function linkHashTags(hashtag,post)
+{
+  var hashTag={Anchor_Type:"hashTag",Anchor_Text:hashtag};
+  var hashtagHash = makeHash(hashTag);
+  var key = commit("tag_post",post);
+  commit("tag_post_links",{Links:[{Base:hashtagHash,Link:key,Tag:"tag_post"}]});
+  debug("tag_post_links done: "+JSON.stringify(getLink(hashtagHash,"tag_post",{Load:true})));
+
+}
+
+
 //Creating a HASHTAGS
 function addHashTag(hashTag)
 {
-  debug(hashTag);
-  debug(typeof hashTag);
-  var hashtag_hash =commit("hashTag",hashTag);
-//  var hashtag_hash=makeHash(hashTag);
-  var me = getMe();
-  var directory = getDirectory();
+//  debug(hashTag);
+  var hashTag_anchor={Anchor_Type:"hashTag",Anchor_Text:hashTag};
+  var pass=call("anchor","anchor_create",hashTag_anchor);
 
-  debug(hashTag+" is "+hashtag_hash);
-var hashTag_anchor="_anchor_hashTag_"+hashTag;
-var hashTag_anchor_hash=makeHash(hashTag_anchor);
-debug("hashTag_anchor= " + hashTag_anchor);
-  commit("hashTag_links", {Links:[{Base:hashTag_anchor_hash,Link:hashtag_hash,Tag:"hashTag"}]});
-  //commit("hashTag_links", {Links:[{Base:directory,Link:hashtag_hash,Tag:"hashTag"}]});
-
-  debug("hashTag_links: "+JSON.stringify(getLink(me,"hashTag",{Load:true})));
-  //debug("hashTag_links "+JSON.stringify(getLink(directory,"hashTag",{Load:true})));
 }
 
+
+
+
+function searchHashTag(hashTag_List,post)
+{
+  for (var i = 0; i < hashTag_List.length; i++)
+  {
+   debug("SEARCHING :");
+ data=getHashTag(hashTag_List[i]);
+ debug("Data"+data);
+
+   if (data != "") {
+     debug("HASHTAG matched IN DHT");
+
+     linkHashTags(hashTag_List[i],post);
+     debug("linkHashTags done");
+   }else {
+     debug("HASHTAG no match found");
+     createHashTag(hashTag_List[i],post);
+   //  addHashTag(hashTag_List[i],post);
+   }
+   getPostsByTag(hashTag_List[i]);
+ }
+}
+//Used to search for the hashTag
+function getHashTag(hashtag)     //Just return the source of the hashTag
+{
+  //  var directory = getDirectory();
+  debug("ENtered getHashTag");
+  //getAnchorTypeHash(hashTag);
+//  var hashtagHash=call("anchor","getHashAnchorType",hashtag)
+//debug("hashtagHash:: "+hashtagHash)
+var hashTag_h={Anchor_Type:"hashTag",Anchor_Text:hashtag};
+var hashtagHash=JSON.stringify(hashTag_h);
+hashtagHash=makeHash(hashtagHash);
+
+  //  var hashtagHash = makeHash(hashtag);
+    var sources = get(hashtagHash,{GetMask:HC.GetMask.Sources});
+debug("SOURCES:: "+ sources);
+for(var i=0;i<sources.length;i++)
+debug("SOURCES::"+i+"= "+sources[i]);
+    if (isErr(sources)) {sources = [];}
+    if (sources != undefined) {
+        var n = sources.length -1;
+        return (n >= 0) ? sources[n] : "";
+    }
+    return "";
+}
+
+/*****
+Return the post linked to the hashTag
+*****/
 
 //This Methord can be used to find the post linked to the Hashtags.
 //Gets the post linked to the hashTag
 function getPostsByTag(hashTag) {
     // From the DHT, gets all "post" metadata entries linked from this userAddress
     var posts = [];
-debug("Searching the post entered");
-    author=makeHash(hashTag);
-      debug("Hashtags="+hashTag+" makeHash="+author);
-      var authorPosts = doGetTagLinkLoad(author,"tag_post");
+    debug("Searching for the post linked to the HashTag");
+    hashTag={Anchor_Type:"hashTag",Anchor_Text:hashTag};
+    hashtag_hash=makeHash(hashTag);
+    var authorPosts = doGetTagLinkLoad(hashtag_hash,"tag_post");
         // add in the author
         //  debug("authorPosts ::"+posts);
         for(var j=0;j<authorPosts.length;j++) {
@@ -125,23 +159,6 @@ function doGetTagLinkLoad(base, tag) {
     debug("Links Filled:"+JSON.stringify(links_filled));
     return links_filled;
 }
-function linkHashTags(hashtag,post)
-{
-//  getLink(hashTag_Address,"tag_post",{Load:false};
-var hashtagHash = makeHash(hashtag);
-/*var Entrys = get(hashtagHash,{GetMask:HC.GetMask.Entry});
-var Default=   get(hashtagHash,{GetMask:HC.GetMask.Default});
-var EntryType=get(hashtagHash,{GetMask:HC.GetMask.EntryType});
-var All= get(hashtagHash,{GetMask:HC.GetMask.All});
-*/var key = commit("tag_post",post);
-  commit("tag_post_links",{Links:[{Base:hashtagHash,Link:key,Tag:"tag_post"}]});
-  debug("tag_post_links done: "+JSON.stringify(getLink(hashtagHash,"tag_post",{Load:true})));
-
-}
-
-function getMe() {return App.Agent.Hash;}
-function getDirectory() {return App.DNA.Hash;}
-function isErr(result) {return ((typeof result === 'object') && result.name == "HolochainError");}
 //Detects the HashTag in the messages that were posted;
 function detectHashtag(message_content)
 {
@@ -151,23 +168,13 @@ function detectHashtag(message_content)
   else{return null;}
   return hashTag_List;
 }
-//Used to search for the hashTag
-function getHashTag(hashtag)     //Just return the source of the hashTag
-{
-  //  var directory = getDirectory();
-    var hashtagHash = makeHash(hashtag);
-    var sources = get(hashtagHash,{GetMask:HC.GetMask.Sources});
-debug("SOURCES:: "+ sources);
-for(var i=0;i<sources.length;i++)
-debug("SOURCES::"+i+"= "+sources[i]);
-    if (isErr(sources)) {sources = [];}
-    if (sources != undefined) {
-        var n = sources.length -1;
-        return (n >= 0) ? sources[n] : "";
-    }
-    return "";
-}
+function getMe() {return App.Agent.Hash;}
+function getDirectory() {return App.DNA.Hash;}
+function isErr(result) {return ((typeof result === 'object') && result.name == "HolochainError");}
 
+/******
+Validation
+********/
 function validatePut(entry_type,entry,header,pkg,sources) {
     return validate(entry_type,entry,header,sources);
 }
