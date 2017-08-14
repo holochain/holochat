@@ -17,6 +17,31 @@
     },
     "Zomes": [
       {
+          "Name": "identity",
+          "Description": "Identity that works with the DPKI zome",
+          "RibosomeType": "js",
+          "CodeFile": "identity.js",
+          "Entries": [
+
+          ],
+          "Functions": [
+              {
+                  "Name": "registerDpkiKeyTo",
+                  "CallingType": "string",
+                  "Exposure":"public"
+              },
+              {
+                  "Name": "hasRegisteredKey",
+                  "CallingType": "string",
+                  "Exposure":"public"
+              },{
+                  "Name": "getUserDetails",
+                  "CallingType": "string",
+                  "Exposure":"public"
+              }
+
+            ]
+        },{
           "Name": "anchor",
           "Description": "Anchor zome",
           "RibosomeType": "js",
