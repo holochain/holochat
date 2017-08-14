@@ -25,21 +25,8 @@ function newMessage(x) {
     x.timestamp = new Date();
     var key = commit("message", x);
     commit("room_message_link",{Links:[{Base:x.room,Link:key,Tag:"message"}]})
-debug(x.content);
-debug("Starting HASHtag search");
-  //  var hashtag=[];
-  //  hashTag_List=detectHashtag(x.content);
-  call("hashtag","callingHashTag",x);
-/*  hashTag_List=  call("hashtag","detectHashtag",x.content);
-
-     if (hashTag_List != null){
-      debug("Hashtag found::"+hashTag_List);
-      //searchHashTag(hashTag_List,x);
-      call ("hashtag","searchHashTag",{hashTag_List:hashTag_List,x:x});
-      debug("HASHTAGE SAVED");
-  }
-  else {debug("Hashtag not found");}
-*/
+    debug("Starting HASHtag search");
+    call("hashtag","callingHashTag",x);
   return key
 }
 

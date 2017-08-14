@@ -19,6 +19,7 @@ CODE using the anchor Zomes
 ********/
 function genesis(){
   call("anchor","anchor_type_create","hashTag");
+  return true
 }
 
 //TODO check this METHORD
@@ -90,7 +91,9 @@ function searchHashTag(hashTag_List,post)
    getPostsByTag(hashTag_List[i]);
  }
 }
-//Used to search for the hashTag
+//Used to search if the hashTag exist in the DHT
+//IF it doesnt it return empty
+//Else it returns the source
 function getHashTag(hashtag)     //Just return the source of the hashTag
 {
   //  var directory = getDirectory();
