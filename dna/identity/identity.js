@@ -1,7 +1,6 @@
 function genesis(){return true}
 
-function bridgeGenesis(){
-  debug("bridgeGenesis Called")
+function bridgeGenesis(side,dna,appData){
   appDNAHash=getDpkiDNA()
   data=bridge(appDNAHash, "dpkiLib", "registerDpkiTo", App.Agent.Hash)
   debug("data = "+data)
@@ -12,7 +11,7 @@ function registerDpkiKeyTo(){
   appDNAHash=getDpkiDNA();
   debug("registerDpkiKeyTo = "+appDNAHash)
   data = bridge(appDNAHash, "dpkiLib", "registerDpkiKeyTo", App.Agent.Hash)
-  debug("data = "+data)
+  debug("data = "+JSON.stringify(data))
   return data
 }
 
@@ -20,7 +19,7 @@ function hasRegisteredKey(app_agent_id){
   appDNAHash=getDpkiDNA();
   debug("hasRegisteredKey = "+appDNAHash)
   data = bridge(appDNAHash, "dpkiLib", "hasRegisteredKey",app_agent_id)
-  debug("data = "+data)
+debug("data = "+JSON.stringify(data))
   return data
 }
 
@@ -28,7 +27,7 @@ function getUserDetails(app_agent_id){
   appDNAHash=getDpkiDNA();
   debug("getUserDetails = "+appDNAHash)
   data = bridge(appDNAHash, "dpkiLib", "getUserDetails", app_agent_id)
-  debug("data = "+data)
+  debug("data = "+JSON.stringify(data))
   return data
 }
 
@@ -37,6 +36,6 @@ function getUserDetails(app_agent_id){
 // DPKI DNA Hash
 ////////////////
 function getDpkiDNA(){
-  appDNAHash="QmVnZYRqiQnkThEh7tC8AA648rRLjoAVqCweevchQyTr2r"
+  appDNAHash="QmTZXvcrfWFSjsXzm6AVSdRzy4i7MR8wTS6kJ8m4PKu79r"
   return appDNAHash
 }
