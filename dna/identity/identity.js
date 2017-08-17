@@ -16,10 +16,11 @@ function registerDpkiKeyTo(){
 }
 
 function hasRegisteredKey(app_agent_id){
+  debug("AGENT : "+app_agent_id)
   appDNAHash=getDpkiDNA();
   debug("hasRegisteredKey = "+appDNAHash)
   data = bridge(appDNAHash, "dpkiLib", "hasRegisteredKey",app_agent_id)
-debug("data = "+JSON.stringify(data))
+  debug("data = "+JSON.stringify(data))
   return data
 }
 
@@ -36,6 +37,6 @@ function getUserDetails(app_agent_id){
 // DPKI DNA Hash
 ////////////////
 function getDpkiDNA(){
-  appDNAHash="QmTZXvcrfWFSjsXzm6AVSdRzy4i7MR8wTS6kJ8m4PKu79r"
+  appDNAHash="QmXKdzWwoksyGKMYqc43XY8HjxTBdxWMKctudcpAomyvgC"
   return appDNAHash
 }

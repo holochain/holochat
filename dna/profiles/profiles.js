@@ -1,5 +1,6 @@
 function register(x) {
     x.agent_id = App.Key.Hash
+    x.agent_hash=App.Agent.Hash
     var key = commit("profile", x);
     commit("registrations", {Links:[{Base:App.DNA.Hash,Link:key,Tag:"registered_users"}]})
     commit("agent_profile_link", { Links:[{

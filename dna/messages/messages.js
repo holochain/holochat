@@ -12,6 +12,15 @@ function listMessages(room) {
       var author_hash = get(messages[i]["H"],{GetMask:HC.GetMask.Sources})[0]
       var agent_profile_link = getLink(author_hash, "profile", {Load: true})
       return_messages[i].author = JSON.parse(agent_profile_link.Links[0].E)
+      arr=call("identity","hasRegisteredKey",return_messages[i].author.agent_hash)
+           if(arr=="true"){
+             arr="[Registered]"
+           }else{
+             arr="[Not Registered]"
+           }
+           return_messages[i].registered=arr
+
+
     }
     return return_messages
   }

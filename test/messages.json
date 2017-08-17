@@ -38,7 +38,7 @@
     "Zome":"profiles",
     "FnName":"myProfile",
     "Input":"",
-    "Output":"{\"agent_id\":\"%key%\",\"email\":\"chuck@norris.com\",\"firstName\":\"Chuck\",\"lastName\":\"Norris\",\"username\":\"cnorris\"}",
+    "Output":"{\"agent_hash\":\"%agent%\",\"agent_id\":\"%key%\",\"email\":\"chuck@norris.com\",\"firstName\":\"Chuck\",\"lastName\":\"Norris\",\"username\":\"cnorris\"}",
     "Err":""
   },  {
     "Zome":"rooms",
@@ -58,7 +58,7 @@
     "Zome":"messages",
     "FnName":"listMessages",
     "Input":"\"%r2%\"",
-    "Regexp":"^\\[\\{\"author\":\\{\"agent_id\":\"%key%\",\"email\":\"chuck@norris.com\",\"firstName\":\"Chuck\",\"lastName\":\"Norris\",\"username\":\"cnorris\"\\},\"content\":\"bla\",\"id\":\"%r1%\",\"room\":\"%r2%\",\"timestamp\":\"[^\"]*\"\\}\\]$",
+    "Regexp":"[{\"author\":\\{\"agent_hash\":\"%agent%\",\"agent_id\":\"%key%\",\"email\":\"chuck@norris.com\",\"firstName\":\"Chuck\",\"lastName\":\"Norris\",\"username\":\"cnorris\"\\},\"content\":\"bla\",\"id\":\"%r1%\",\"room\":\"%r2%\",\"timestamp\":\"[^\"]*\"}]",
     "Err":""
   }
 ]
