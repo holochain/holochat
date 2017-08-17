@@ -37,6 +37,6 @@ function getUserDetails(app_agent_id){
 // DPKI DNA Hash
 ////////////////
 function getDpkiDNA(){
-  appDNAHash="QmXKdzWwoksyGKMYqc43XY8HjxTBdxWMKctudcpAomyvgC"
+  appDNAHash="QmTZXvcrfWFSjsXzm6AVSdRzy4i7MR8wTS6kJ8m4PKu79r"
   return appDNAHash
 }
