@@ -21,7 +21,7 @@
           "Description": "Identity that works with the DPKI zome",
           "RibosomeType": "js",
           "CodeFile": "identity.js",
-          "BridgeTo":"QmTZXvcrfWFSjsXzm6AVSdRzy4i7MR8wTS6kJ8m4PKu79r",
+          "BridgeTo":"dpki",
           "Entries": [
 
           ],

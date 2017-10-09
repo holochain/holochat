@@ -17,8 +17,7 @@
     "Zome":"messages",
     "FnName":"newMessage",
     "Input":"{\"content\":\"hallo\",\"room\":\"asdf\"}",
-    "Regexp":"\\{\"message\":\"Invalid entry: \\{\\\\\"content\\\\\":\\\\\"hallo\\\\\",\\\\\"room\\\\\":\\\\\"asdf\\\\\",\\\\\"timestamp\\\\\":\\\\\"[^(\\\")]*\\\\\"\\}\",\"name\":\"HolochainError\"\\}",
-    "Err":""
+    "Err":"{\"message\":\"Validation Failed\",\"name\":\"HolochainError\"}"
   },
   {
     "Zome":"messages",

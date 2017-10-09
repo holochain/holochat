@@ -1,15 +1,14 @@
 // Get list of chat Spaces / Rooms / Channels
 function listRooms() {
-    var rooms = getLink(App.DNA.Hash, "room",{Load:true});
+    var rooms = getLinks(App.DNA.Hash, "room",{Load:true});
     debug("Rooms: " + JSON.stringify(rooms))
     if( rooms instanceof Error ){
         return []
     } else {
-        rooms = rooms.Links
         var return_rooms = new Array(rooms.length);
         for( i=0; i<rooms.length; i++) {
-            return_rooms[i] = JSON.parse(rooms[i]["E"])
-            return_rooms[i].id = rooms[i]["H"]
+            return_rooms[i] = rooms[i].Entry
+            return_rooms[i].id = rooms[i].Hash
         }
         return return_rooms
     }
@@ -26,12 +25,11 @@ function isAllowed(author) {
     debug("Checking if "+author+" is a registered user...");
     debug(JSON.stringify(App));
 
-    var registered_users = getLink(App.DNA.Hash, "registered_users",{Load:true});
+    var registered_users = getLinks(App.DNA.Hash, "registered_users",{Load:true});
     debug("Registered users are: "+JSON.stringify(registered_users));
     if( registered_users instanceof Error ) return false;
-    registered_users = registered_users.Links;
     for(var i=0; i < registered_users.length; i++) {
-        var profile = JSON.parse(registered_users[i]["E"]);
+        var profile = registered_users[i].Entry;
         debug("Registered user "+i+" is " + profile.username);
         if( profile.agent_id == author) return true;
     }
