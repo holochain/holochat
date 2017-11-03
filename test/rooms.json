@@ -20,8 +20,7 @@
     "Zome":"rooms",
     "FnName":"newRoom",
     "Input":"{\"name\":\"general\", \"purpose\":\"everything goes in here\"}",
-    "Output":"{\"message\":\"Invalid entry: {\\\"name\\\":\\\"general\\\",\\\"purpose\\\":\\\"everything goes in here\\\"}\",\"name\":\"HolochainError\"}",
-    "Err":""
+    "Output":"{\"message\":\"Validation Failed\",\"name\":\"HolochainError\"}"
   },
   {
     "Zome":"profiles",

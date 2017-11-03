@@ -5,6 +5,9 @@
 		"agent_id": {
 			"type": "string"
 		},
+		"agent_hash": {
+				"type": "string"
+			},
 		"username": {
 			"type": "string"
 		},

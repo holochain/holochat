@@ -1,5 +1,6 @@
 function register(x) {
     x.agent_id = App.Key.Hash
+    x.agent_hash=App.Agent.Hash
     var key = commit("profile", x);
     commit("registrations", {Links:[{Base:App.DNA.Hash,Link:key,Tag:"registered_users"}]})
     commit("agent_profile_link", { Links:[{
@@ -11,13 +12,12 @@ function register(x) {
 }
 
 function isRegistered() {
-    var registered_users = getLink(App.DNA.Hash, "registered_users",{Load:true})
+    var registered_users = getLinks(App.DNA.Hash, "registered_users",{Load:true})
     debug("Registered users are: "+JSON.stringify(registered_users));
     if( registered_users instanceof Error) return false
-    registered_users = registered_users.Links
     var agent_id = App.Key.Hash
     for(var i=0; i < registered_users.length; i++) {
-        var profile = JSON.parse(registered_users[i]["E"])
+        var profile = registered_users[i].Entry
         debug("Registered user "+i+" is " + profile.username)
         if( profile.agent_id == agent_id) return true;
     }
@@ -31,13 +31,12 @@ function getProfile(x) {
 }
 
 function myProfile() {
-    var registered_users = getLink(App.DNA.Hash, "registered_users",{Load:true});
+    var registered_users = getLinks(App.DNA.Hash, "registered_users",{Load:true});
     if( registered_users instanceof Error ) return false
     debug("registration entry:"+JSON.stringify(registered_users))
-    registered_users = registered_users.Links
     var agent_id = App.Key.Hash
     for(var i=0; i < registered_users.length; i++) {
-        var profile = JSON.parse(registered_users[i]["E"])
+        var profile = registered_users[i].Entry
         debug("Registered user "+i+" is " + profile.username)
         if( profile.agent_id == agent_id) return profile;
     }

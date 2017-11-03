@@ -26,7 +26,7 @@ function addAnchor()
   var anchor_main = {Anchor_Type:"Anchor_Type",Anchor_Text:""};
   var anchor_main_hash=commit("anchor",anchor_main);
   commit("anchor_links", {Links:[{Base:dna,Link:anchor_main_hash,Tag:"AnchorLink_to_DNA"}]});
-  debug("Anchor_links to DNA: "+JSON.stringify(getLink(dna,"AnchorLink_to_DNA",{Load:true})));
+  debug("Anchor_links to DNA: "+JSON.stringify(getLinks(dna,"AnchorLink_to_DNA",{Load:true})));
   return anchor_main_hash;
 }
 
@@ -37,7 +37,7 @@ function anchor_type_create(anchor_type)
   var new_anchorType= {Anchor_Type:anchor_type,Anchor_Text:""};
   var key=commit("anchor",new_anchorType);
   commit("anchor_links",{Links:[{Base:anchor_main_hash,Link:key,Tag:"Anchor_Type"}]});
-  debug("anchor_type_create: "+JSON.stringify(getLink(anchor_main_hash,"Anchor_Type",{Load:true})));
+  debug("anchor_type_create: "+JSON.stringify(getLinks(anchor_main_hash,"Anchor_Type",{Load:true})));
 }
 
 /*
@@ -71,8 +71,8 @@ function anchor_link(anchor_type,anchor_text)
 {
 
   commit("anchor_links",{Links:[{Base:anchor_type,Link:anchor_text,Tag:"Anchor_Text"}]});
-  var pass=getLink(anchor_type,"Anchor_Text",{Load:true});
-  debug("Anchor_Text: "+JSON.stringify(getLink(anchor_type,"Anchor_Text",{Load:true})));
+  var pass=getLinks(anchor_type,"Anchor_Text",{Load:true});
+  debug("Anchor_Text: "+JSON.stringify(getLinks(anchor_type,"Anchor_Text",{Load:true})));
   return pass;
 }
 
@@ -115,19 +115,17 @@ return anchor_type_list;
 
 /*****
 *****/
-// helper function to do getLink call, handle the no-link error case, and copy the returned entry values into a nicer array
+// helper function to do getLinks call, handle the no-link error case, and copy the returned entry values into a nicer array
 function doGetLinkLoad(base, tag) {
     // get the tag from the base in the DHT
-    var links = getLink(base, tag,{Load:true});
+    var links = getLinks(base, tag,{Load:true});
     if (isErr(links)) {
         links = [];
-    } else {
-        links = links.Links;
     }
     var links_filled = [];
     for (var i=0;i <links.length;i++) {
-        var link = {H:links[i].H};
-        link[tag] = links[i].E;
+        var link = {H:links[i].Hash};
+        link[tag] = links[i].Entry;
         links_filled.push(link);
     }
     debug("Links Filled:"+JSON.stringify(links_filled));

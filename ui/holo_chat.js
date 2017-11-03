@@ -6,6 +6,14 @@ var activeRoom;
    });
  }
 
+ function register() {
+   $.post("/fn/identity/registerDpkiKeyTo", "", function(arr){
+     if(arr=="true"){
+       $("#varified").text("Registered")
+     }else{$("#varified").text("Not Registered")}
+   });
+ }
+
  function getRooms() {
    $.get("/fn/rooms/listRooms", "", function(rooms){
      rooms = JSON.parse(rooms)
@@ -46,26 +54,26 @@ var activeRoom;
    getMessages()
  }
 
- function getMessages() {
-   var hash = activeRoom
-   console.log("Getting messages for room: "+hash)
-   $.post("/fn/messages/listMessages", JSON.stringify(hash), function(messages){
-     $("#messages").empty()
-     messages = JSON.parse(messages)
-     messages = messages.sort(function(a,b){
-       timeA = new Date(a.timestamp)
-       timeB = new Date(b.timestamp)
-       return timeA > timeB
-     })
-     for(var i=0;i<messages.length;i++) {
-       $("#messages").append("<li class=\"list-unstyled\">"+
-          "<span class=\"timestamp\">"+messages[i].timestamp+"</span>"+
-          "<span class=\"username\">"+messages[i].author.username+"</span>"+
-          "<span class=\"message\">"+messages[i].content+"</span>"+
-       "</li>")
-     }
-   });
- }
+function getMessages() {
+  var hash = activeRoom
+  console.log("Getting messages for room: "+hash)
+  $.post("/fn/messages/listMessages", JSON.stringify(hash), function(messages){
+    $("#messages").empty()
+    messages = JSON.parse(messages)
+    messages = messages.sort(function(a,b){
+      timeA = new Date(a.timestamp)
+      timeB = new Date(b.timestamp)
+      return timeA > timeB
+    })
+    for(var i=0;i<messages.length;i++) {
+      $("#messages").append("<li class=\"list-unstyled\">"+
+         "<span class=\"timestamp\">"+messages[i].timestamp+"</span>"+
+         "<span class=\"username\">"+messages[i].author.username+messages[i].registered+"</span>"+
+         "<span class=\"message\">"+messages[i].content+"</span>"+
+      "</li>")
+    }
+  });
+}
 
  function sendMessage() {
    var text = $("#message-input").val()
@@ -147,6 +155,7 @@ function passTag() {
     $("#message-button").click(sendMessage)
     $('#tagButton').click(openTag);
     $('#submitTag').click(passTag);
+    $('#register-toKey-button').click(register);
 
     $("#room-name-input").keyup(function(event){
         if(event.keyCode == 13) $("#room-name-button").click()

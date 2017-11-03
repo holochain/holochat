@@ -1,17 +1,25 @@
 // Get list of posts in a Space
 function listMessages(room) {
-  var messages = getLink(room, "message",{Load:true});
+  var messages = getLinks(room, "message",{Load:true});
   if( messages instanceof Error ) {
     return []
   } else {
-    messages = messages.Links
     var return_messages = new Array(messages.length);
     for( i=0; i<messages.length; i++) {
-      return_messages[i] = JSON.parse(messages[i]["E"])
-      return_messages[i].id = messages[i]["H"]
-      var author_hash = get(messages[i]["H"],{GetMask:HC.GetMask.Sources})[0]
-      var agent_profile_link = getLink(author_hash, "profile", {Load: true})
-      return_messages[i].author = JSON.parse(agent_profile_link.Links[0].E)
+      return_messages[i] = messages[i].Entry
+      return_messages[i].id = messages[i].Hash
+      var author_hash = get(messages[i].Hash,{GetMask:HC.GetMask.Sources})[0]
+      var agent_profile_link = getLinks(author_hash, "profile", {Load: true})
+      return_messages[i].author = agent_profile_link[0].Entry
+      arr=call("identity","hasRegisteredKey",return_messages[i].author.agent_hash)
+           if(arr=="true"){
+             arr="[Registered]"
+           }else{
+             arr="[Not Registered]"
+           }
+           return_messages[i].registered=arr
+
+
     }
     return return_messages
   }
@@ -41,12 +49,11 @@ function modMessage(x, old_message) {
 
 function isAllowed(author) {
     debug("Checking if "+author+" is a registered user...")
-    var registered_users = getLink(App.DNA.Hash, "registered_users",{Load:true});
+    var registered_users = getLinks(App.DNA.Hash, "registered_users",{Load:true});
     debug("Registered users are: "+JSON.stringify(registered_users));
     if( registered_users instanceof Error ) return false;
-    registered_users = registered_users.Links
     for(var i=0; i < registered_users.length; i++) {
-        var profile = JSON.parse(registered_users[i]["E"])
+        var profile = registered_users[i].Entry
         debug("Registered user "+i+" is " + profile.username)
         if( profile.agent_id == author) return true;
     }
@@ -55,14 +62,13 @@ function isAllowed(author) {
 
 function isValidRoom(room) {
     debug("Checking if "+room+" is a valid...")
-    var rooms = getLink(App.DNA.Hash, "room",{Load:true});
+    var rooms = getLinks(App.DNA.Hash, "room",{Load:true});
     debug("Rooms: " + JSON.stringify(rooms))
   if( rooms instanceof Error ){
       return false
   } else {
-    rooms = rooms.Links
     for( i=0; i<rooms.length; i++) {
-      if( rooms[i]["H"] == room) return true
+      if( rooms[i].Hash == room) return true
     }
     return false
   }

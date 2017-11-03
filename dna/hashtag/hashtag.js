@@ -53,7 +53,7 @@ function linkHashTags(hashtag,post)
   var hashtagHash = makeHash(hashTag);
   var key = commit("tag_post",post);
   commit("tag_post_links",{Links:[{Base:hashtagHash,Link:key,Tag:"tag_post"}]});
-  debug("tag_post_links done: "+JSON.stringify(getLink(hashtagHash,"tag_post",{Load:true})));
+  debug("tag_post_links done: "+JSON.stringify(getLinks(hashtagHash,"tag_post",{Load:true})));
 
 }
 
@@ -145,17 +145,14 @@ function getPostsByTag(hashTag) {
 
 function doGetTagLinkLoad(base, tag) {
     // get the tag from the base in the DHT
-    var links = getLink(base, tag,{Load:true});
+    var links = getLinks(base, tag,{Load:true});
     if (isErr(links)) {
       debug("isErr");
         links = [];
-    } else {
-
-       links = links.Links;
     }
     var links_filled = [];
     for (var i=0;i <links.length;i++) {
-        var link = {H:links[i].H};
+        var link = {Hash:links[i].Hash};
         link[tag] = links[i].E;
         links_filled.push(link);
     }
