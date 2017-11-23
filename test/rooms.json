@@ -3,8 +3,8 @@
     "Convey":"newRoom should fail when room schema not fulfilled",
     "Zome":"rooms",
     "FnName":"newRoom",
-    "Input":"{\"name\":\"asdf\"}",
-    "Output":"{\"message\":\"validator room failed: object property 'purpose' is required\",\"name\":\"HolochainError\"}",
+    "Input":{"name":"asdf"},
+    "Output":{"message":"validator room failed: object property 'purpose' is required","name":"HolochainError"},
     "Err":""
   },
   {
@@ -12,29 +12,29 @@
     "Zome":"rooms",
     "FnName":"listRooms",
     "Input":"",
-    "Output":"[]",
+    "Output":[],
     "Err":""
   },
   {
     "Convey":"newRoom should fail when not created by a registered user",
     "Zome":"rooms",
     "FnName":"newRoom",
-    "Input":"{\"name\":\"general\", \"purpose\":\"everything goes in here\"}",
-    "Output":"{\"message\":\"Validation Failed\",\"name\":\"HolochainError\"}"
+    "Input":{"name":"general", "purpose":"everything goes in here"},
+    "Output":{"message":"Validation Failed","name":"HolochainError"}
   },
   {
     "Zome":"profiles",
     "FnName":"register",
-    "Input":"{\"username\":\"cnorris\", \"firstName\":\"Chuck\", \"lastName\":\"Norris\", \"email\":\"chuck@norris.com\"}",
-    "Output":"\"%h2%\"",
+    "Input":{"username":"cnorris", "firstName":"Chuck", "lastName":"Norris", "email":"chuck@norris.com"},
+    "Output":"%h2%",
     "Err":""
   },
   {
     "Convey":"newRoom should return the room's hash",
     "Zome":"rooms",
     "FnName":"newRoom",
-    "Input":"{\"name\":\"general\", \"purpose\":\"everything goes in here\"}",
-    "Output":"\"%h1%\"",
+    "Input":{"name":"general", "purpose":"everything goes in here"},
+    "Output":"%h1%",
     "Err":""
   },
   {
@@ -42,7 +42,7 @@
     "Zome":"rooms",
     "FnName":"listRooms",
     "Input":"",
-    "Output":"[{\"id\":\"%r1%\",\"name\":\"general\",\"purpose\":\"everything goes in here\"}]",
+    "Output":[{"id":"%r1%","name":"general","purpose":"everything goes in here"}],
     "Err":""
   }
 ]
