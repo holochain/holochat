@@ -33,7 +33,7 @@ you should see something like:
 ``` shell
 Copying chain to: /home/bootstrap/.holochaindev
 ...
-Serving holochain with DNA hash:QmZYxoxcqgCp6Xf6xVe8ptzPkmH8QMzxqp4r49QYpS2fEF on port:4141
+Serving holochain with DNA hash:QmdFv5XcG6YZgMYQ9hPJfn6xkhMhDK99rjiHJHH9zorUad on port:4141
 ```
 Then simply point your browser to http://localhost:4141 access the holochat UI.
 
@@ -48,12 +48,12 @@ Currently there is one scenario test:
 
 #### backnforth
 ``` shell
-hcdev scenario backnforth
+hcdev -mdns=true scenario backnforth
 ```
 This test spins up two nodes `person1` and `person` and tests that they can send messages back and forth
 
 ``` shell
-hcdev -debug scenario backnforth
+hcdev -mdns=true -debug scenario backnforth
 ```
 
 ## Feature Roadmap and Current Progress

@@ -1,42 +1,44 @@
-[
 {
-  "Convey":"Check if user has registered in the DPKI [user not registered]",
-  "Zome": "identity",
-  "FnName": "hasRegisteredKey",
-  "Input" : "%agent%",
-  "Output": false,
-  "Exposure": "public",
-  "Err": "",
-  "Regexp": ""
-},
-{
-  "Convey":"Register the user to the key of the DPKI",
-  "Zome": "identity",
-  "FnName": "registerDpkiKeyTo",
-  "Input" : "",
-  "Output": true,
-  "Exposure":"public",
-  "Err": "",
-  "Regexp": ""
-},
-{
-  "Convey":"Check if user has registered in the DPKI",
-  "Zome": "identity",
-  "FnName": "hasRegisteredKey",
-  "Input" : "%agent%",
-  "Output": true,
-  "Exposure":"public",
-  "Err": "",
-  "Regexp": ""
-},
-{
-  "Convey":"Provided user details that the user registered in the DPKI",
-  "Zome": "identity",
-  "FnName": "getUserDetails",
-  "Input" : "%agent%",
-    "Output":{"address":"123 Moraga St","email":"jackT@hammer.com","key":{"perm_dpki_id":"%agent%","public_key":"%key%","revocation_Method_ID":"1","shared_ID":"Jack"},"shared_ID":"Jack"},
-  "Exposure":"public",
-  "Err": "",
-  "Regexp": ""
+    "Tests":[
+        {
+            "Convey":"Check if user has registered in the DPKI [user not registered]",
+            "Zome": "identity",
+            "FnName": "hasRegisteredKey",
+            "Input" : "%agent%",
+            "Output": false,
+            "Exposure": "public",
+            "Err": "",
+            "Regexp": ""
+        },
+        {
+            "Convey":"Register the user to the key of the DPKI",
+            "Zome": "identity",
+            "FnName": "registerDpkiKeyTo",
+            "Input" : "",
+            "Output": true,
+            "Exposure":"public",
+            "Err": "",
+            "Regexp": ""
+        },
+        {
+            "Convey":"Check if user has registered in the DPKI",
+            "Zome": "identity",
+            "FnName": "hasRegisteredKey",
+            "Input" : "%agent%",
+            "Output": true,
+            "Exposure":"public",
+            "Err": "",
+            "Regexp": ""
+        },
+        {
+            "Convey":"Provided user details that the user registered in the DPKI",
+            "Zome": "identity",
+            "FnName": "getUserDetails",
+            "Input" : "%agent%",
+            "Output":{"address":"123 Moraga St","email":"jackT@hammer.com","key":{"perm_dpki_id":"%agent%","public_key":"%key%","revocation_Method_ID":"1","shared_ID":"Jack"},"shared_ID":"Jack"},
+            "Exposure":"public",
+            "Err": "",
+            "Regexp": ""
+        }
+    ]
 }
-]
