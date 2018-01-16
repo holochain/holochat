@@ -9,8 +9,21 @@
 
 **[Code Status:](https://github.com/metacurrency/holochain/milestones?direction=asc&sort=completeness&state=all)** Pre-alpha. Not for production use. This application has not been audited for any security validation.
 
+## Docker
 
-## Installation
+```
+  TARGETDIR=$(pwd) docker-compose up
+
+```
+Now you can open browsers to
+```
+  http://localhost:3142 - Bootstrap
+  http://localhost:3141 - Holochat
+  http://localhost:4141 - Holochat
+  http://localhost:5141 - Holochat
+```
+
+## Installation native
 
 Prerequiste: [Install holochain](https://github.com/metacurrency/holochain/#installation) on your machine.
 You can install holochat very simply with this:
@@ -54,6 +67,12 @@ This test spins up two nodes `person1` and `person` and tests that they can send
 
 ``` shell
 hcdev -mdns=true -debug scenario backnforth
+```
+
+### Run e2e tests
+```
+  cd ui-automation
+  yarn test
 ```
 
 ## Feature Roadmap and Current Progress
