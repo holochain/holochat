@@ -19,6 +19,7 @@ script:
 # - cd ui-automation
 # - npm install
 # - npm test
+- sleep 60
 - curl "http://localhost:3141"
 - docker-compose kill
 - docker-compose down
