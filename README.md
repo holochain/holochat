@@ -1,5 +1,6 @@
 # holochat
 
+[![Build Status](https://travis-ci.org/Holochain/holochat.svg?branch=master)](https://travis-ci.org/Holochain/holochat)
 [![Code Status](https://img.shields.io/badge/Code-Pre--Alpha-orange.svg)](https://github.com/Holochain/holochat#feature-roadmap-and-current-progress)
 [![In Progress](https://img.shields.io/waffle/label/Holochain/holochat/in%20progress.svg)](http://waffle.io/Holochain/holochat)
 [![Gitter](https://badges.gitter.im/metacurrency/holochain.svg)](https://gitter.im/metacurrency/holochain?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge)
