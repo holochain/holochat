@@ -16,11 +16,9 @@ before_install:
 - sudo mv docker-compose /usr/local/bin
 - TARGETDIR=$(pwd) docker-compose up -d
 script:
-# - cd ui-automation
-# - npm install
-# - npm test
-- sleep 60
-- curl "http://localhost:3141"
+- cd ui-automation
+- npm install
+- npm test
 - docker-compose kill
 - docker-compose down
 cache:
