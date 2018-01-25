@@ -1,0 +1,28 @@
+{
+  "name": "ui-automation",
+  "version": "0.0.1",
+  "description": "e2e tests for holochat",
+  "main": "index.js",
+  "repository": "https://github.com/Holochain/holochat",
+  "author": "Philip Beadle",
+  "license": "MIT",
+  "scripts": {
+    "test": "cypress run"
+  },
+  "dependencies": {
+    "cypress": "^1.4.1"
+  },
+  "standard":  {
+    "globals": [
+      "describe",
+      "context",
+      "before",
+      "beforeEach",
+      "after",
+      "afterEach",
+      "it",
+      "expect",
+      "cy"
+    ]
+  }
+}
