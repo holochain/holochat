@@ -1,22 +1,17 @@
 import React from 'react'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
-import Button from 'material-ui/Button'
 import Grid from 'material-ui/Grid'
 import Paper from 'material-ui/Paper'
-import IconButton from 'material-ui/IconButton'
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List'
 import ListSubheader from 'material-ui/List/ListSubheader'
 import Avatar from 'material-ui/Avatar'
 import Divider from 'material-ui/Divider'
-import Typography from 'material-ui/Typography'
 import { withStyles } from 'material-ui/styles'
 import withRoot from '../withRoot'
-import LightbulbOutlineIcon from 'material-ui-icons/LightbulbOutline'
 import IdeaCard from '../components/idea-card'
 import Message from '../components/message'
-import Collapse from 'material-ui/transitions/Collapse'
-import ExpandMore from 'material-ui-icons/ExpandMore'
+import Badge from 'material-ui/Badge'
 
 const styles = theme => ({
   root: {
@@ -28,11 +23,11 @@ const styles = theme => ({
     flex: 1
   },
   demo: {
-    height: 800
+    height: 860
   },
   paper: {
     padding: 16,
-    marginTop: 8,
+    marginTop: 0,
     textAlign: 'left',
     color: theme.palette.text.secondary,
     height: '100%',
@@ -67,6 +62,9 @@ const styles = theme => ({
   },
   nested: {
     paddingLeft: theme.spacing.unit * 4
+  },
+  badge: {
+    margin: `0 ${theme.spacing.unit * 2}px`
   }
 })
 
@@ -113,6 +111,7 @@ const jan25Messages = [
     time: '5.04pm',
     text: 'just merged the React version to master, once the build is done Ill tag it and a new version',
     replies: [],
+    idea: false,
     up: 7,
     down: 0
   },
@@ -122,6 +121,7 @@ const jan25Messages = [
     time: '7.04pm',
     text: 'New release of Clutter using React as the UI - https://github.com/Holochain/clutter/releases',
     replies: [],
+    idea: false,
     up: 9,
     down: 0
   }
@@ -175,6 +175,7 @@ const jan26Messages = [
         down: 0
       }
     ],
+    idea: true,
     up: 7,
     down: 0
   },
@@ -184,6 +185,7 @@ const jan26Messages = [
     time: '7.36am',
     text: 'like to get greater clarity on some of the application design patterns  (at least the early ones) that are getting used so far.  He is also interested in getting a deeper feel of how bridging between apps might work as well as the ins and outs of DPKI. Information around that would also come handy at the Meetup on Wednesday',
     replies: [],
+    idea: false,
     up: 9,
     down: 0
   }
@@ -223,7 +225,9 @@ class Index extends React.Component {
                 <List>
                   <ListSubheader>Teams</ListSubheader>
                   <ListItem key={'HoloTeam'} dense button className={classes.listItem}>
-                    <Avatar alt='Holo Team' src='holo-logo.png' />
+                    <Badge className={classes.badge} badgeContent={3} color='primary'>
+                      <Avatar alt='Holo Team' src='holo-logo.png' />
+                    </Badge>
                   </ListItem>
                   <ListItem key={'Holochain'} dense button className={classes.listItem}>
                     <Avatar alt='Holochain' src='holochain-circle.png' />
@@ -245,7 +249,9 @@ class Index extends React.Component {
                   </ListItem>
                   <ListItem key={'HC:Core'} dense button className={classes.listItem}>
                     <Avatar alt='Holochain' src='holochain-circle.png' />
-                    <ListItemText primary={'HC:Core'} />
+                    <Badge className={classes.badge} badgeContent={2} color='primary'>
+                      <ListItemText primary={'HC:Core'} />
+                    </Badge>
                   </ListItem>
                   <Divider />
                   <ListSubheader>Private Channels</ListSubheader>
@@ -271,7 +277,9 @@ class Index extends React.Component {
                   </ListItem>
                   <ListItem key={'@artbrock'} dense button className={classes.listItem}>
                     <Avatar alt='Holochain' src='Art-brock-avatar.png' />
-                    <ListItemText primary={'@artbrock'} />
+                    <Badge className={classes.badge} badgeContent={6} color='primary'>
+                      <ListItemText primary={'@artbrock'} />
+                    </Badge>
                   </ListItem>
                 </List>
               </Paper>
@@ -298,7 +306,7 @@ class Index extends React.Component {
             <Grid item xs={3}>
               <Paper className={classNames(classes.paper, classes.ideas)}>
                 <List>
-                  <ListSubheader>Top Ideas</ListSubheader>
+                  <ListSubheader>Top Ideas Ready to Build</ListSubheader>
                   {topIdeas.map((idea, index) => (
                     <ListItem key={index} dense className={classes.listItem}>
                       <IdeaCard idea={idea} />
@@ -306,7 +314,7 @@ class Index extends React.Component {
                   ))}
                 </List>
                 <List>
-                  <ListSubheader>New Ideas</ListSubheader>
+                  <ListSubheader>New Ideas Ready for Detail</ListSubheader>
                   {newIdeas.map((idea, index) => (
                     <ListItem key={index} dense className={classes.listItem}>
                       <ListItemText primary={[idea.tile, idea.date].join(' ')} secondary={idea.description} />

@@ -5,7 +5,7 @@ import AppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
 import IconButton from 'material-ui/IconButton'
 import MenuIcon from 'material-ui-icons/Menu'
-import AccountCircle from 'material-ui-icons/AccountCircle'
+import Avatar from 'material-ui/Avatar'
 import Menu, { MenuItem } from 'material-ui/Menu'
 import Typography from 'material-ui/Typography'
 import { withStyles } from 'material-ui/styles'
@@ -14,31 +14,40 @@ import Profile from './profile'
 import Messages from './messages'
 import { Route, Link } from 'react-router-dom'
 import Grid from 'material-ui/Grid'
+import TextField from 'material-ui/TextField'
 const styles = theme => ({
   root: {
     width: '100%',
     marginTop: 0,
     flexGrow: 1
   },
+  appBar: {
+    height: '100%'
+  },
   flex: {
     flex: 1
   },
   demo: {
-    height: 800
+    height: 900
   },
   paper: {
-    padding: 16,
     textAlign: 'left',
     color: theme.palette.text.secondary,
     height: '100%'
   },
   suggestions: {
     padding: 8,
-    margin: 8,
     textAlign: 'left',
     color: theme.palette.text.secondary,
     flex: 1,
     height: '100%'
+  },
+  search: {
+    paddingLeft: 8,
+    paddingRight: 8,
+    marginRight: 8,
+    textAlign: 'left',
+    color: theme.palette.text.secondary
   },
   menuButton: {
     marginLeft: -12,
@@ -73,35 +82,47 @@ class Index extends React.Component {
     const { classes } = this.props
     const { auth, anchorEl } = this.state
     const open = Boolean(anchorEl)
+    const bull = <span className={classes.bullet}>•</span>
     return (
       <div>
         <Grid container spacing={8}>
-          <Grid item xs={12}>
-            <AppBar position='static'>
+          <Grid item xs={3}>
+            <AppBar position='static' className={classes.appBar}>
               <Toolbar>
                 <IconButton className={classes.menuButton} color='inherit' aria-label='Menu'>
                   <MenuIcon />
                 </IconButton>
-                <Typography type='title' color='inherit'>
-                  App: Clutter
+                <Typography type='title' color='inherit' className={classes.flex}>
+                  Philip Beadle
                 </Typography>
-                <Paper className={classes.suggestions}>
-                  <Typography component='p' color='inherit'>
-                    Personalised suggestions
-                  </Typography>
-                </Paper>
                 {auth && (
                   <div>
                     <IconButton aria-owns={open ? 'menu-appbar' : null} aria-haspopup='true' onClick={this.handleMenu} color='inherit'>
-                      <AccountCircle />
+                      <Avatar src='philip-beadle-avatar.png' />
                     </IconButton>
                     <Menu id='menu-appbar' anchorEl={anchorEl} anchorOrigin={{vertical: 'top', horizontal: 'right'}} transformOrigin={{ vertical: 'top', horizontal: 'right' }} open={open} onClose={this.handleClose} >
                       <Link to='/profile'><MenuItem onClick={this.handleClose}>Profile</MenuItem></Link>
+                      <Link to='/profile'><MenuItem onClick={this.handleClose}>Settings</MenuItem></Link>
                     </Menu>
                   </div>
                 )}
               </Toolbar>
             </AppBar>
+          </Grid>
+          <Grid item xs={6}>
+            <Paper className={classes.suggestions}>
+              <Typography type='subheading' color='inherit'>
+                {bull}Your idea 'Add a profile page' was added to the 'New Ideas' list 👏
+              </Typography>
+              <Typography type='subheading' color='inherit'>
+                {bull}We recommend you read about how to be a <a href=''>Product Owner</a>
+              </Typography>
+            </Paper>
+          </Grid>
+          <Grid item xs={3}>
+            <Paper className={classes.search}>
+              <TextField id='search' label='Search' fullWidth className={classes.textField} margin='normal' />
+            </Paper>
           </Grid>
         </Grid>
         <Route path='/profile' exact component={Profile} />

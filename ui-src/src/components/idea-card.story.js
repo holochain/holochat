@@ -1,6 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { action } from '@storybook/addon-actions'
+// import { action } from '@storybook/addon-actions'
 import { specs, describe, it } from 'storybook-addon-specifications'
 import { configure, mount } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'

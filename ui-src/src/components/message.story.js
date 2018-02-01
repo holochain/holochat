@@ -20,11 +20,6 @@ storiesOf('Message', module)
       up: 9,
       down: 0
     }
-    specs(() => describe('Message', function () {
-      it('Di', () => {
-        expect(true)
-      })
-    }))
 
     return getMessage(message)
   })
@@ -55,16 +50,40 @@ storiesOf('Message', module)
       up: 7,
       down: 0
     }
-    specs(() => describe('Message', function () {
-      it('Di', () => {
-        expect(true)
-      })
-    }))
-
+    return getMessage(message)
+  })
+  .add('Display a message with 2 replies and has enough interest to be an idea', () => {
+    const message = {
+      author: 'Art Brock',
+      avatar: 'art-brock-avatar.png',
+      time: '5.04pm',
+      text: 'So, we\'re establishing two-way DHT links for following/followers... I think we should make them more visible. How about we put some counts below the profile pic for Mews / Following / Following ?',
+      replies: [
+        {
+          author: 'Philip Beadle',
+          avatar: 'philip-beadle-avatar.png',
+          time: '7.04pm',
+          text: 'I was thinking the same thing.  Since I saw @connorturland\'s new way of selecting someone to follow I thought we should show Followers too.',
+          up: 9,
+          down: 0
+        },
+        {
+          author: 'Philip Beadle',
+          avatar: 'philip-beadle-avatar.png',
+          time: '7.04pm',
+          text: 'And now that I\'ve drawn a simple update to the page we should probably add in the ability to Block people as well',
+          up: 9,
+          down: 0
+        }
+      ],
+      idea: true,
+      up: 7,
+      down: 0
+    }
     return getMessage(message)
   })
 function getMessage (message) {
   return (
-    <Message message={message} />
+    <Message message={message} handleThumbsUp={action('clicked Thumbs Up')} />
   )
 }

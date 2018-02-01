@@ -2,18 +2,25 @@ import React, { Component } from 'react'
 import { withStyles } from 'material-ui/styles'
 import withRoot from '../withRoot'
 import PropTypes from 'prop-types'
-import Typography from 'material-ui/Typography'
 import Avatar from 'material-ui/Avatar'
 import List, { ListItem, ListItemText } from 'material-ui/List'
 import Badge from 'material-ui/Badge'
 import Collapse from 'material-ui/transitions/Collapse'
 import Popover from 'material-ui/Popover'
 import Button from 'material-ui/Button'
+import LightbulbOutline from 'material-ui-icons/LightbulbOutline'
+import ThumbUp from 'material-ui-icons/ThumbUp'
+import ThumbDown from 'material-ui-icons/ThumbDown'
+import IconButton from 'material-ui/IconButton'
 
 const styles = theme => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap'
+  },
+  button: {
+    minWidth: 25,
+    width: 25
   },
   reply: {
     marginLeft: theme.spacing.unit * 5
@@ -33,47 +40,47 @@ const styles = theme => ({
 
 class Message extends Component {
   state = {
-    anchorEl: null,
-    popperOpen: false
+    displayPopover: true,
+    displayLightBulb: false
+  }
+
+  togglePopover = () => {
+    this.setState({ displayPopover: !this.state.displayPopover })
   }
   handlePopoverOpen = event => {
-    this.setState({ anchorEl: event.target })
+    this.setState({ displayPopover: true })
   }
-  handlePopoverClose = () => {
-    this.setState({ anchorEl: null })
+  handleThumbsUp = () => {
+    console.log('up')
+    // this.togglePopover()
+  }
+  handleThumbsDown = () => {
+    console.log('down')
+    // this.togglePopover()
   }
   render () {
     const { classes, message } = this.props
-    const { anchorEl } = this.state
-    const open = !!anchorEl
+
     return (
       <List dense>
         <ListItem key={'1'} dense>
           <Avatar alt={message.author} src={message.avatar} />
-          <ListItemText primary={[message.author, message.time].join(' ')} secondary={message.text} onMouseOver={this.handlePopoverOpen}  />
+          <ListItemText className='messageText' primary={[message.author, message.time].join(' ')} secondary={message.text} />
+          <IconButton style={{display: (message.idea === true) ? 'block' : 'none'}} aria-label='Idea'>
+            <LightbulbOutline />
+          </IconButton>
+          <IconButton className={classes.button} onClick={this.handleThumbsUp} aria-label='ThumbUp'>
+            <ThumbUp />
+          </IconButton>
+          <IconButton className={classes.button} onClick={this.handleThumbsDown} aria-label='ThumbDown'>
+            <ThumbDown />
+          </IconButton>
         </ListItem>
-        <Popover
-          className={classes.popover}
-          open={open}
-          anchorEl={anchorEl}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left'
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'left'
-          }}
-          onClose={this.handlePopoverClose}>
-          <Button id='thumbsUp'>
-            👍
-          </Button>
-        </Popover>
         <Collapse in unmountOnExit>
           {message.replies.map((reply, index) => (
             <ListItem key={index} dense className={classes.reply}>
-            <Avatar alt={reply.author} src={reply.avatar} />
-            <ListItemText primary={[reply.author, reply.time].join(' ')} secondary={reply.text} />
+              <Avatar alt={reply.author} src={reply.avatar} />
+              <ListItemText primary={[reply.author, reply.time].join(' ')} secondary={reply.text} />
             </ListItem>
           ))}
         </Collapse>
