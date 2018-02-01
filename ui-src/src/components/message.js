@@ -32,6 +32,7 @@ const styles = theme => ({
   },
 });
 
+// pass in props from where the controls are instantiated
 function UserControls(props) {
   if (props.isHovered) {
     return (
@@ -63,35 +64,21 @@ class Message extends Component {
       popperOpen: false,
       isHovered: false,
     };
+    // the context of functions called within this component are not by default bound to this component, disabling reference to "this" unless the following context-bindings are in place.
     this.onMessageBlur = this.onMessageBlur.bind(this);
     this.onMessageHover = this.onMessageHover.bind(this);
-    this.onMessageClick = this.onMessageClick.bind(this);
   }
-
-  // handlePopoverOpen = event => {
-  //   this.setState({ anchorEl: event.target });
-  // };
-  // handlePopoverClose = () => {
-  //   this.setState({ anchorEl: null });
-  // };
 
   // all dom event handlers have an event object that we can use
+  // this ( below ) will not reference the component its intended to  unless 'this ' is bound to it above
+
   onMessageHover(event) {
-    console.log('this message:', event.target, 'was just hovered');
     this.setState({ isHovered: true });
-    console.log('state of message is now: isHovered:', this.state.isHovered);
   }
   onMessageBlur(event) {
-    console.log('this message:', event.target, 'was just blurred');
     this.setState({ isHovered: false });
-    console.log('state of message is now: isHovered: ', this.state.isHovered);
   }
-  onMessageClick(event) {
-    // console.log(event.target, 'clicked');
-    // this ( below ) will not reference the component its intended to  unless 'this ' is bound to it above
-    // this.setState({ isHovered: false });
-    // console.log(this.state.isHovered);
-  }
+
   render() {
     const { classes, message } = this.props;
     const { anchorEl } = this.state;
