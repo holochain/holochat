@@ -12,7 +12,8 @@ import withRoot from '../withRoot'
 import IdeaCard from '../components/idea-card'
 import Message from '../components/message'
 import Badge from 'material-ui/Badge'
-
+import IconButton from 'material-ui/IconButton'
+import LightbulbOutline from 'material-ui-icons/LightbulbOutline'
 const styles = theme => ({
   root: {
     width: '100%',
@@ -65,6 +66,9 @@ const styles = theme => ({
   },
   badge: {
     margin: `0 ${theme.spacing.unit * 2}px`
+  },
+  listItemMessage: {
+    position: 'relative'
   }
 })
 
@@ -77,17 +81,24 @@ const topIdeas = [
     description: 'To make it easier to gauge community support for an idea being able to attach a Poll to an idea would be cool.',
     up: 9,
     down: 0
-  },
-  {
-    title: 'Display both FOLLOWERS and FOLLOWING',
-    productOwner: 'Art Brock',
-    avatar: 'art-brock-avatar.png',
-    date: 'January 30, 2018 - Lead Time 3 weeks',
-    description: 'When clicking on Follow Someone, let\'s include a list of who is following you, not just who you are following. Either that or we add number/summary displays: Mews, Following, Followers under profile pic.',
-    up: 37,
-    down: 1
   }
 ]
+
+const artTopIdea = {
+  title: 'Display both FOLLOWERS and FOLLOWING',
+  productOwner: 'Art Brock',
+  avatar: 'art-brock-avatar.png',
+  date: 'January 30, 2018 - Lead Time 3 weeks',
+  description: 'When clicking on Follow Someone, let\'s include a list of who is following you, not just who you are following. Either that or we add number/summary displays: Mews, Following, Followers under profile pic.',
+  up: 37,
+  down: 1
+}
+
+const artNewIdea = {
+  title: 'Display both FOLLOWERS and FOLLOWING',
+  date: 'January 22, 2018',
+  description: 'When clicking on Follow Someone, let\'s include a list of who is following you, not just who you are following.'
+}
 
 const newIdeas = [
   {
@@ -198,20 +209,29 @@ class Index extends React.Component {
     anchorEl: null,
     direction: 'row',
     justify: 'center',
-    alignItems: 'stretch'
+    alignItems: 'stretch',
+    newIdeas: newIdeas,
+    topIdeas: topIdeas
   };
-
   handleChange = (event, checked) => {
     this.setState({ auth: checked })
-  };
-
+  }
   handleMenu = event => {
     this.setState({ anchorEl: event.currentTarget })
-  };
-
+  }
   handleClose = () => {
     this.setState({ anchorEl: null })
-  };
+  }
+  handlePromoteNewIdea = () => {
+    newIdeas.push(artNewIdea)
+    this.setState({newIdeas: newIdeas})
+  }
+  handlePromoteTopIdea = () => {
+    topIdeas.push(artTopIdea)
+    newIdeas.splice(0, 1)
+    this.setState({topIdeas: topIdeas})
+    this.setState({newIdeas: newIdeas})
+  }
 
   render () {
     const { classes } = this.props
@@ -225,9 +245,7 @@ class Index extends React.Component {
                 <List>
                   <ListSubheader>Teams</ListSubheader>
                   <ListItem key={'HoloTeam'} dense button className={classes.listItem}>
-                    <Badge className={classes.badge} badgeContent={3} color='primary'>
-                      <Avatar alt='Holo Team' src='holo-logo.png' />
-                    </Badge>
+                    <Avatar alt='Holo Team' src='holo-logo.png' />
                   </ListItem>
                   <ListItem key={'Holochain'} dense button className={classes.listItem}>
                     <Avatar alt='Holochain' src='holochain-circle.png' />
@@ -289,7 +307,7 @@ class Index extends React.Component {
                 <List>
                   <ListSubheader>January 25 2018</ListSubheader>
                   {jan25Messages.map((message, index) => (
-                    <ListItem key={index} dense className={classes.listItem}>
+                    <ListItem key={index} dense className={classes.listItemMessage}>
                       <Message message={message} />
                     </ListItem>
                   ))}
@@ -307,7 +325,7 @@ class Index extends React.Component {
               <Paper className={classNames(classes.paper, classes.ideas)}>
                 <List>
                   <ListSubheader>Top Ideas Ready to Build</ListSubheader>
-                  {topIdeas.map((idea, index) => (
+                  {this.state.topIdeas.map((idea, index) => (
                     <ListItem key={index} dense className={classes.listItem}>
                       <IdeaCard idea={idea} />
                     </ListItem>
@@ -315,9 +333,12 @@ class Index extends React.Component {
                 </List>
                 <List>
                   <ListSubheader>New Ideas Ready for Detail</ListSubheader>
-                  {newIdeas.map((idea, index) => (
+                  {this.state.newIdeas.map((idea, index) => (
                     <ListItem key={index} dense className={classes.listItem}>
                       <ListItemText primary={[idea.tile, idea.date].join(' ')} secondary={idea.description} />
+                      <IconButton onClick={this.handlePromoteTopIdea} aria-label='Idea'>
+                        <LightbulbOutline />
+                      </IconButton>
                     </ListItem>
                   ))}
                 </List>

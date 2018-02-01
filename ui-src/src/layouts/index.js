@@ -49,6 +49,10 @@ const styles = theme => ({
     textAlign: 'left',
     color: theme.palette.text.secondary
   },
+  searchField: {
+    width: 220,
+    marginRight: 16
+  },
   menuButton: {
     marginLeft: -12,
     marginRight: 20
@@ -121,7 +125,16 @@ class Index extends React.Component {
           </Grid>
           <Grid item xs={3}>
             <Paper className={classes.search}>
-              <TextField id='search' label='Search' fullWidth className={classes.textField} margin='normal' />
+              <TextField id='search' label='Search' className={classes.searchField} margin='normal' />
+              <IconButton>
+                <Avatar src='pin.png' />
+              </IconButton>
+              <IconButton>
+                <Avatar src='flag.png' />
+              </IconButton>
+              <IconButton>
+                <Avatar src='info.png' />
+              </IconButton>
             </Paper>
           </Grid>
         </Grid>

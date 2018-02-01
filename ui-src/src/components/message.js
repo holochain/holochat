@@ -3,7 +3,7 @@ import { withStyles } from 'material-ui/styles'
 import withRoot from '../withRoot'
 import PropTypes from 'prop-types'
 import Avatar from 'material-ui/Avatar'
-import List, { ListItem, ListItemText } from 'material-ui/List'
+import List, { ListItem, ListItemText, ListItemAvatar } from 'material-ui/List'
 import Badge from 'material-ui/Badge'
 import Collapse from 'material-ui/transitions/Collapse'
 import Popover from 'material-ui/Popover'
@@ -49,14 +49,14 @@ function VoteControls (props) {
   // }
   if (props.isHovered) {
     return (
-      <div>
-        <IconButton style={{display: (props.message.idea === true) ? 'block' : 'none'}} aria-label='Idea'>
+      <div style={{position: 'absolute', top: -16, right: -8, width: 100}}>
+        <IconButton style={{display: (props.message.idea === true) ? 'inline' : 'none', minWidth: 25, width: 25}} aria-label='Idea'>
           <LightbulbOutline />
         </IconButton>
-        <IconButton aria-label='ThumbUp'>
+        <IconButton style={{minWidth: 25, width: 25}} aria-label='ThumbUp'>
           <ThumbUp />
         </IconButton>
-        <IconButton aria-label='ThumbDown'>
+        <IconButton style={{minWidth: 25, width: 25}} aria-label='ThumbDown'>
           <ThumbDown />
         </IconButton>
       </div>
@@ -74,7 +74,6 @@ class Message extends Component {
     }
     this.onMessageBlur = this.onMessageBlur.bind(this)
     this.onMessageHover = this.onMessageHover.bind(this)
-    this.onMessageClick = this.onMessageClick.bind(this)
   }
 
   onMessageHover (event) {
@@ -87,12 +86,6 @@ class Message extends Component {
     this.setState({ isHovered: false })
     console.log('state of message is now: isHovered: ', this.state.isHovered)
   }
-  onMessageClick (event) {
-    // console.log(event.target, 'clicked');
-    // this ( below ) will not reference the component its intended to  unless 'this ' is bound to it above
-    // this.setState({ isHovered: false });
-    // console.log(this.state.isHovered);
-  }
 
   render () {
     const { classes, message } = this.props
@@ -100,7 +93,9 @@ class Message extends Component {
     return (
       <List dense>
         <ListItem key={'1'} dense onMouseOver={this.onMessageHover} onMouseLeave={this.onMessageBlur}>
-          <Avatar alt={message.author} src={message.avatar} />
+          <ListItemAvatar>
+            <Avatar alt={message.author} src={message.avatar} />
+          </ListItemAvatar>
           <ListItemText className='messageText' primary={[message.author, message.time].join(' ')} secondary={message.text} />
           <VoteControls isHovered={this.state.isHovered} message={message} />
         </ListItem>
