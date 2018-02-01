@@ -38,43 +38,71 @@ const styles = theme => ({
   }
 })
 
+function VoteControls (props) {
+  // handleThumbsUp = () => {
+  //   console.log('up')
+  //   // this.togglePopover()
+  // }
+  // handleThumbsDown = () => {
+  //   console.log('down')
+  //   // this.togglePopover()
+  // }
+  if (props.isHovered) {
+    return (
+      <div>
+        <IconButton style={{display: (props.message.idea === true) ? 'block' : 'none'}} aria-label='Idea'>
+          <LightbulbOutline />
+        </IconButton>
+        <IconButton aria-label='ThumbUp'>
+          <ThumbUp />
+        </IconButton>
+        <IconButton aria-label='ThumbDown'>
+          <ThumbDown />
+        </IconButton>
+      </div>
+    )
+  } else {
+    return null
+  }
+}
+
 class Message extends Component {
-  state = {
-    displayPopover: true,
-    displayLightBulb: false
+  constructor (props) {
+    super(props)
+    this.state = {
+      isHovered: false
+    }
+    this.onMessageBlur = this.onMessageBlur.bind(this)
+    this.onMessageHover = this.onMessageHover.bind(this)
+    this.onMessageClick = this.onMessageClick.bind(this)
   }
 
-  togglePopover = () => {
-    this.setState({ displayPopover: !this.state.displayPopover })
+  onMessageHover (event) {
+    console.log('this message:', event.target, 'was just hovered')
+    this.setState({ isHovered: true })
+    console.log('state of message is now: isHovered:', this.state.isHovered)
   }
-  handlePopoverOpen = event => {
-    this.setState({ displayPopover: true })
+  onMessageBlur (event) {
+    console.log('this message:', event.target, 'was just blurred')
+    this.setState({ isHovered: false })
+    console.log('state of message is now: isHovered: ', this.state.isHovered)
   }
-  handleThumbsUp = () => {
-    console.log('up')
-    // this.togglePopover()
+  onMessageClick (event) {
+    // console.log(event.target, 'clicked');
+    // this ( below ) will not reference the component its intended to  unless 'this ' is bound to it above
+    // this.setState({ isHovered: false });
+    // console.log(this.state.isHovered);
   }
-  handleThumbsDown = () => {
-    console.log('down')
-    // this.togglePopover()
-  }
+
   render () {
     const { classes, message } = this.props
 
     return (
       <List dense>
-        <ListItem key={'1'} dense>
+        <ListItem key={'1'} dense onMouseOver={this.onMessageHover} onMouseLeave={this.onMessageBlur}>
           <Avatar alt={message.author} src={message.avatar} />
           <ListItemText className='messageText' primary={[message.author, message.time].join(' ')} secondary={message.text} />
-          <IconButton style={{display: (message.idea === true) ? 'block' : 'none'}} aria-label='Idea'>
-            <LightbulbOutline />
-          </IconButton>
-          <IconButton className={classes.button} onClick={this.handleThumbsUp} aria-label='ThumbUp'>
-            <ThumbUp />
-          </IconButton>
-          <IconButton className={classes.button} onClick={this.handleThumbsDown} aria-label='ThumbDown'>
-            <ThumbDown />
-          </IconButton>
+          <VoteControls isHovered={this.state.isHovered} message={message} />
         </ListItem>
         <Collapse in unmountOnExit>
           {message.replies.map((reply, index) => (
