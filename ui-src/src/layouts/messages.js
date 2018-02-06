@@ -2,6 +2,7 @@ import React from 'react'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import Grid from 'material-ui/Grid'
+import Button from 'material-ui/Button'
 import Paper from 'material-ui/Paper'
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List'
 import ListSubheader from 'material-ui/List/ListSubheader'
@@ -14,6 +15,15 @@ import Message from '../components/message'
 import Badge from 'material-ui/Badge'
 import IconButton from 'material-ui/IconButton'
 import LightbulbOutline from 'material-ui-icons/LightbulbOutline'
+import NoteAdd from 'material-ui-icons/NoteAdd'
+import grey from 'material-ui/colors/grey'
+import TextField from 'material-ui/TextField'
+import Dialog, {
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle
+} from 'material-ui/Dialog'
 const styles = theme => ({
   root: {
     width: '100%',
@@ -40,10 +50,22 @@ const styles = theme => ({
     height: '100%'
   },
   channels: {
-    height: '100%'
+    height: '100%',
+    background: grey[300]
   },
   messages: {
-    height: '100%'
+    height: '100%',
+    position: 'relative'
+  },
+  messageInput: {
+    position: 'fixed',
+    left: 430,
+    bottom: 24,
+    width: 820
+  },
+  messageTextField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit
   },
   ideas: {
     height: '100%',
@@ -102,17 +124,36 @@ const artNewIdea = {
 
 const newIdeas = [
   {
-    title: 'Display both FOLLOWERS and FOLLOWING',
-    date: 'January 22, 2018',
-    description: 'When clicking on Follow Someone, let\'s include a list of who is following you, not just who you are following.'
-  },
-  {
     title: 'Add a profile page',
     date: 'January 25, 2018',
-    description: 'Add a profile page.',
+    description: 'Add a profile page. Add a profile page. Add a profile page. Add a profile page. Add a profile page. Add a profile page. Add a profile page. Add a profile page. ',
+    isTopIdea: false,
     up: 9,
     down: 0
-  }
+  },
+  {
+    title: 'Detect @mentions in post text',
+    date: 'January 25, 2018',
+    description: 'Detect @mentions in post text. Detect @mentions in post text Detect @mentions in post text Detect @mentions in post text Detect @mentions in post text Detect @mentions in post text Detect @mentions in post text Detect @mentions in post text',
+    isTopIdea: false,
+    up: 9,
+    down: 0
+  },
+  {
+    title: 'Reply to mew (add reply-to link + link to replies)',
+    date: 'January 25, 2018',
+    description: 'Reply to mew (add reply-to link + link to replies) Reply to mew (add reply-to link + link to replies) Reply to mew (add reply-to link + link to replies) Reply to mew (add reply-to link + link to replies) Reply to mew (add reply-to link + link to replies)',
+    isTopIdea: false,
+    up: 9,
+    down: 0
+  },
+  {
+    title: 'Display both FOLLOWERS and FOLLOWING',
+    date: 'January 22, 2018',
+    description: 'So, we\'re establishing two-way DHT links for following/followers... I think we should make them more visible. How about we put some counts below the profile pic for Mews / Following / Following ?',
+    isTopIdea: true,
+    up: 9,
+    down: 0}
 ]
 
 const jan25Messages = [
@@ -144,12 +185,16 @@ const jan26Messages = [
     avatar: 'art-brock-avatar.png',
     time: '5.04pm',
     text: 'So, we\'re establishing two-way DHT links for following/followers... I think we should make them more visible. How about we put some counts below the profile pic for Mews / Following / Following ?',
+    idea: true,
+    up: 7,
+    down: 0,
     replies: [
       {
         author: 'Philip Beadle',
         avatar: 'philip-beadle-avatar.png',
         time: '7.04pm',
         text: 'I was thinking the same thing.  Since I saw @connorturland\'s new way of selecting someone to follow I thought we should show Followers too.',
+        image: 'followers-mockup.png',
         up: 9,
         down: 0
       },
@@ -158,6 +203,7 @@ const jan26Messages = [
         avatar: 'philip-beadle-avatar.png',
         time: '7.04pm',
         text: 'And now that I\'ve drawn a simple update to the page we should probably add in the ability to Block people as well',
+        image: '',
         up: 9,
         down: 0
       },
@@ -166,6 +212,7 @@ const jan26Messages = [
         avatar: 'connor-turland-avatar.png',
         time: '7.12am',
         text: 'Eric already exposed some of that data over the API I think, and his version actually showed a bit of that stuff, but just a little bit clunky. I think maybe that stuff would be better on a User profile page',
+        image: '',
         up: 9,
         down: 0
       },
@@ -174,6 +221,7 @@ const jan26Messages = [
         avatar: 'connor-turland-avatar.png',
         time: '7.13am',
         text: 'followers, counts, etc',
+        image: '',
         up: 9,
         down: 0
       },
@@ -182,23 +230,21 @@ const jan26Messages = [
         avatar: 'philip-beadle-avatar.png',
         time: '7.23am',
         text: 'Agreed.  I think a pattern of each app having a profile page would be good to get some consistency as well.',
+        image: '',
         up: 9,
         down: 0
       }
-    ],
-    idea: true,
-    up: 7,
-    down: 0
+    ]
   },
   {
     author: 'Mark Finnern',
     avatar: 'mark-finnern-avatar.png',
     time: '7.36am',
     text: 'like to get greater clarity on some of the application design patterns  (at least the early ones) that are getting used so far.  He is also interested in getting a deeper feel of how bridging between apps might work as well as the ins and outs of DPKI. Information around that would also come handy at the Meetup on Wednesday',
-    replies: [],
     idea: false,
     up: 9,
-    down: 0
+    down: 0,
+    replies: []
   }
 ]
 class Index extends React.Component {
@@ -219,9 +265,12 @@ class Index extends React.Component {
   handleMenu = event => {
     this.setState({ anchorEl: event.currentTarget })
   }
-  handleClose = () => {
-    this.setState({ anchorEl: null })
+  handleClickOpen = () => {
+      this.setState({ open: true })
   }
+  handleClose = () => {
+    this.setState({ open: false })
+  };
   handlePromoteNewIdea = () => {
     newIdeas.push(artNewIdea)
     this.setState({newIdeas: newIdeas})
@@ -319,6 +368,9 @@ class Index extends React.Component {
                     </ListItem>
                   ))}
                 </List>
+                <Paper className={classes.messageInput} >
+                  <TextField className={classes.messageTextField} margin='normal' fullWidth label='Write a message' multiline rows='2' />
+                </Paper>
               </Paper>
             </Grid>
             <Grid item xs={3}>
@@ -331,17 +383,71 @@ class Index extends React.Component {
                     </ListItem>
                   ))}
                 </List>
-                <List>
-                  <ListSubheader>New Ideas Ready for Detail</ListSubheader>
-                  {this.state.newIdeas.map((idea, index) => (
-                    <ListItem key={index} dense className={classes.listItem}>
-                      <ListItemText primary={[idea.tile, idea.date].join(' ')} secondary={idea.description} />
-                      <IconButton onClick={this.handlePromoteTopIdea} aria-label='Idea'>
-                        <LightbulbOutline />
-                      </IconButton>
-                    </ListItem>
-                  ))}
-                </List>
+                <div>
+                  <List>
+                    <ListSubheader>New Ideas Ready for Detail</ListSubheader>
+                    {this.state.newIdeas.map((idea, index) => (
+                      <ListItem key={index} dense className={classes.listItem}>
+                        <ListItemText primary={[idea.title, idea.date].join(' ')} secondary={idea.description} />
+                        <IconButton onClick={this.handlePromoteTopIdea}style={{display: (idea.isTopIdea === true) ? 'inline' : 'none'}} aria-label='Idea'>
+                          <LightbulbOutline />
+                        </IconButton>
+                        <IconButton onClick={this.handleClickOpen} style={{display: (idea.isTopIdea !== true) ? 'inline' : 'none'}} aria-label='Idea'>
+                          <NoteAdd />
+                        </IconButton>
+                      </ListItem>
+                    ))}
+                  </List>
+                  <Dialog
+                    open={this.state.open}
+                    onClose={this.handleClose}
+                    aria-labelledby='form-dialog-title'
+                  >
+                    <DialogTitle id='form-dialog-title'>New Idea</DialogTitle>
+                    <DialogContent>
+                      <DialogContentText>
+                        Add more detail to the Idea so it can be promoted to a Top Idea.
+                      </DialogContentText>
+                      <TextField
+                        autoFocus
+                        margin='dense'
+                        id='name'
+                        label='Why should we build this?'
+                        value='A really compelling story about how this idea will create value'
+                        type='text'
+                        fullWidth
+                        multiline
+                        rows='5'
+                      />
+                      <TextField
+                        margin='dense'
+                        id='name'
+                        label='Product Owner'
+                        value='Philip Beadle'
+                        type='text'
+                        fullWidth
+                      />
+                      <TextField
+                        margin='dense'
+                        id='name'
+                        label='Description'
+                        value='This is a compete description of how this idea works.'
+                        type='text'
+                        fullWidth
+                        multiline
+                        rows='5'
+                      />
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={this.handleClose} color='primary'>
+                        Cancel
+                      </Button>
+                      <Button onClick={this.handleClose} color='primary'>
+                        Update
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
+                </div>
               </Paper>
             </Grid>
           </Grid>

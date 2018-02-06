@@ -12,10 +12,11 @@ configure({ adapter: new Adapter() })
 storiesOf('Message', module)
   .add('Display a message with no replies', () => {
     const message = {
+      type: 'Message',
       author: 'Philip Beadle',
       avatar: 'philip-beadle-avatar.png',
       time: '7.04pm',
-      text: 'New release of Clutter using React as the UI - https://github.com/Holochain/clutter/releases',
+      content: {text: 'New release of Clutter using React as the UI - https://github.com/Holochain/clutter/releases'},
       replies: [],
       up: 9,
       down: 0
@@ -25,24 +26,27 @@ storiesOf('Message', module)
   })
   .add('Display a message with 2 replies', () => {
     const message = {
+      type: 'Message',
       author: 'Art Brock',
       avatar: 'art-brock-avatar.png',
       time: '5.04pm',
-      text: 'So, we\'re establishing two-way DHT links for following/followers... I think we should make them more visible. How about we put some counts below the profile pic for Mews / Following / Following ?',
+      content: {text: 'So, we\'re establishing two-way DHT links for following/followers... I think we should make them more visible. How about we put some counts below the profile pic for Mews / Following / Following ?'},
       replies: [
         {
+          type: 'Message',
           author: 'Philip Beadle',
           avatar: 'philip-beadle-avatar.png',
           time: '7.04pm',
-          text: 'I was thinking the same thing.  Since I saw @connorturland\'s new way of selecting someone to follow I thought we should show Followers too.',
+          content: {text: 'I was thinking the same thing.  Since I saw @connorturland\'s new way of selecting someone to follow I thought we should show Followers too.'},
           up: 9,
           down: 0
         },
         {
+          type: 'Message',
           author: 'Philip Beadle',
           avatar: 'philip-beadle-avatar.png',
           time: '7.04pm',
-          text: 'And now that I\'ve drawn a simple update to the page we should probably add in the ability to Block people as well',
+          content: {text: 'And now that I\'ve drawn a simple update to the page we should probably add in the ability to Block people as well'},
           up: 9,
           down: 0
         }
@@ -54,24 +58,27 @@ storiesOf('Message', module)
   })
   .add('Display a message with 2 replies and has enough interest to be an idea', () => {
     const message = {
+      type: 'Message',
       author: 'Art Brock',
       avatar: 'art-brock-avatar.png',
       time: '5.04pm',
-      text: 'So, we\'re establishing two-way DHT links for following/followers... I think we should make them more visible. How about we put some counts below the profile pic for Mews / Following / Following ?',
+      content: {text: 'So, we\'re establishing two-way DHT links for following/followers... I think we should make them more visible. How about we put some counts below the profile pic for Mews / Following / Following ?'},
       replies: [
         {
+          type: 'Message',
           author: 'Philip Beadle',
           avatar: 'philip-beadle-avatar.png',
           time: '7.04pm',
-          text: 'I was thinking the same thing.  Since I saw @connorturland\'s new way of selecting someone to follow I thought we should show Followers too.',
+          content: {text: 'I was thinking the same thing.  Since I saw @connorturland\'s new way of selecting someone to follow I thought we should show Followers too.'},
           up: 9,
           down: 0
         },
         {
+          type: 'Message',
           author: 'Philip Beadle',
           avatar: 'philip-beadle-avatar.png',
           time: '7.04pm',
-          text: 'And now that I\'ve drawn a simple update to the page we should probably add in the ability to Block people as well',
+          content: {text: 'And now that I\'ve drawn a simple update to the page we should probably add in the ability to Block people as well'},
           up: 9,
           down: 0
         }
