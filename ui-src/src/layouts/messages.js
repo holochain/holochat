@@ -24,6 +24,8 @@ import Dialog, {
   DialogContentText,
   DialogTitle
 } from 'material-ui/Dialog'
+import ChannelList from '../components/lists/channel-list'
+
 const styles = theme => ({
   root: {
     width: '100%',
@@ -97,6 +99,57 @@ const styles = theme => ({
     position: 'relative'
   }
 })
+
+const channels = [
+  {group: 'Private',
+    channels: [
+      {
+        title: 'DevLife Do-op',
+        alerts: 5
+      },
+      {
+        title: 'Documentation',
+        alerts: 0
+      },
+      {
+        title: 'Governance',
+        alerts: 1
+      }
+    ]},
+  {group: 'Public',
+    channels: [
+      {
+        title: 'App:HoloChat',
+        alerts: 5
+      },
+      {
+        title: 'App:Clutter',
+        alerts: 0
+      },
+      {
+        title: 'HC Core',
+        alerts: 1
+      }
+    ]},
+  {group: 'Direct Message',
+    channels: [
+      {
+        title: '@artbrock',
+        alerts: 5,
+        status: 'online'
+      },
+      {
+        title: '@jonathanhaber',
+        alerts: 0,
+        status: 'away'
+      },
+      {
+        title: '@lucksus',
+        alerts: 1,
+        status: 'offline'
+      }
+    ]}
+]
 
 const topIdeas = [
   {
@@ -334,51 +387,7 @@ class Index extends React.Component {
             </Grid>
             <Grid item xs={2}>
               <Paper className={classNames(classes.paper, classes.channels)}>
-                <List>
-                  <ListSubheader>Public Channels</ListSubheader>
-                  <ListItem key={'App:Clutter'} dense button className={classes.listItem}>
-                    <Avatar alt='Holochain' src='holochain-circle.png' />
-                    <ListItemText primary={'App:Clutter'} />
-                  </ListItem>
-                  <ListItem key={'App:HoloChat'} dense button className={classes.listItem}>
-                    <Avatar alt='Holochain' src='holochain-circle.png' />
-                    <ListItemText primary={'App:HoloChat'} />
-                  </ListItem>
-                  <ListItem key={'HC:Core'} dense button className={classes.listItem}>
-                    <Avatar alt='Holochain' src='holochain-circle.png' />
-                    <Badge className={classes.badge} badgeContent={2} color='primary'>
-                      <ListItemText primary={'HC:Core'} />
-                    </Badge>
-                  </ListItem>
-                  <Divider />
-                  <ListSubheader>Private Channels</ListSubheader>
-                  <ListItem key={'DevLife'} dense button className={classes.listItem}>
-                    <Avatar alt='Holochain' src='holochain-circle.png' />
-                    <ListItemText primary={'Dev Life: Do-op'} />
-                  </ListItem>
-                  <ListItem key={'Documentation'} dense button className={classes.listItem}>
-                    <Avatar alt='Holochain' src='holochain-circle.png' />
-                    <ListItemText primary={'Documentation'} />
-                  </ListItem>
-                </List>
-                <List>
-                  <Divider />
-                  <ListSubheader>Direct Messages</ListSubheader>
-                  <ListItem key={'@connorturland'} dense button className={classes.listItem}>
-                    <Avatar alt='Holochain' src='connor-turland-avatar.png' />
-                    <ListItemText primary={'@connorturland'} />
-                  </ListItem>
-                  <ListItem key={'@adamthompson'} dense button className={classes.listItem}>
-                    <Avatar alt='Holochain' src='adam-thompson-avatar.png' />
-                    <ListItemText primary={'@adamthompson'} />
-                  </ListItem>
-                  <ListItem key={'@artbrock'} dense button className={classes.listItem}>
-                    <Avatar alt='Holochain' src='Art-brock-avatar.png' />
-                    <Badge className={classes.badge} badgeContent={6} color='primary'>
-                      <ListItemText primary={'@artbrock'} />
-                    </Badge>
-                  </ListItem>
-                </List>
+              <ChannelList channels={channels} />
               </Paper>
             </Grid>
             <Grid item xs={6}>
