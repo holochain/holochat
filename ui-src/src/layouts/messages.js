@@ -11,7 +11,7 @@ import Divider from 'material-ui/Divider'
 import { withStyles } from 'material-ui/styles'
 import withRoot from '../withRoot'
 import IdeaCard from '../components/idea-card'
-import Message from '../components/message'
+import MessageList from '../components/lists/message-list'
 import Badge from 'material-ui/Badge'
 import IconButton from 'material-ui/IconButton'
 import LightbulbOutline from 'material-ui-icons/LightbulbOutline'
@@ -62,6 +62,10 @@ const styles = theme => ({
     left: 430,
     bottom: 24,
     width: 820
+  },
+  date: {
+    width: '100%',
+    textAlign: 'centre'
   },
   messageTextField: {
     marginLeft: theme.spacing.unit,
@@ -156,96 +160,122 @@ const newIdeas = [
     down: 0}
 ]
 
-const jan25Messages = [
-  {
-    author: 'Art Brock',
-    avatar: 'art-brock-avatar.png',
-    time: '5.04pm',
-    text: 'just merged the React version to master, once the build is done Ill tag it and a new version',
-    replies: [],
-    idea: false,
-    up: 7,
-    down: 0
-  },
-  {
-    author: 'Philip Beadle',
-    avatar: 'philip-beadle-avatar.png',
-    time: '7.04pm',
-    text: 'New release of Clutter using React as the UI - https://github.com/Holochain/clutter/releases',
-    replies: [],
-    idea: false,
-    up: 9,
-    down: 0
-  }
-]
-
-const jan26Messages = [
-  {
-    author: 'Art Brock',
-    avatar: 'art-brock-avatar.png',
-    time: '5.04pm',
-    text: 'So, we\'re establishing two-way DHT links for following/followers... I think we should make them more visible. How about we put some counts below the profile pic for Mews / Following / Following ?',
-    idea: true,
-    up: 7,
-    down: 0,
-    replies: [
+const messages = [
+  {date: 'January 25th 2018',
+    messages: [
       {
-        author: 'Philip Beadle',
-        avatar: 'philip-beadle-avatar.png',
-        time: '7.04pm',
-        text: 'I was thinking the same thing.  Since I saw @connorturland\'s new way of selecting someone to follow I thought we should show Followers too.',
-        image: 'followers-mockup.png',
-        up: 9,
+        type: 'Message',
+        author: 'Art Brock',
+        avatar: 'art-brock-avatar.png',
+        time: '5.04pm',
+        content: {
+          text: 'Text message with an imageText message with an imageText message with an imageText message with an image',
+          image: 'art-brock-avatar.png'},
+        replies: [],
+        idea: false,
+        up: 7,
         down: 0
       },
       {
-        author: 'Philip Beadle',
-        avatar: 'philip-beadle-avatar.png',
-        time: '7.04pm',
-        text: 'And now that I\'ve drawn a simple update to the page we should probably add in the ability to Block people as well',
-        image: '',
-        up: 9,
-        down: 0
-      },
-      {
-        author: 'Connor Turland',
-        avatar: 'connor-turland-avatar.png',
-        time: '7.12am',
-        text: 'Eric already exposed some of that data over the API I think, and his version actually showed a bit of that stuff, but just a little bit clunky. I think maybe that stuff would be better on a User profile page',
-        image: '',
-        up: 9,
-        down: 0
-      },
-      {
-        author: 'Connor Turland',
-        avatar: 'connor-turland-avatar.png',
-        time: '7.13am',
-        text: 'followers, counts, etc',
-        image: '',
-        up: 9,
-        down: 0
-      },
-      {
-        author: 'Philip Beadle',
-        avatar: 'philip-beadle-avatar.png',
-        time: '7.23am',
-        text: 'Agreed.  I think a pattern of each app having a profile page would be good to get some consistency as well.',
-        image: '',
-        up: 9,
+        type: 'Message',
+        author: 'Art Brock',
+        avatar: 'art-brock-avatar.png',
+        time: '5.04pm',
+        content: {
+          text: 'Text message with no image',
+          image: ''},
+        replies: [],
+        idea: false,
+        up: 7,
         down: 0
       }
-    ]
-  },
-  {
-    author: 'Mark Finnern',
-    avatar: 'mark-finnern-avatar.png',
-    time: '7.36am',
-    text: 'like to get greater clarity on some of the application design patterns  (at least the early ones) that are getting used so far.  He is also interested in getting a deeper feel of how bridging between apps might work as well as the ins and outs of DPKI. Information around that would also come handy at the Meetup on Wednesday',
-    idea: false,
-    up: 9,
-    down: 0,
-    replies: []
-  }
+    ]},
+  {date: 'January 26th 2018',
+    messages: [
+      {
+        type: 'Message',
+        author: 'Art Brock',
+        avatar: 'art-brock-avatar.png',
+        time: '5.04pm',
+        content: {
+          text: 'So, we\'re establishing two-way DHT links for following/followers... I think we should make them more visible. How about we put some counts below the profile pic for Mews / Following / Following ?',
+          image: ''},
+        idea: true,
+        up: 7,
+        down: 0,
+        replies: [
+          {
+            type: 'Message',
+            author: 'Philip Beadle',
+            avatar: 'philip-beadle-avatar.png',
+            time: '7.04pm',
+            content: {
+              text: 'I was thinking the same thing.  Since I saw @connorturland\'s new way of selecting someone to follow I thought we should show Followers too.',
+              image: ''},
+            image: 'followers-mockup.png',
+            up: 9,
+            down: 0
+          },
+          {
+            type: 'Message',
+            author: 'Philip Beadle',
+            avatar: 'philip-beadle-avatar.png',
+            time: '7.04pm',
+            content: {
+              text: 'And now that I\'ve drawn a simple update to the page we should probably add in the ability to Block people as well',
+              image: ''},
+            up: 9,
+            down: 0
+          },
+          {
+            type: 'Message',
+            author: 'Connor Turland',
+            avatar: 'connor-turland-avatar.png',
+            time: '7.12am',
+            content: {
+              text: 'Eric already exposed some of that data over the API I think, and his version actually showed a bit of that stuff, but just a little bit clunky. I think maybe that stuff would be better on a User profile page',
+              image: ''},
+            up: 9,
+            down: 0
+          },
+          {
+            type: 'Message',
+            author: 'Connor Turland',
+            avatar: 'connor-turland-avatar.png',
+            time: '7.13am',
+            content: {
+              text: 'followers, counts, etc',
+              image: ''},
+            up: 9,
+            down: 0
+          },
+          {
+            type: 'Message',
+            author: 'Philip Beadle',
+            avatar: 'philip-beadle-avatar.png',
+            time: '7.23am',
+            content: {
+              text: 'Agreed.  I think a pattern of each app having a profile page would be good to get some consistency as well.',
+              image: ''},
+            up: 9,
+            down: 0
+          }
+        ]
+      },
+      {
+        type: 'Message',
+        author: 'Mark Finnern',
+        avatar: 'mark-finnern-avatar.png',
+        time: '7.36am',
+        content: {
+          text: 'like to get greater clarity on some of the application design patterns  (at least the early ones) that are getting used so far.  He is also interested in getting a deeper feel of how bridging between apps might work as well as the ins and outs of DPKI. Information around that would also come handy at the Meetup on Wednesday',
+          image: ''},
+        idea: false,
+        up: 9,
+        down: 0,
+        replies: []
+      }
+    ]}
 ]
 class Index extends React.Component {
   state = {
@@ -353,21 +383,7 @@ class Index extends React.Component {
             </Grid>
             <Grid item xs={6}>
               <Paper className={classNames(classes.paper, classes.messages)}>
-                <List>
-                  <ListSubheader>January 25 2018</ListSubheader>
-                  {jan25Messages.map((message, index) => (
-                    <ListItem key={index} dense className={classes.listItemMessage}>
-                      <Message message={message} />
-                    </ListItem>
-                  ))}
-                  <Divider />
-                  <ListSubheader>January 26 2018</ListSubheader>
-                  {jan26Messages.map((message, index) => (
-                    <ListItem key={index} dense className={classes.listItem}>
-                      <Message message={message} />
-                    </ListItem>
-                  ))}
-                </List>
+                <MessageList messages={messages} classes={classes} />
                 <Paper className={classes.messageInput} >
                   <TextField className={classes.messageTextField} margin='normal' fullWidth label='Write a message' multiline rows='2' />
                 </Paper>
