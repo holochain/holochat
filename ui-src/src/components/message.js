@@ -48,9 +48,20 @@ const styles = theme => ({
     margin: `0 ${theme.spacing.unit * 2}px`
   },
   message: {
-    marginLeft: 28,
-    marginTop: -8
-  }
+    marginLeft: 19,
+    marginTop: -8,
+
+  },
+  messageText: {
+    marginLeft: 19,
+    marginTop: -8,
+    fontSize: '0.62rem',
+    margin: 0,
+    whiteSpace: 'pre-wrap',
+    width: '100%',
+    wordBreak: 'break-word',
+    color: 'rgb(61, 60, 64)',
+  },
 })
 
 function VoteControls (props) {
@@ -86,7 +97,7 @@ function MessageComponent (props) {
     case 'Message':
       return (
         <div className={props.classes.message}>
-          <Typography component='p'>{props.message.content.text}</Typography>
+          <Typography component='p' className={props.classes.messageText}>{props.message.content.text}</Typography>
           <img style={{display: (props.message.content.image !== '') ? 'inline' : 'none'}} src={props.message.content.image} />
         </div>)
     case 'IdeaCard':
