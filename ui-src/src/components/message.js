@@ -74,6 +74,9 @@ const styles = theme => ({
   },
   messageNoImage:{
     display: 'none'
+  },
+  votingIcon:{
+    color:'blue'
   }
 })
 
@@ -88,16 +91,17 @@ function VoteControls (props) {
   // }
   if (props.isHovered) {
     return (
-      <div style={{position: 'absolute', top: -16, right: -8, width: 100}}>
-        <IconButton style={{display: (props.message.idea === true) ? 'inline' : 'none', minWidth: 25, width: 25}} aria-label='Idea'>
+      <div style={{position: 'absolute',top: -16,right: -9,width: 'auto', height:'auto', marginHorizontal:10, paddingHorizontal:10, marginVertical:0, backgroundColor:'white', border: 'thin solid lightgrey'}}>
+        <IconButton    style={{display: (props.message.idea === true) ? 'inline' : 'none', minWidth: 25, width: 25, marginLeft:10,  marginRight:10}} aria-label='Idea'>
           <LightbulbOutline />
         </IconButton>
-        <IconButton style={{minWidth: 25, width: 25, margin:10}} aria-label='ThumbUp'>
+<IconButton style={{minWidth: 25, width: 25, marginLeft:10,  marginRight:10}} aria-label='ThumbUp'>
           <ThumbUp />
         </IconButton>
-        <IconButton style={{minWidth: 25, width: 25, margin:10}} aria-label='ThumbDown'>
+        <IconButton style={{minWidth: 25, width: 25, marginLeft:10,  marginRight:10}} aria-label='ThumbDown'>
           <ThumbDown />
         </IconButton>
+
       </div>
     )
   } else {
@@ -140,11 +144,21 @@ class Message extends Component {
     this.setState({ isHovered: false })
   }
 
+  // style: function() {
+  //       if (this.state.isHovered) {
+  //         return { backgroundColor: "red" }
+  //       } else {
+  //         return { backgroundColor: "grey" }
+  //       }
+  //     }
+
   render () {
     const { classes, message } = this.props
 
     return (
-      <List  dense onMouseOver={this.onMessageHover} onMouseLeave={this.onMessageBlur}>
+      <List
+        style={{padding: 20,backgroundColor: (this.state.isHovered === true) ? '#f1f1f1' : 'white', }}
+        dense onMouseOver={this.onMessageHover} onMouseLeave={this.onMessageBlur}>
         <ListItem key={'1'} dense >
           <ListItemAvatar >
             <Avatar style={{marginTop: 10}} alt={message.author} src={message.avatar} />
