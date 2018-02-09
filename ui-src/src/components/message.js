@@ -63,7 +63,8 @@ const styles = theme => ({
     color: 'rgb(61, 60, 64)',
   },
   messageAuthor:{
-    fontSize:16
+    fontSize:14,
+    color:'lightgrey'
   },
   messageImage:{
     display: 'inline',
@@ -143,10 +144,10 @@ class Message extends Component {
     const { classes, message } = this.props
 
     return (
-      <List dense>
-        <ListItem key={'1'} dense onMouseOver={this.onMessageHover} onMouseLeave={this.onMessageBlur}>
-          <ListItemAvatar>
-            <Avatar alt={message.author} src={message.avatar} />
+      <List  dense onMouseOver={this.onMessageHover} onMouseLeave={this.onMessageBlur}>
+        <ListItem key={'1'} dense >
+          <ListItemAvatar >
+            <Avatar style={{marginTop: 10}} alt={message.author} src={message.avatar} />
           </ListItemAvatar>
           <ListItemText  className={classes.messageAuthor} primary={[message.author, message.time].join(' ')} />
           <VoteControls isHovered={this.state.isHovered} message={message} />
