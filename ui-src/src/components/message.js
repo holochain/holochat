@@ -64,6 +64,15 @@ const styles = theme => ({
   },
   messageAuthor:{
     fontSize:16
+  },
+  messageImage:{
+    display: 'inline',
+    marginLeft: 19,
+    marginTop:  5,
+    borderRadius:10
+  },
+  messageNoImage:{
+    display: 'none'
   }
 })
 
@@ -101,7 +110,7 @@ function MessageComponent (props) {
       return (
         <div className={props.classes.message}>
           <Typography component='p' className={props.classes.messageText}>{props.message.content.text}</Typography>
-          <img style={{display: (props.message.content.image !== '') ? 'inline' : 'none'}} src={props.message.content.image} />
+          <img className={(props.message.content.image !== '') ?  props.classes.messageImage : props.classes.messageNoImage}  src={props.message.content.image} />
         </div>)
     case 'IdeaCard':
       return (
