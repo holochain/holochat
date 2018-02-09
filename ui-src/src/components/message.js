@@ -62,6 +62,9 @@ const styles = theme => ({
     wordBreak: 'break-word',
     color: 'rgb(61, 60, 64)',
   },
+  messageAuthor:{
+    fontSize:16
+  }
 })
 
 function VoteControls (props) {
@@ -79,10 +82,10 @@ function VoteControls (props) {
         <IconButton style={{display: (props.message.idea === true) ? 'inline' : 'none', minWidth: 25, width: 25}} aria-label='Idea'>
           <LightbulbOutline />
         </IconButton>
-        <IconButton style={{minWidth: 25, width: 25}} aria-label='ThumbUp'>
+        <IconButton style={{minWidth: 25, width: 25, margin:10}} aria-label='ThumbUp'>
           <ThumbUp />
         </IconButton>
-        <IconButton style={{minWidth: 25, width: 25}} aria-label='ThumbDown'>
+        <IconButton style={{minWidth: 25, width: 25, margin:10}} aria-label='ThumbDown'>
           <ThumbDown />
         </IconButton>
       </div>
@@ -136,7 +139,7 @@ class Message extends Component {
           <ListItemAvatar>
             <Avatar alt={message.author} src={message.avatar} />
           </ListItemAvatar>
-          <ListItemText className={classes.messageAuthor} primary={[message.author, message.time].join(' ')} />
+          <ListItemText  className={classes.messageAuthor} primary={[message.author, message.time].join(' ')} />
           <VoteControls isHovered={this.state.isHovered} message={message} />
         </ListItem>
         <ListItem dense className={classes.message}>
