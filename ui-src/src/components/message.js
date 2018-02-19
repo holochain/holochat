@@ -48,8 +48,35 @@ const styles = theme => ({
     margin: `0 ${theme.spacing.unit * 2}px`
   },
   message: {
-    marginLeft: 28,
-    marginTop: -8
+    marginLeft: 19,
+    marginTop: -8,
+
+  },
+  messageText: {
+    marginLeft: 19,
+    marginTop: -8,
+    fontSize: '0.62rem',
+    margin: 0,
+    whiteSpace: 'pre-wrap',
+    width: '100%',
+    wordBreak: 'break-word',
+    color: 'rgb(61, 60, 64)',
+  },
+  messageAuthor:{
+    fontSize:14,
+    color:'lightgrey'
+  },
+  messageImage:{
+    display: 'inline',
+    marginLeft: 19,
+    marginTop:  5,
+    borderRadius:10
+  },
+  messageNoImage:{
+    display: 'none'
+  },
+  votingIcon:{
+    color:'blue'
   }
 })
 
@@ -64,16 +91,17 @@ function VoteControls (props) {
   // }
   if (props.isHovered) {
     return (
-      <div style={{position: 'absolute', top: -16, right: -8, width: 100}}>
-        <IconButton style={{display: (props.message.idea === true) ? 'inline' : 'none', minWidth: 25, width: 25}} aria-label='Idea'>
+      <div style={{position: 'absolute',top: -16,right: -9,width: 'auto', height:'auto', marginHorizontal:10, paddingHorizontal:10, marginVertical:0, backgroundColor:'white', border: 'thin solid lightgrey'}}>
+        <IconButton    style={{display: (props.message.idea === true) ? 'inline' : 'none', minWidth: 25, width: 25, marginLeft:10,  marginRight:10}} aria-label='Idea'>
           <LightbulbOutline />
         </IconButton>
-        <IconButton style={{minWidth: 25, width: 25}} aria-label='ThumbUp'>
+<IconButton style={{minWidth: 25, width: 25, marginLeft:10,  marginRight:10}} aria-label='ThumbUp'>
           <ThumbUp />
         </IconButton>
-        <IconButton style={{minWidth: 25, width: 25}} aria-label='ThumbDown'>
+        <IconButton style={{minWidth: 25, width: 25, marginLeft:10,  marginRight:10}} aria-label='ThumbDown'>
           <ThumbDown />
         </IconButton>
+
       </div>
     )
   } else {
@@ -86,8 +114,8 @@ function MessageComponent (props) {
     case 'Message':
       return (
         <div className={props.classes.message}>
-          <Typography component='p'>{props.message.content.text}</Typography>
-          <img style={{display: (props.message.content.image !== '') ? 'inline' : 'none'}} src={props.message.content.image} />
+          <Typography component='p' className={props.classes.messageText}>{props.message.content.text}</Typography>
+          <img className={(props.message.content.image !== '') ?  props.classes.messageImage : props.classes.messageNoImage}  src={props.message.content.image} />
         </div>)
     case 'IdeaCard':
       return (
@@ -116,16 +144,26 @@ class Message extends Component {
     this.setState({ isHovered: false })
   }
 
+  // style: function() {
+  //       if (this.state.isHovered) {
+  //         return { backgroundColor: "red" }
+  //       } else {
+  //         return { backgroundColor: "grey" }
+  //       }
+  //     }
+
   render () {
     const { classes, message } = this.props
 
     return (
-      <List dense>
-        <ListItem key={'1'} dense onMouseOver={this.onMessageHover} onMouseLeave={this.onMessageBlur}>
-          <ListItemAvatar>
-            <Avatar alt={message.author} src={message.avatar} />
+      <List
+        style={{padding: 20,backgroundColor: (this.state.isHovered === true) ? '#f1f1f1' : 'white', }}
+        dense onMouseOver={this.onMessageHover} onMouseLeave={this.onMessageBlur}>
+        <ListItem key={'1'} dense >
+          <ListItemAvatar >
+            <Avatar style={{marginTop: 10}} alt={message.author} src={message.avatar} />
           </ListItemAvatar>
-          <ListItemText className={classes.messageAuthor} primary={[message.author, message.time].join(' ')} />
+          <ListItemText  className={classes.messageAuthor} primary={[message.author, message.time].join(' ')} />
           <VoteControls isHovered={this.state.isHovered} message={message} />
         </ListItem>
         <ListItem dense className={classes.message}>
