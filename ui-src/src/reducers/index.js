@@ -5,7 +5,7 @@ const initialState = {
 }
 
 export default function holochatApp (state = initialState, action) {
-  const { type, meta, payload } = action
+  const { type, payload } = action
   switch (type) {
     case A.REGISTER:
         return {
