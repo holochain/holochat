@@ -1,10 +1,10 @@
 # holochat
 
-[![Build Status](https://travis-ci.org/Holochain/holochat.svg?branch=master)](https://travis-ci.org/Holochain/holochat)
+[![Build Status](https://travis-ci.org/Holochain/holochat.svg?branch=develop-react)](https://travis-ci.org/Holochain/holochat)
 [![Code Status](https://img.shields.io/badge/Code-Pre--Alpha-orange.svg)](https://github.com/Holochain/holochat#feature-roadmap-and-current-progress)
 [![In Progress](https://img.shields.io/waffle/label/Holochain/holochat/in%20progress.svg)](http://waffle.io/Holochain/holochat)
 [![Gitter](https://badges.gitter.im/metacurrency/holochain.svg)](https://gitter.im/metacurrency/holochain?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge)
-[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ***Multi-room P2P chat on holochain**
 
@@ -24,30 +24,22 @@ Now you can open browsers to
   http://localhost:5141 - Holochat
 ```
 
-## Installation native
+## Installation & Usage Native
 
 Prerequiste: [Install holochain](https://github.com/metacurrency/holochain/#installation) on your machine.
 You can install holochat very simply with this:
 
 ``` shell
-hcdev init -cloneExample=holochat
+  cd ui-src
+  yarn build
+  hcdev web
 
-```
-
-## Usage
-
-To do a test run of holochat simply type
-
-``` shell
-cd holochat
-hcdev web
 ```
 you should see something like:
 
 ``` shell
-Copying chain to: /home/bootstrap/.holochaindev
-...
-Serving holochain with DNA hash:QmdFv5XcG6YZgMYQ9hPJfn6xkhMhDK99rjiHJHH9zorUad on port:4141
+  Copying chain to: /home/bootstrap/.holochaindev ...
+  Serving holochain with DNA hash:QmdFv5XcG6YZgMYQ9hPJfn6xkhMhDK99rjiHJHH9zorUad on port:4141
 ```
 Then simply point your browser to http://localhost:4141 access the holochat UI.
 
@@ -55,19 +47,7 @@ Then simply point your browser to http://localhost:4141 access the holochat UI.
 To run all the stand alone tests:
 
 ``` shell
-hcdev test
-```
-
-Currently there is one scenario test:
-
-#### backnforth
-``` shell
-hcdev -mdns=true scenario backnforth
-```
-This test spins up two nodes `person1` and `person` and tests that they can send messages back and forth
-
-``` shell
-hcdev -mdns=true -debug scenario backnforth
+  hcdev test
 ```
 
 ### Run e2e tests
@@ -76,19 +56,46 @@ hcdev -mdns=true -debug scenario backnforth
   yarn test
 ```
 
+### Developing
+Run the DNA
+```
+  hcdev web
+```
+Run the UI which will proxy requests to port 4141 so you can update the UI without always restarting hcdev.  When you change the DNA you will need to restart hcdev web
+```
+  yarn start
+```
+This will run the UI on http://localhost:3000
+
 ## Feature Roadmap and Current Progress
 
 
 ## Contribute
-We welcome pull requests and issue tickets.  Find us on [gitter](https://gitter.im/metacurrency/holochain) to chat.
+We welcome pull requests and issue tickets.  Find us on [Holochain](https://chat.holochain.net/) to chat.
 
 Contributors to this project are expected to follow our [development protocols & practices](https://github.com/metacurrency/holochain/wiki/Development-Protocols).
 
 ## License
-[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Copyright (C) 2017, The MetaCurrency Project (Eric Harris-Braun, Arthur Brock, et. al.)
+Copyright (C) 2018, The MetaCurrency Project (Eric Harris-Braun, Arthur Brock, Philip Beadle, et. al.)
 
-This program is free software: you can redistribute it and/or modify it under the terms of the license provided in the LICENSE file (GPLv3).  This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+MIT License
 
-**Note:** We are considering other 'looser' licensing options (like MIT license) but at this stage are using GPL while we're getting the matter sorted out.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

@@ -1,0 +1,23 @@
+{
+  "name": "HoloChat",
+  "version": "0.0.2",
+  "description": "Peer 2 Peer Messaging app on HoloChain",
+  "main": "index.js",
+  "repository": "https://github.com/Holochain/holochat",
+  "author": "Philip Beadle",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "material-ui": "next",
+    "prop-types": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-scripts": "latest"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build && node copy-to-ui.js",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
