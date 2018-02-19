@@ -67,6 +67,8 @@ Run the UI which will proxy requests to port 4141 so you can update the UI witho
 ```
 This will run the UI on http://localhost:3000
 
+## Automated Build https://travis-ci.org/Holochain/holochat
+
 ## Feature Roadmap and Current Progress
 
 
