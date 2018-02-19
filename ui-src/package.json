@@ -7,12 +7,16 @@
   "author": "Philip Beadle",
   "license": "MIT",
   "private": false,
+  "proxy": "http://localhost:4141",
   "dependencies": {
+    "hc-redux-middleware": "latest",
     "material-ui": "next",
     "prop-types": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "react-scripts": "latest"
+    "react-redux": "latest",
+    "react-scripts": "latest",
+    "redux": "latest"
   },
   "scripts": {
     "start": "react-scripts start",

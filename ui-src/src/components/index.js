@@ -53,12 +53,12 @@ class Index extends React.Component {
           </DialogActions>
         </Dialog>
         <Typography variant="display1" gutterBottom>
-          Material-UI
+          User{this.props.userHash}
         </Typography>
         <Typography variant="subheading" gutterBottom>
           example project
         </Typography>
-        <Button variant="raised" color="secondary" onClick={this.handleClick}>
+        <Button variant="raised" color="secondary" onClick={this.props.register}>
           Super Secret Password
         </Button>
       </div>
