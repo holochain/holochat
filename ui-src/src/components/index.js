@@ -24,6 +24,7 @@ class Index extends React.Component {
   };
 
   render() {
+    console.log(this.props.allValues)
     const { classes } = this.props;
 
     return (

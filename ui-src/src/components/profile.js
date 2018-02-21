@@ -5,7 +5,7 @@ import withRoot from '../withRoot';
 import { Field, reduxForm } from 'redux-form'
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
-import TextField from 'material-ui/TextField'
+// import TextField from 'material-ui/TextField'
 
 const styles = theme => ({
   root: {
@@ -56,11 +56,8 @@ class Profile extends React.Component {
 }
 
 Profile.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 const ProfileForm = reduxForm({form: 'Profile'})(Profile)
-
 export default withRoot(withStyles(styles)(ProfileForm));
-
-// export default ProfileForm

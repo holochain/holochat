@@ -1,6 +1,5 @@
 
 import { connect } from 'react-redux'
-import {getFormValues} from 'redux-form'
 import ProfileForm from '../components/profile'
 import {
   register
