@@ -11,13 +11,12 @@ const middleware = compact([
 ])
 
 const rootReducer = combineReducers({
-  holochatReducer,
+  holochat: holochatReducer,
   form: formReducer
 })
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 function CreateStore() {
-  // MuiThemeProvider makes the theme available down the React tree
-  // thanks to React context.
   return createStore(rootReducer, undefined, composeEnhancers(applyMiddleware(...middleware)))
 }
 

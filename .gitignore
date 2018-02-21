@@ -3,3 +3,4 @@ yarn-error.log
 yarn.lock
 videos/
 ui/
+package-lock.json

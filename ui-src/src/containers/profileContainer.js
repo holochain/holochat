@@ -10,7 +10,7 @@ import {
 
 const mapStateToProps = state => {
   return {
-    userHash: state.holochatReducer.userHash
+    userHash: state.holochat.userHash
   }
 }
 
