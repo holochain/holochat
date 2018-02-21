@@ -10,7 +10,7 @@
 
 **[Code Status:](https://github.com/metacurrency/holochain/milestones?direction=asc&sort=completeness&state=all)** Pre-alpha. Not for production use. This application has not been audited for any security validation.
 
-## Docker
+## Docker - easiest way to have a look at HoloChat
 
 ```
   TARGETDIR=$(pwd) docker-compose up
@@ -51,6 +51,7 @@ To run all the stand alone tests:
 ```
 
 ### Run e2e tests
+Make sure you are running Holochat either in Docker, as above, or 3 instances locally on ports 3141, 4141 & 5141.
 ```
   cd ui-automation
   yarn test
@@ -66,6 +67,12 @@ Run the UI which will proxy requests to port 4141 so you can update the UI witho
   yarn start
 ```
 This will run the UI on http://localhost:3000
+
+When developing view the components with storybook
+```
+  yarn run storybook
+```
+You will then be able to see the UI pieces on http://localhost:9009
 
 ## Automated Build https://travis-ci.org/Holochain/holochat
 
