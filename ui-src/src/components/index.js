@@ -1,12 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'material-ui/Button';
-import Dialog, {
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-} from 'material-ui/Dialog';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
 import withRoot from '../withRoot';
@@ -19,46 +13,25 @@ const styles = theme => ({
 });
 
 class Index extends React.Component {
-  state = {
-    open: false,
-  };
 
-  handleClose = () => {
-    this.setState({
-      open: false,
-    });
-  };
-
-  handleClick = () => {
-    this.setState({
-      open: true,
-    });
+  handleRegister = () => {
+    this.props.register({
+      username:'testUser',
+      firstName: 'firstName',
+      lastName: 'lastName',
+      email: 'email'
+  })
   };
 
   render() {
     const { classes } = this.props;
-    const { open } = this.state;
 
     return (
       <div className={classes.root}>
-        <Dialog open={open} onClose={this.handleClose}>
-          <DialogTitle>Super Secret Password</DialogTitle>
-          <DialogContent>
-            <DialogContentText>1-2-3-4-5</DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button color="primary" onClick={this.handleClose}>
-              OK
-            </Button>
-          </DialogActions>
-        </Dialog>
         <Typography variant="display1" gutterBottom>
-          User{this.props.userHash}
+          User Hash: {this.props.userHash}
         </Typography>
-        <Typography variant="subheading" gutterBottom>
-          example project
-        </Typography>
-        <Button variant="raised" color="secondary" onClick={this.props.register}>
+        <Button variant="raised" color="secondary" onClick={this.handleRegister}>
           Super Secret Password
         </Button>
       </div>

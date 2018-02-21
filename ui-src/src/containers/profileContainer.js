@@ -1,19 +1,23 @@
+
 import { connect } from 'react-redux'
-import Index from '../components/index'
+import {getFormValues} from 'redux-form'
+import ProfileForm from '../components/profile'
 import {
   register
 } from '../actions'
 
+
+
+
 const mapStateToProps = state => {
   return {
-    userHash: state.userHash
+    userHash: state.holochatReducer.userHash
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     register: (profile) => {
-      console.log('REGISTER! ' + profile.username)
       dispatch(register(profile))
     }
   }
@@ -22,4 +26,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Index)
+)(ProfileForm)

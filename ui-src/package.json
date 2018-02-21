@@ -16,7 +16,8 @@
     "react-dom": "latest",
     "react-redux": "latest",
     "react-scripts": "latest",
-    "redux": "latest"
+    "redux": "latest",
+    "redux-form": "^7.2.3"
   },
   "scripts": {
     "start": "react-scripts start",

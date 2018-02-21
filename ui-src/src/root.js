@@ -1,10 +1,10 @@
 import React from 'react'
 import { Provider } from 'react-redux'
-import Index from './containers/indexContainer'
+import Profile from './containers/profileContainer'
 
 const Root = ({ store }) => (
   <Provider store={store}>
-    <Index />
+    <Profile />
   </Provider>
 )
 

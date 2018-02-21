@@ -1,10 +1,10 @@
 import * as A from '../actions'
 
 const initialState = {
-  userHash: ''
+  userHash: 'empty'
 }
 
-export default function holochatApp (state = initialState, action) {
+export default function holochatReducer (state = initialState, action) {
   const { type, payload } = action
   switch (type) {
     case A.REGISTER:
