@@ -30,7 +30,8 @@
     "eject": "react-scripts eject",
     "release:files": "node copy-release.js",
     "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "deploy-storybook": "storybook-to-ghpages"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^3.3.13",

@@ -38,12 +38,6 @@ const validate = values => {
 }
 
 class Profile extends React.Component {
-
-  constructor(props){
-    super(props)
-  }
-
-
   handleRegister = values => {
       this.props.register(values)
   }
