@@ -9,6 +9,9 @@
   "private": false,
   "proxy": "http://localhost:4141",
   "dependencies": {
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "expect": "^22.4.0",
     "hc-redux-middleware": "latest",
     "material-ui": "next",
     "prop-types": "latest",
@@ -17,7 +20,8 @@
     "react-redux": "latest",
     "react-scripts": "latest",
     "redux": "latest",
-    "redux-form": "^7.2.3"
+    "redux-form": "^7.2.3",
+    "storybook-addon-specifications": "^2.1.1"
   },
   "scripts": {
     "start": "react-scripts start",

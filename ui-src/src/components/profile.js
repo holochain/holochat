@@ -52,7 +52,7 @@ class Profile extends React.Component {
     const { classes, handleSubmit, userHash } = this.props;
     return (
       <div className={classes.root}>
-      <Typography variant="display1" gutterBottom>
+      <Typography name="userHash" variant="display1" gutterBottom>
         User Hash: {userHash}
       </Typography>
         <form onSubmit={handleSubmit}>
@@ -68,7 +68,7 @@ class Profile extends React.Component {
         <div>
           <Field name="email" component={renderTextField} label="Email" required={true} />
         </div>
-        <Button variant="raised" className={classes.button} color="secondary" onClick={handleSubmit(this.handleRegister)}>
+        <Button name="register" variant="raised" className={classes.button} color="secondary" onClick={handleSubmit(this.handleRegister)}>
           Register
         </Button>
       </form>
