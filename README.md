@@ -32,16 +32,17 @@ You can install holochat very simply with this:
 ``` shell
   cd ui-src
   yarn build
+  cd ..
   hcdev web
 
 ```
-you should see something like:
+you will see:
 
 ``` shell
   Copying chain to: /home/bootstrap/.holochaindev ...
   Serving holochain with DNA hash:QmdFv5XcG6YZgMYQ9hPJfn6xkhMhDK99rjiHJHH9zorUad on port:4141
 ```
-Then simply point your browser to http://localhost:4141 access the holochat UI.
+Then point your browser to http://localhost:4141 access the holochat UI.
 
 ### Tests
 To run all the stand alone tests:
@@ -57,22 +58,29 @@ Make sure you are running Holochat either in Docker, as above, or 3 instances lo
   yarn test
 ```
 
-### Developing
-Run the DNA
+### Set Up for Developing
+Run the DNA from the root folder of HoloChat
 ```
   hcdev web
 ```
-Run the UI which will proxy requests to port 4141 so you can update the UI without always restarting hcdev.  When you change the DNA you will need to restart hcdev web
+Switch into the ui-src folder then run the UI which will proxy requests to port 4141 so you can update the UI without always restarting hcdev.  When you change the DNA you will need to restart hcdev web
 ```
   yarn start
 ```
 This will run the UI on http://localhost:3000
 
-When developing view the components with storybook
+When developing view the components use storybook to see what the UI component looks like and behaves.
 ```
   yarn run storybook
 ```
 You will then be able to see the UI pieces on http://localhost:9009
+
+Keep the integration tests running as well by switching into the ui-automation folder and running
+```
+  yarn run cypress:open
+```
+
+Now you have a first class TDD setup ready to develop HoloChat :)
 
 ## Automated Build https://travis-ci.org/Holochain/holochat
 
