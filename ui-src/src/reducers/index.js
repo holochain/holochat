@@ -1,10 +1,13 @@
+import { combineReducers } from 'redux'
+import { reducer as formReducer } from 'redux-form'
+
 import * as A from '../actions'
 
 const initialState = {
   userHash: 'empty'
 }
 
-export default function holochatReducer (state = initialState, action) {
+function profileReducer (state = initialState, action) {
   const { type, payload } = action
   switch (type) {
     case A.REGISTER:
@@ -16,3 +19,8 @@ export default function holochatReducer (state = initialState, action) {
       return state
   }
 }
+
+export default combineReducers({
+  profile: profileReducer,
+  form: formReducer
+})
