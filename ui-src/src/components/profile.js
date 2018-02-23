@@ -38,31 +38,41 @@ const validate = values => {
 }
 
 class Profile extends React.Component {
+  componentDidMount () {
+    console.log('Getting profile')
+    this.props.myProfile()
+  }
+
   handleRegister = values => {
-      this.props.register(values)
+      this.props.register(values, () => {
+        console.log('Registration complete')
+      })
   }
 
   render() {
-    const { classes, handleSubmit, userHash } = this.props;
+    const { classes, handleSubmit, profile } = this.props;
     return (
       <div className={classes.root}>
-      <Typography name="userHash" variant="display1" gutterBottom>
-        User Hash: {userHash}
+      <Typography name='userHash' variant='display1' gutterBottom>
+        User Hash: {profile.agent_hash}
+      </Typography>
+      <Typography name='userName' variant='display1' gutterBottom>
+        User Name: {profile.userName}
       </Typography>
         <form onSubmit={handleSubmit}>
         <div>
-          <Field name="userName" component={renderTextField} label="Handle" required={true} />
+          <Field name='userName' component={renderTextField} label='Handle' required={true} />
         </div>
         <div>
-        <Field name="firstName" component={renderTextField} label="First Name" required={true} />
+        <Field name='firstName' component={renderTextField} label='First Name' required={true} />
         </div>
         <div>
-          <Field name="lastName" component={renderTextField} label="Last Name" required={true} />
+          <Field name='lastName' component={renderTextField} label='Last Name' required={true} />
         </div>
         <div>
-          <Field name="email" component={renderTextField} label="Email" required={true} />
+          <Field name='email' component={renderTextField} label='Email' required={true} />
         </div>
-        <Button name="register" variant="raised" className={classes.button} color="secondary" onClick={handleSubmit(this.handleRegister)}>
+        <Button name='register' variant='raised' className={classes.button} color='secondary' onClick={handleSubmit(this.handleRegister)}>
           Register
         </Button>
       </form>

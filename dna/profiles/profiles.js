@@ -7,18 +7,18 @@ function register(x) {
     return key
 }
 
-function isRegistered() {
-    var registered_users = getLinks(App.DNA.Hash, "registered_users",{Load:true})
-    // debug("Registered users are: "+JSON.stringify(registered_users));
-    if( registered_users instanceof Error) return false
-    var agent_id = App.Key.Hash
-    for(var i=0; i < registered_users.length; i++) {
-        var profile = registered_users[i].Entry
-        // debug("Registered user "+i+" is " + profile.username)
-        if( profile.agent_id == agent_id) return true;
-    }
-    return false
-}
+// function isRegistered() {
+//     var registered_users = getLinks(App.DNA.Hash, "registered_users",{Load:true})
+//     // debug("Registered users are: "+JSON.stringify(registered_users));
+//     if( registered_users instanceof Error) return false
+//     var agent_id = App.Key.Hash
+//     for(var i=0; i < registered_users.length; i++) {
+//         var profile = registered_users[i].Entry
+//         // debug("Registered user "+i+" is " + profile.username)
+//         if( profile.agent_id == agent_id) return true;
+//     }
+//     return false
+// }
 
 // Get profile information for a user
 // receives a user hashkey
