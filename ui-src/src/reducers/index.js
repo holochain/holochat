@@ -4,7 +4,9 @@ import { reducer as formReducer } from 'redux-form'
 import * as A from '../actions'
 
 const initialState = {
-  profile: null
+  profile: {
+    'agent_hash': ''
+  }
 }
 
 function profileReducer (state = initialState, action) {

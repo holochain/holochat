@@ -1,0 +1,14 @@
+{
+    "Tests":[
+
+        {
+            "Convey":"Register a new person's profile with minimum required fields. App.Key.Hash is used as AgentID, App.Agent.Hash is used for the Agent Hash. The hash of the entry is returned and it's the 3rd entry from the end as there are two other commits for \"registrations\" & \"agent_profile_link\"",
+            "Detail": "The first time an anchor gets called it gets created along with the Anchor Type and on the first time any anchor is called the RootAnchorType gets created as well. This is why the hash created by this new registation is the 4th one back.  The profile was stored then the new RootAnchorType, then the AnchorType, then the new Anchor, then a link to the list of profiles, then a link to the persons unique Anchor",
+            "Zome":"profiles",
+            "FnName":"register",
+            "Input":{"userName":"cnorris", "firstName":"Chuck", "lastName":"Norris", "email":"chuck@norris.com"},
+            "Output":"%h4%",
+            "Err":""
+        }
+    ]
+}

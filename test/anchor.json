@@ -1,0 +1,32 @@
+{
+    "Tests":[
+
+        {
+            "Convey":"When calling for an anchor the first time it is called it will be created as a new anchor after the Root Anchor Type and Anchor Type are created since this is the first time theyve been called",
+            "Detail": "The Root Anchor Type only ever gets created once by one agent and each Anchor Type only gets created once the first time it is used." ,
+            "Zome":"anchors",
+            "FnName":"addAnchor",
+            "Input":{"anchorType":"user", "anchorText":"persons_handle"},
+            "Output":"%h1%",
+            "Err":""
+        },
+        {
+            "Convey":"Adding a new anchor with a different handle will add a new anchor to the list",
+            "Detail": "",
+            "Zome":"anchors",
+            "FnName":"addAnchor",
+            "Input":{"anchorType":"user", "anchorText":"new_persons_handle"},
+            "Output":"%h1%",
+            "Err":""
+        },
+        {
+            "Convey":"Then next time we call a known anchor it will be retrieved and not created so it will be 1 back in the chain",
+            "Detail": "The Root Anchor Type only ever gets created once by one agent and each Anchor Type only gets created once the first time it is used." ,
+            "Zome":"anchors",
+            "FnName":"getAnchor",
+            "Input":{"anchorType":"user", "anchorText":"persons_handle"},
+            "Output":"%h3%",
+            "Err":""
+        }
+    ]
+}

@@ -92,6 +92,10 @@ You can view the data in your local chain and DHT by executing the following.  M
 
 ## Automated Build https://travis-ci.org/Holochain/holochat
 
+## Sequence Diagram for Identifying HoloChat with DPKI
+
+<img src="IdentitySequence.svg" width="80%" />
+
 ## Feature Roadmap and Current Progress
 
 

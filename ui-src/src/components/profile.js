@@ -39,7 +39,7 @@ const validate = values => {
 
 class Profile extends React.Component {
   componentDidMount () {
-    console.log('Getting profile')
+    console.log(this.props)
     this.props.myProfile()
   }
 
@@ -54,7 +54,7 @@ class Profile extends React.Component {
     return (
       <div className={classes.root}>
       <Typography name='userHash' variant='display1' gutterBottom>
-        User Hash: {profile.agent_hash}
+        User Hash 2: {this.props.profile.agent_hash}
       </Typography>
       <Typography name='userName' variant='display1' gutterBottom>
         User Name: {profile.userName}
