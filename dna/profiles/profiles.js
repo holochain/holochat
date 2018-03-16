@@ -3,25 +3,21 @@ function register(x) {
     x.agent_hash=App.Agent.Hash
     var key = commit("profile", x);
     commit("registrations", {Links:[{Base:App.DNA.Hash,Link:key,Tag:"registered_users"}]})
-    commit("agent_profile_link", { Links:[{
-      Base: App.Key.Hash,
-      Link: key,
-      Tag: "profile"
-    }]})
+    commit("agent_profile_link", { Links:[{Base: App.Key.Hash, Link: key, Tag: "profile"}]})
     return key
 }
 
 function isRegistered() {
     var registered_users = getLinks(App.DNA.Hash, "registered_users",{Load:true})
-    debug("Registered users are: "+JSON.stringify(registered_users));
+    // debug("Registered users are: "+JSON.stringify(registered_users));
     if( registered_users instanceof Error) return false
     var agent_id = App.Key.Hash
     for(var i=0; i < registered_users.length; i++) {
         var profile = registered_users[i].Entry
-        debug("Registered user "+i+" is " + profile.username)
+        // debug("Registered user "+i+" is " + profile.username)
         if( profile.agent_id == agent_id) return true;
     }
-    return false;
+    return false
 }
 
 // Get profile information for a user
@@ -33,11 +29,11 @@ function getProfile(x) {
 function myProfile() {
     var registered_users = getLinks(App.DNA.Hash, "registered_users",{Load:true});
     if( registered_users instanceof Error ) return false
-    debug("registration entry:"+JSON.stringify(registered_users))
+    // debug("registration entry:"+JSON.stringify(registered_users))
     var agent_id = App.Key.Hash
     for(var i=0; i < registered_users.length; i++) {
         var profile = registered_users[i].Entry
-        debug("Registered user "+i+" is " + profile.username)
+        // debug("Registered user "+i+" is " + profile.username)
         if( profile.agent_id == agent_id) return profile;
     }
     return false;
@@ -59,14 +55,14 @@ function isSourcesOwnProfile(entry, sources) {
 }
 
 function isRegistrationOnDNA(registration_entry) {
-  debug("registration entry:"+JSON.stringify(registration_entry));
+  // debug("registration entry:"+JSON.stringify(registration_entry));
   var links = registration_entry.Links;
   for(var i=0; i < links.length; i++) {
       var l = links[i]
-      debug("link: "+JSON.stringify(l))
+      // debug("link: "+JSON.stringify(l))
 
       if (l.Base != App.DNA.Hash) {
-          debug("validation failed, expected reg base to be: "+App.DNA.Hash+" but was: "+l.Base)
+          // debug("validation failed, expected reg base to be: "+App.DNA.Hash+" but was: "+l.Base)
           return false;
       }
   }
