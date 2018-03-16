@@ -12,7 +12,7 @@ function addMember(x) {
 
 // Initialize by adding agent to holochain
 function genesis() {
-    commit("membership",{Links:[{Base:App.DNA.Hash,Link:App.Agent.Hash,Tag:"member"}]})
+    debug(commit("membership",{Links:[{Base:App.DNA.Hash,Link:App.Agent.Hash,Tag:"member"}]}))
     //commit("membership",{Links:[{Base:App.DNA.Hash,Link:App.Agent.Hash,Tag:"room"}]})
     return true;
 }
