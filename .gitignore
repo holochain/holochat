@@ -4,3 +4,5 @@ yarn.lock
 videos/
 .DS_Store
 ui/
+package-lock.json
+screenshots/
