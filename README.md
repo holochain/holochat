@@ -82,7 +82,19 @@ Keep the integration tests running as well by switching into the ui-automation f
 
 Now you have a first class TDD setup ready to develop HoloChat :)
 
+## View Chain & DHT Data
+You can view the data in your local chain and DHT by executing the following.  Make sure you have jq installed to get the pretty colours.  If not just remove the | jq . part.
+
+```
+  HOLOPATH=/Users/philipbeadle/.holochaindev hcadmin dump holochat --chain --json | jq .
+  HOLOPATH=/Users/philipbeadle/.holochaindev hcadmin dump holochat --dht --json | jq .
+```
+
 ## Automated Build https://travis-ci.org/Holochain/holochat
+
+## Sequence Diagram for Identifying HoloChat with DPKI
+
+<img src="IdentitySequence.svg" width="80%" />
 
 ## Feature Roadmap and Current Progress
 

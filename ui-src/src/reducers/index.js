@@ -4,17 +4,25 @@ import { reducer as formReducer } from 'redux-form'
 import * as A from '../actions'
 
 const initialState = {
-  userHash: 'empty'
+  profile: {
+    'agent_hash': ''
+  }
 }
 
 function profileReducer (state = initialState, action) {
-  const { type, payload } = action
+  const { type, meta, payload } = action
   switch (type) {
     case A.REGISTER:
-        return {
-          ...state,
-          userHash: payload
-        }
+      return {
+        ...state,
+        profile: meta.data
+      }
+    case A.MYPROFILE:
+      console.log('payload ' + payload)
+      return {
+        ...state,
+        profile: payload
+      }
     default:
       return state
   }

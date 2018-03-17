@@ -14,13 +14,15 @@ configure({ adapter: new Adapter() })
 import CreateStore from '../store'
 
 let store = CreateStore()
-
+let profile = {
+  'agent_hash': ''
+}
 storiesOf('Profile', module)
   .addDecorator(story => <Provider store={store}>{story()}</Provider>)
   .add('Registration passes validation', () => {
     specs(() => describe('Registration passes validation', function () {
       it('If you click the "Register" button with all of the fields filled out the action "Clicked the Register button" will fire', () => {
-        const wrapper = mount(<Provider store={store}><ProfileForm register={action('Clicked the Register button')} /></Provider>)
+        const wrapper = mount(<Provider store={store}><ProfileForm register={action('Clicked the Register button')} myProfile={() => {}} profile={profile}/></Provider>)
         wrapper.find('input[name="userName"]').simulate('change', {target: {value: 'Phil'}})
         wrapper.find('input[name="firstName"]').simulate('change', {target: {value: 'Phil'}})
         wrapper.find('input[name="lastName"]').simulate('change', {target: {value: 'Beadle'}})
@@ -34,7 +36,7 @@ storiesOf('Profile', module)
   .add('Registration fails validation', () => {
     specs(() => describe('Registration fails validation', function () {
       it('If you click the "Register" button without filling out all of the fields you will see the empty fields go red and you are not registered', () => {
-        const wrapper = mount(<Provider store={store}><ProfileForm /></Provider>)
+        const wrapper = mount(<Provider store={store}><ProfileForm myProfile={() => {}} profile={profile} /></Provider>)
         wrapper.find('button[name="register"]').simulate('click')
       })
     }))
@@ -44,6 +46,6 @@ storiesOf('Profile', module)
 
 function getProfile () {
   return (
-    <ProfileForm register={action('Clicked the Register button')} />
+    <ProfileForm register={action('Clicked the Register button')} myProfile={() => {}} profile={profile}/>
   )
 }

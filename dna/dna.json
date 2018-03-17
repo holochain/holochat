@@ -322,6 +322,41 @@
                     "Exposure": "public"
                 }
             ]
+        },
+        {
+            "Name": "anchors",
+            "Description": "anchors mixin",
+            "RibosomeType": "js",
+            "CodeFile": "anchors.js",
+            "Entries": [
+                {
+                    "Name": "anchor",
+                    "DataFormat": "json",
+                    "SchemaFile": "anchor.json",
+                    "Sharing": "public"
+                },
+                {
+                    "Name": "anchor_link",
+                    "DataFormat": "links"
+                }
+            ],
+            "Functions": [
+                {
+                    "Name": "addAnchor",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "getAnchor",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "anchors",
+                    "CallingType": "string",
+                    "Exposure": "public"
+                }
+            ]
         }
     ]
 }

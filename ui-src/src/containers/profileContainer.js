@@ -2,22 +2,24 @@
 import { connect } from 'react-redux'
 import ProfileForm from '../components/profile'
 import {
-  register
+  register,
+  myProfile
 } from '../actions'
 
 
 
 
 const mapStateToProps = state => {
-  return {
-    userHash: state.profile.userHash
-  }
+  return { profile: state.profile }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    register: (profile) => {
-      dispatch(register(profile))
+    register: (profile, then) => {
+      dispatch(register(profile, then))
+    },
+    myProfile: (then) => {
+      dispatch(myProfile(then))
     }
   }
 }
