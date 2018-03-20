@@ -22,7 +22,6 @@
           "Description": "Identity that works with the DPKI zome",
           "RibosomeType": "js",
           "CodeFile": "identity.js",
-          "BridgeTo":"dpki",
           "Entries": [
 
           ],
@@ -121,6 +120,9 @@
             "Description": "chat code",
             "RibosomeType": "js",
             "CodeFile": "chat.js",
+            "Config": {
+              "ErrorHandling": "throwErrors"
+            },
             "Entries": [
                 {
                     "Name": "membership",
