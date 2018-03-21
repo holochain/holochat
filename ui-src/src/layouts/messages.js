@@ -60,10 +60,12 @@ const styles = theme => ({
     position: 'relative'
   },
   messageInput: {
-    position: 'fixed',
-    left: 430,
-    bottom: 24,
-    width: 820
+   position: 'fixed',
+   width: '50%',
+   left: '50%',
+   bottom: '-8%',
+   transform: 'translate(-50%, -50%)'
+
   },
   date: {
     width: '100%',
@@ -390,7 +392,7 @@ class Index extends React.Component {
               <ChannelList channels={channels} />
               </Paper>
             </Grid>
-            <Grid item xs={6}>
+            <Grid  item xs={6}>
               <Paper className={classNames(classes.paper, classes.messages)}>
                 <MessageList messages={messages} classes={classes} />
                 <Paper className={classes.messageInput} >

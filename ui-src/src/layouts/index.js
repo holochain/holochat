@@ -50,7 +50,7 @@ const styles = theme => ({
     color: theme.palette.text.secondary
   },
   searchField: {
-    width: 220,
+    width: '100%',
     marginRight: 16
   },
   menuButton: {
