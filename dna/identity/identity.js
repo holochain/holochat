@@ -41,7 +41,7 @@ function getDpkiDNA(){
     if (bridges[0] != undefined) {
         return bridges[0].ToApp
     } else {
-        debug("No bridge available, use -bridgeTo option!")
+        debug("identityZome: No bridge found!")
     }
     return ""
 }
