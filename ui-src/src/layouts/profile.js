@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Grid from 'material-ui/Grid'
 import { withStyles } from 'material-ui/styles'
 import withRoot from '../withRoot'
-import Profile from '../components/profile'
+import Profile from '../containers/profileContainer'
 
 const styles = theme => ({
   root: {

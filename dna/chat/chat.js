@@ -25,7 +25,7 @@ function validateCommit(entry_type,entry,header,pkg,sources) {
 }
 // Local validate an entry before committing ???
 function validate(entry_type,entry,header,sources) {
-    return false;
+    return true;
 }
 
 function validateLink(linkingEntryType,baseHash,linkHash,tag,pkg,sources){return true}

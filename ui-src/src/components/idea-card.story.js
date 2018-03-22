@@ -9,7 +9,7 @@ import expect from 'expect'
 
 configure({ adapter: new Adapter() })
 
-storiesOf('Idea Card', module)
+storiesOf('Top Idea Card', module)
   .add('Display an idea', () => {
     const idea = {
       title: 'Poll Integration',

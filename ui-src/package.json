@@ -9,6 +9,7 @@
     "enzyme-adapter-react-16": "^1.1.1",
     "hc-redux-middleware": "^1.0.3",
     "jest": "^22.1.1",
+    "lodash": "^4.17.5",
     "material-ui": "next",
     "material-ui-icons": "latest",
     "prop-types": "latest",

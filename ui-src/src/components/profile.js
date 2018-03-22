@@ -57,7 +57,7 @@ class Profile extends Component {
           // onChange={this.handleChange('name')}
           margin='normal'
         />
-        <Button raised color='primary' className={classes.button}>
+        <Button onClick={this.props.register} raised color='primary' className={classes.button}>
           Submit
        </Button>
       </form>
