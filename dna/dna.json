@@ -13,9 +13,7 @@
     "DHTConfig": {
         "HashType": "sha2-256"
     },
-    "BasedOn": {
-        "H": null
-    },
+    "BasedOn": "",
     "Zomes": [
       {
           "Name": "identity",
