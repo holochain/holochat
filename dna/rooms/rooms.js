@@ -26,11 +26,30 @@ function newRoom(x) {
     return key
 }
 
+
+/*----------  Anchor API  ----------*/
+
+function anchor(anchorType, anchorText) {
+  return call('anchors', 'anchor', {
+    anchorType: anchorType,
+    anchorText: anchorText
+  }).replace(/"/g, '');
+}
+
+function anchorExists(anchorType, anchorText) {
+  return call('anchors', 'exists', {
+    anchorType: anchorType,
+    anchorText: anchorText
+  });
+}
+
+/*----------Validation Functions-----------*/
+
 function isAllowed(author) {
     debug("Checking if "+author+" is a registered user...");
     debug(JSON.stringify(App));
 
-    var registered_users = getLinks(App.DNA.Hash, "registered_users",{Load:true});
+    var registered_users = getLinks(anchor("Profiles",""), "registered_users",{Load:true});
     debug("Registered users are: "+JSON.stringify(registered_users));
     if( registered_users instanceof Error ) return false;
     for(var i=0; i < registered_users.length; i++) {

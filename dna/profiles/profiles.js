@@ -2,7 +2,7 @@ function register(x) {
     x.agent_id = App.Key.Hash
     x.agent_hash=App.Agent.Hash
     var key = commit("profile", x);
-    commit("registration_link", {Links:[{Base:anchor("Profiles",""),Link:key,Tag:"registered_users"}]});
+    var reg=commit("registration_link", {Links:[{Base:anchor("Profiles",""),Link:key,Tag:"registered_users"}]});
     return key;
 }
 

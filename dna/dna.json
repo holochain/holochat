@@ -61,7 +61,8 @@
                 },
                 {
                     "Name": "room_links",
-                    "DataFormat": "links"
+                    "DataFormat": "links",
+                    "Sharing": "public"
                 }
             ],
             "Functions": [
