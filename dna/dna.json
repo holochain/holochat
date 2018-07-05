@@ -287,7 +287,7 @@
                     "Exposure": "public"
                 },
                 {
-                    "Name": "myProfile",
+                    "Name": "getProfile",
                     "CallingType": "json",
                     "Exposure": "public"
                 },

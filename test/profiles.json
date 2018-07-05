@@ -9,7 +9,7 @@
         },
         {
             "Zome":"profiles",
-            "FnName":"myProfile",
+            "FnName":"getProfile",
             "Input":"",
             "Output":false,
             "Err":""
@@ -30,7 +30,7 @@
         },
         {
             "Zome":"profiles",
-            "FnName":"myProfile",
+            "FnName":"getProfile",
             "Input":"",
             "Regexp":"^\\{\"agent_hash\":\"[^\"]*\",\"agent_id\":\"[^\"]*\",\"avatar\":\"\",\"email\":\"chuck@norris.com\",\"firstName\":\"Chuck\",\"lastName\":\"Norris\",\"username\":\"cnorris\"\\}$",
             "Err":""

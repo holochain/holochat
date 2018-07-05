@@ -24,13 +24,14 @@ function isRegistered() {
     return false;
 }
 
+
 // Get profile information for a user
 // receives a user hashkey
-function getProfile(x) {
+/*function getProfile(x) {
     return get(x);
 }
-
-function myProfile() {
+*/
+function getProfile() {
     var registered_users = getLinks(App.DNA.Hash, "registered_users",{Load:true});
     if( registered_users instanceof Error ) return false
     debug("registration entry:"+JSON.stringify(registered_users))
