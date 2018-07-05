@@ -9,7 +9,7 @@ function register(x) {
 
 
 function isRegistered() {
-    var registered_users = getLinks(anchor("Profiles",""), 'registered_users',{Load:true, StatusMask:HC.Status.Live})
+    var registered_users = getLinks(anchor("Profiles",""), 'registered_users',{Load:true})
     debug("Registered users are: "+JSON.stringify(registered_users));
     if( registered_users instanceof Error) return false;
     for(var i=0; i < registered_users.length; i++) {
@@ -23,10 +23,9 @@ function isRegistered() {
 
 // Get profile information for a user
 function getProfile() {
-    var registered_users = getLinks(anchor("Profiles",""), "registered_users",{Load:true, StatusMask:HC.Status.Live});
-    if( registered_users instanceof Error ) return false
+    var registered_users = getLinks(anchor("Profiles",""), "registered_users",{Load:true});
     debug("registration entry:"+JSON.stringify(registered_users));
-
+    if( registered_users instanceof Error ) return false
     for(var i=0; i < registered_users.length; i++) {
         var profile = registered_users[i].Entry
         debug("Registered user "+i+" is " + profile.username)
