@@ -17,7 +17,7 @@
         {
             "Zome":"profiles",
             "FnName":"register",
-            "Input":{"username":"cnorris", "firstName":"Chuck", "lastName":"Norris", "email":"chuck@norris.com"},
+            "Input":{"username":"cnorris", "firstName":"Chuck", "lastName":"Norris", "email":"chuck@norris.com","avatar":""},
             "Output":"%h2%",
             "Err":""
         },
@@ -32,7 +32,7 @@
             "Zome":"profiles",
             "FnName":"myProfile",
             "Input":"",
-            "Regexp":"^\\{\"agent_hash\":\"[^\"]*\",\"agent_id\":\"[^\"]*\",\"email\":\"chuck@norris.com\",\"firstName\":\"Chuck\",\"lastName\":\"Norris\",\"username\":\"cnorris\"\\}$",
+            "Regexp":"^\\{\"agent_hash\":\"[^\"]*\",\"agent_id\":\"[^\"]*\",\"avatar\":\"\",\"email\":\"chuck@norris.com\",\"firstName\":\"Chuck\",\"lastName\":\"Norris\",\"username\":\"cnorris\"\\}$",
             "Err":""
         }
     ]
