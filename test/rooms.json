@@ -5,7 +5,7 @@
             "Zome":"rooms",
             "FnName":"newRoom",
             "Input":{"name":"asdf"},
-            "Output":{"message":"validator room failed: object property 'purpose' is required","name":"HolochainError"},
+            "Output":{"errorMessage":"Validation Failed: validator room failed: object property 'purpose' is required","function":"commit","name":"HolochainError","source":{"column":"12","functionName":"newRoom","line":"57"}},
             "Err":""
         },
         {
@@ -21,7 +21,7 @@
             "Zome":"rooms",
             "FnName":"newRoom",
             "Input":{"name":"general", "purpose":"everything goes in here"},
-            "Output":{"message":"Validation Failed","name":"HolochainError"}
+            "Output":{"errorMessage":"Validation Failed","function":"commit","name":"HolochainError","source":{"column":"12","functionName":"newRoom","line":"57"}}
         },
         {
             "Zome":"profiles",

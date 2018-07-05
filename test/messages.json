@@ -4,27 +4,27 @@
             "Zome":"messages",
             "FnName":"newMessage",
             "Input":{"content":"hallo"},
-            "Output":{"message":"validator message failed: object property 'room' is required","name":"HolochainError"},
+            "Output":{"errorMessage":"Validation Failed: validator message failed: object property 'room' is required","function":"commit","name":"HolochainError","source":{"column":"13","functionName":"newMessage","line":"76"}},
             "Err":""
         },
         {
             "Zome":"messages",
             "FnName":"listMessages",
             "Input":"",
-            "Output":[],
+            "Output":{"errorMessage":"input isn't valid multihash","function":"getLinks","name":"HolochainError","source":{"column":"15","functionName":"listMessages","line":"41"}},
             "Err":""
         },
         {
             "Zome":"messages",
             "FnName":"newMessage",
             "Input":{"content":"hallo","room":"asdf"},
-            "Output":{"message":"Validation Failed","name":"HolochainError"}
+            "Output":{"errorMessage":"Validation Failed","function":"commit","name":"HolochainError","source":{"column":"13","functionName":"newMessage","line":"76"}}
         },
         {
             "Zome":"messages",
             "FnName":"listMessages",
             "Input":"",
-            "Output":[],
+            "Output":{"errorMessage":"input isn't valid multihash","function":"getLinks","name":"HolochainError","source":{"column":"15","functionName":"listMessages","line":"41"}},
             "Err":""
         },
         {

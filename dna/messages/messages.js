@@ -1,28 +1,32 @@
 // Get list of posts in a Space
 function listMessages(room) {
-  var messages = getLinks(room, "message",{Load:true});
-  if( messages instanceof Error ) {
-    return []
-  } else {
+  var messages
+  try{
+    messages= getLinks(room, "message",{Load:true});
+  }catch(e){
+    return e;
+  }
     var return_messages = new Array(messages.length);
     for( i=0; i<messages.length; i++) {
       return_messages[i] = messages[i].Entry
       return_messages[i].id = messages[i].Hash
-      var author_hash = get(messages[i].Hash,{GetMask:HC.GetMask.Sources})[0]
-      var agent_profile_link = getLinks(author_hash, "profile", {Load: true})
-      return_messages[i].author = agent_profile_link[0].Entry
-      arr=call("identity","hasRegisteredKey",return_messages[i].author.agent_hash)
-           if(arr=="true"){
-             arr="[Registered]"
-           }else{
-             arr="[Not Registered]"
-           }
+// Code For the DPKI to check if its Registered
+      // var author_hash = get(messages[i].Hash,{GetMask:HC.GetMask.Sources})[0]
+      // var agent_profile_link = getLinks(author_hash, "profile", {Load: true})
+      //  return_messages[i].author = agent_profile_link[0].Entry
+      //  arr=call("identity","hasRegisteredKey",return_messages[i].author.agent_hash)
+      //      if(arr=="true"){
+      //        arr="[Registered]"
+      //      }else{
+      //        arr="[Not Registered]"
+      //      }
+           arr="[]"
            return_messages[i].registered=arr
 
 
     }
     return return_messages
-  }
+
 }
 // TODO Replace edited posts. Drop deleted/invalidated ones.
 
@@ -31,8 +35,13 @@ function listMessages(room) {
 // receives content, room, [inReplyTo]
 function newMessage(x) {
     x.timestamp = new Date();
-    var key = commit("message", x);
-    commit("room_message_link",{Links:[{Base:x.room,Link:key,Tag:"message"}]})
+    var key;
+    try{
+      key = commit("message", x);
+      commit("room_message_link",{Links:[{Base:x.room,Link:key,Tag:"message"}]})
+    }catch(e){
+      return e;
+    }
     debug("Starting HASHtag search");
     call("hashtag","callingHashTag",x);
   return key

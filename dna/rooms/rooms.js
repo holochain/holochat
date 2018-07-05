@@ -16,8 +16,13 @@ function listRooms() {
 
 // Create a new chat Space / Channel
 function newRoom(x) {
-    var key = commit("room", x);
-    commit("room_links",{Links:[{Base:App.DNA.Hash,Link:key,Tag:"room"}]})
+    var key
+    try{
+      key= commit("room", x);
+      commit("room_links",{Links:[{Base:App.DNA.Hash,Link:key,Tag:"room"}]})
+    }catch(e){
+      return (e);
+    }
     return key
 }
 
