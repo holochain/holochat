@@ -1,29 +1,47 @@
+/*
+The anchors for the Rooms are using anchor("Room",room.name) with tag : "room"
+
+the Messages can be stored to the same anchor with a diffrent tag
+*/
+
 // Get list of chat Spaces / Rooms / Channels
+//Can be Optimized
 function listRooms() {
-    var rooms = getLinks(App.DNA.Hash, "room",{Load:true});
-    debug("Rooms: " + JSON.stringify(rooms))
-    if( rooms instanceof Error ){
+  if(anchorExists("Room","")){
+    var rooms_anchor = getLinks(anchor("Room",""), "",{Load:true});
+    debug("rooms_anchor: " + JSON.stringify(rooms_anchor))
+    if( rooms_anchor instanceof Error ){
         return []
     } else {
-        var return_rooms = new Array(rooms.length);
-        for( i=0; i<rooms.length; i++) {
-            return_rooms[i] = rooms[i].Entry
-            return_rooms[i].id = rooms[i].Hash
+        var return_rooms = new Array(rooms_anchor.length);
+        return_rooms=[];
+        if(rooms_anchor.length>1){
+          for( i=0; i<rooms_anchor.length; i++) {
+            if(rooms_anchor[i].Entry.anchorText!=""){
+
+              rooms=getLinks(rooms_anchor[i].Hash,"room",{Load:true})
+              return_rooms[i] = rooms[i].Entry
+              return_rooms[i].id = rooms[0].Hash
+            }
+          }
         }
+
         return return_rooms
     }
+  }
+  return [];
 }
 
 // Create a new chat Space / Channel
-function newRoom(x) {
+function newRoom(room) {
     var key
     try{
-      key= commit("room", x);
-      commit("room_links",{Links:[{Base:App.DNA.Hash,Link:key,Tag:"room"}]})
+      key=commit("room", room);
+      commit("room_links",{Links:[{Base:anchor("Room",room.name),Link:key,Tag:"room"}]})
     }catch(e){
       return (e);
     }
-    return key
+    return key;
 }
 
 

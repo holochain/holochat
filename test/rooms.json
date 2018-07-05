@@ -5,7 +5,7 @@
             "Zome":"rooms",
             "FnName":"newRoom",
             "Input":{"name":"asdf"},
-            "Output":{"errorMessage":"Validation Failed: validator room failed: object property 'purpose' is required","function":"commit","name":"HolochainError","source":{"column":"12","functionName":"newRoom","line":"57"}},
+            "Regexp":"{\"errorMessage\":\"Validation Failed: validator room failed: object property 'purpose' is required\",\"function\":\"commit\",\"name\":\"HolochainError\",\"source\":{\"column\":\"[^\"]*\",\"functionName\":\"newRoom\",\"line\":\"[^\"]*\"}}",
             "Err":""
         },
         {
@@ -21,7 +21,7 @@
             "Zome":"rooms",
             "FnName":"newRoom",
             "Input":{"name":"general", "purpose":"everything goes in here"},
-            "Output":{"errorMessage":"Validation Failed","function":"commit","name":"HolochainError","source":{"column":"12","functionName":"newRoom","line":"57"}}
+            "Regexp":"{\"errorMessage\":\"Validation Failed\",\"function\":\"commit\",\"name\":\"HolochainError\",\"source\":{\"column\":\"[^\"]*\",\"functionName\":\"newRoom\",\"line\":\"[^\"]*\"}}"
         },
         {
             "Convey":"Register User ",
@@ -43,7 +43,7 @@
             "Zome":"rooms",
             "FnName":"newRoom",
             "Input":{"name":"general", "purpose":"everything goes in here"},
-            "Output":"%h1%",
+            "Output":"%h3%",
             "Err":""
         },
         {
