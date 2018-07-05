@@ -2,53 +2,49 @@ function register(x) {
     x.agent_id = App.Key.Hash
     x.agent_hash=App.Agent.Hash
     var key = commit("profile", x);
-    commit("registrations", {Links:[{Base:App.DNA.Hash,Link:key,Tag:"registered_users"}]})
-    commit("agent_profile_link", { Links:[{
-      Base: App.Key.Hash,
-      Link: key,
-      Tag: "profile"
-    }]})
-    return key
+    commit("registration_link", {Links:[{Base:anchor("Profiles",""),Link:key,Tag:"registered_users"}]});
+    return key;
 }
 
+
+
 function isRegistered() {
-    var registered_users = getLinks(App.DNA.Hash, "registered_users",{Load:true})
+    var registered_users = getLinks(anchor("Profiles",""), 'registered_users',{Load:true, StatusMask:HC.Status.Live})
     debug("Registered users are: "+JSON.stringify(registered_users));
-    if( registered_users instanceof Error) return false
-    var agent_id = App.Key.Hash
+    if( registered_users instanceof Error) return false;
     for(var i=0; i < registered_users.length; i++) {
         var profile = registered_users[i].Entry
         debug("Registered user "+i+" is " + profile.username)
-        if( profile.agent_id == agent_id) return true;
+        if( profile.agent_id == App.Key.Hash) return true;
     }
     return false;
 }
 
 
 // Get profile information for a user
-// receives a user hashkey
-/*function getProfile(x) {
-    return get(x);
-}
-*/
 function getProfile() {
-    var registered_users = getLinks(App.DNA.Hash, "registered_users",{Load:true});
+    var registered_users = getLinks(anchor("Profiles",""), "registered_users",{Load:true, StatusMask:HC.Status.Live});
     if( registered_users instanceof Error ) return false
-    debug("registration entry:"+JSON.stringify(registered_users))
-    var agent_id = App.Key.Hash
+    debug("registration entry:"+JSON.stringify(registered_users));
+
     for(var i=0; i < registered_users.length; i++) {
         var profile = registered_users[i].Entry
         debug("Registered user "+i+" is " + profile.username)
-        if( profile.agent_id == agent_id) return profile;
+        if( profile.agent_id == App.Key.Hash) return profile;
     }
     return false;
 }
 
 // Update profile information for an agent_id
-function modProfile(x, old_profile) {
-    var key = commit("profile", x);
-    commit("registrations",{Links:[{Base:old_profile,Link:key,Tag:"replacedBy"}]})
-    return key
+function updateProfile(x) {
+    x.agent_id = App.Key.Hash
+    x.agent_hash=App.Agent.Hash
+    var oldHash = makeHash("profile",getProfile());
+    if(oldHash==false){
+      return "NotRegistered";
+    }
+    var hash = update("profile", x, oldHash);
+    return hash;
 }
 
 function genesis() {
@@ -65,41 +61,23 @@ function isRegistrationOnDNA(registration_entry) {
   for(var i=0; i < links.length; i++) {
       var l = links[i]
       debug("link: "+JSON.stringify(l))
-
-      if (l.Base != App.DNA.Hash) {
-          debug("validation failed, expected reg base to be: "+App.DNA.Hash+" but was: "+l.Base)
+      var ActualBase=anchor("Profiles","");
+      if (l.Base != ActualBase) {
+          debug("validation failed, expected reg base to be: "+ActualBase+" but was: "+l.Base)
           return false;
       }
   }
   return true;
 }
 
-function isLinkFromSource(entry, sources) {
-  if(entry.Links.length != 1) {
-    debug("validation failed, expected agent_profile_link to contain exactly one link")
-    return false
-  }
-
-  if(entry.Links[0].Base != sources[0]) {
-    debug("validation failed, expected agent_profile_link to link from the source")
-    return false
-  }
-
-  return true
-}
 
 function validatePut(entry_type,entry,header,pkg,sources) {
     return validateCommit(entry_type,entry,header,pkg,sources)
 }
 function validateCommit(entry_type,entry,header,pkg,sources) {
-    // registrations all must happen on the DNA
-    if (entry_type == "registrations") {
+    // registration_link all must happen on the DNA
+    if (entry_type == "registration_link") {
         return isRegistrationOnDNA(entry)
-    }
-
-    // can only link from my profile
-    if (entry_type == "agent_profile_link" ){
-        return isLinkFromSource(entry, sources)
     }
 
     // nobody can add somebody elses profile
@@ -107,16 +85,29 @@ function validateCommit(entry_type,entry,header,pkg,sources) {
 }
 
 
+/*----------  Anchor API  ----------*/
+
+function anchor(anchorType, anchorText) {
+  return call('anchors', 'anchor', {
+    anchorType: anchorType,
+    anchorText: anchorText
+  }).replace(/"/g, '');
+}
+
+function anchorExists(anchorType, anchorText) {
+  return call('anchors', 'exists', {
+    anchorType: anchorType,
+    anchorText: anchorText
+  });
+}
+
+
+
 
 function validateLink(linkingEntryType,baseHash,linkHash,pkg,sources){
-    // can only link from my profile
-    if (linkingEntryType == "agent_profile_link" ){
-        return baseHash == sources[0];
-    }
-
-    // registrations all must happen on the DNA
-    if (linkingEntryType == "registrations") {
-        return baseHash == App.DNA.Hash
+    // registration_link all must happen on the DNA
+    if (linkingEntryType == "registration_link") {
+        return baseHash == anchor("Profiles","")
     }
 
     return true

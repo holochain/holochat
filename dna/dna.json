@@ -16,79 +16,6 @@
     "BasedOn": "",
     "Zomes": [
       {
-          "Name": "anchor",
-          "Description": "Anchor zome",
-          "RibosomeType": "js",
-          "CodeFile": "anchor.js",
-          "Entries": [
-              {
-                  "Name": "anchor",
-                  "DataFormat": "json",
-                  "SchemaFile": "anchor.json",
-                  "Sharing": "public"
-              },  {
-                    "Name": "anchor_main",
-                    "DataFormat": "json",
-                    "SchemaFile": "anchor.json",
-                    "Sharing": "public"
-                },
-              {
-                  "Name": "anchor_links",
-                  "DataFormat": "links",
-                  "Sharing": "public"
-              }
-          ],
-          "Functions": [
-              {
-                  "Name": "AnchorTypeCreate",
-                  "CallingType": "string",
-                  "Exposure":"public"
-              },
-              {
-                  "Name": "getMainAchorHash",
-                  "CallingType": "string",
-                  "Exposure":"public"
-              },
-              {
-                  "Name": "getAnchorTypeHash",
-                  "CallingType": "string",
-                  "Exposure":"public"
-              },
-              {
-                  "Name": "addAnchor",
-                  "CallingType": "string",
-                  "Exposure":"public"
-              },{
-                  "Name": "anchor_type_create",
-                  "CallingType": "string",
-                  "Exposure":"public"
-              },{
-                  "Name": "anchor_create",
-                  "CallingType": "json",
-                  "Exposure":"public"
-              },{
-                  "Name": "anchor_link",
-                  "CallingType": "string",
-                  "Exposure":"public"
-              },{
-                  "Name": "anchor_update",
-                  "CallingType": "string",
-                  "Exposure":"public"
-              },{
-                  "Name": "anchor_updatelink",
-                  "CallingType": "string",
-                  "Exposure":"public"
-              },{
-                  "Name": "anchor_type_list",
-                  "CallingType": "string",
-                  "Exposure":"public"
-              },{
-                  "Name": "doGetLinkLoad",
-                  "CallingType": "string",
-                  "Exposure":"public"
-              }
-            ]
-        },{
             "Name": "chat",
             "Description": "chat code",
             "RibosomeType": "js",
@@ -256,12 +183,14 @@
             "CodeFile": "profiles.js",
             "Entries": [
                 {
-                    "Name": "registrations",
-                    "DataFormat": "links"
+                    "Name": "registration_link",
+                    "DataFormat": "links",
+                    "Sharing":"public"
                 },
                 {
                     "Name": "agent_profile_link",
-                    "DataFormat": "links"
+                    "DataFormat": "links",
+                    "Sharing":"public"
                 },
                 {
                     "Name": "profile",
@@ -287,16 +216,46 @@
                     "Exposure": "public"
                 },
                 {
-                    "Name": "getProfile",
-                    "CallingType": "json",
-                    "Exposure": "public"
-                },
-                {
-                    "Name": "modProfile",
+                    "Name": "updateProfile",
                     "CallingType": "json",
                     "Exposure": "public"
                 }
             ]
-        }
+        },
+        {
+          "Name": "anchors",
+          "Description": "anchors mixin",
+          "RibosomeType": "js",
+          "CodeFile": "anchors.js",
+          "Config": {
+            "ErrorHandling": "throwErrors"
+          },
+          "Entries": [
+            {
+              "Name": "anchor",
+              "DataFormat": "json",
+              "SchemaFile": "anchor.json",
+              "Sharing": "public"
+            },
+            {
+              "Name": "anchor_link",
+              "DataFormat": "links"
+            }
+          ],
+          "Functions": [
+            {
+              "Name": "anchor",
+              "CallingType": "json"
+            },
+            {
+              "Name": "exists",
+              "CallingType": "json"
+            },
+            {
+              "Name": "anchors",
+              "CallingType": "string"
+            }
+          ]
+      }
     ]
 }

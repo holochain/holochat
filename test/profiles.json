@@ -1,6 +1,7 @@
 {
     "Tests":[
         {
+            "Convey":"0. Check if registered initially",
             "Zome":"profiles",
             "FnName":"isRegistered",
             "Input":"",
@@ -8,6 +9,7 @@
             "Err":""
         },
         {
+            "Convey":"1. Not able to get Profile eather",
             "Zome":"profiles",
             "FnName":"getProfile",
             "Input":"",
@@ -15,13 +17,15 @@
             "Err":""
         },
         {
+            "Convey":"2. Register you user Chuck",
             "Zome":"profiles",
             "FnName":"register",
             "Input":{"username":"cnorris", "firstName":"Chuck", "lastName":"Norris", "email":"chuck@norris.com","avatar":""},
-            "Output":"%h2%",
+            "Output":"%h1%",
             "Err":""
         },
         {
+            "Convey":"3. Check if hes registered",
             "Zome":"profiles",
             "FnName":"isRegistered",
             "Input":"",
@@ -29,10 +33,27 @@
             "Err":""
         },
         {
+            "Convey":"4. Get the profile info",
             "Zome":"profiles",
             "FnName":"getProfile",
             "Input":"",
             "Regexp":"^\\{\"agent_hash\":\"[^\"]*\",\"agent_id\":\"[^\"]*\",\"avatar\":\"\",\"email\":\"chuck@norris.com\",\"firstName\":\"Chuck\",\"lastName\":\"Norris\",\"username\":\"cnorris\"\\}$",
+            "Err":""
+        },
+        {
+            "Convey":"5. Updating the profile",
+            "Zome":"profiles",
+            "FnName":"updateProfile",
+            "Input":{"username":"darK_V", "firstName":"dark", "lastName":"vader", "email":"dark@vader.com","avatar":""},
+            "Output":"%h%",
+            "Err":""
+        },
+        {
+            "Convey":"6. Get the updated Profile",
+            "Zome":"profiles",
+            "FnName":"getProfile",
+            "Input":"",
+            "Regexp":"^\\{\"agent_hash\":\"[^\"]*\",\"agent_id\":\"[^\"]*\",\"avatar\":\"\",\"email\":\"dark@vader.com\",\"firstName\":\"dark\",\"lastName\":\"vader\",\"username\":\"darK_V\"\\}$",
             "Err":""
         }
     ]

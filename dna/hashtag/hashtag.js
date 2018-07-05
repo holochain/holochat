@@ -18,7 +18,7 @@ function callingHashTag(x)
 CODE using the anchor Zomes
 ********/
 function genesis(){
-  call("anchor","anchor_type_create","hashTag");
+  //call("anchor","anchor_type_create","hashTag");
   return true;
 }
 
