@@ -42,8 +42,8 @@ function updateProfile(x) {
     if(oldHash==false){
       return "NotRegistered";
     }
-    var hash = update("profile", x, oldHash);
-    return hash;
+    var key = update("profile", x, oldHash);
+    return key;
 }
 
 function genesis() {

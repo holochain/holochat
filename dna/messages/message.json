@@ -8,12 +8,12 @@
 		"timestamp": {
 			"type": "string"
 		},
-		"room": {
+		"room_name": {
 			"type": "string"
 		},
 		"inReplyTo": {
 			"type": "string"
 		}
 	},
-    "required": ["content", "timestamp", "room"]
+    "required": ["room_name","content", "timestamp"]
 }

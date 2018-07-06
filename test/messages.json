@@ -1,64 +1,74 @@
 {
     "Tests":[
         {
+            "Convey":"0. Adding New messages without any room",
             "Zome":"messages",
             "FnName":"newMessage",
             "Input":{"content":"hallo"},
-            "Output":{"errorMessage":"Validation Failed: validator message failed: object property 'room' is required","function":"commit","name":"HolochainError","source":{"column":"13","functionName":"newMessage","line":"76"}},
+            "Regexp":"{\"errorMessage\":\"Validation Failed: validator message failed: object property 'room_name' is required\",\"function\":\"commit\",\"name\":\"HolochainError\",\"source\":{\"column\":\"[^\"]*\",\"functionName\":\"newMessage\",\"line\":\"[^\"]*\"}}",
             "Err":""
         },
         {
+            "Convey":"1.Getting List of messages without creating room",
             "Zome":"messages",
-            "FnName":"listMessages",
+            "FnName":"getMessages",
             "Input":"",
-            "Output":{"errorMessage":"input isn't valid multihash","function":"getLinks","name":"HolochainError","source":{"column":"15","functionName":"listMessages","line":"41"}},
+            "Regexp":"{\"errorMessage\":\"input isn't valid multihash\",\"function\":\"getLinks\",\"name\":\"HolochainError\",\"source\":{\"column\":\"[^\"]*\",\"functionName\":\"listMessages\",\"line\":\"[^\"]*\"}}",
             "Err":""
         },
         {
+            "Convey":"2. Adding message without creating room",
             "Zome":"messages",
             "FnName":"newMessage",
-            "Input":{"content":"hallo","room":"asdf"},
-            "Output":{"errorMessage":"Validation Failed","function":"commit","name":"HolochainError","source":{"column":"13","functionName":"newMessage","line":"76"}}
+            "Input":{"content":"hallo","room_name":"asdf"},
+            "Regexp":"{\"errorMessage\":\"Validation Failed\",\"function\":\"commit\",\"name\":\"HolochainError\",\"source\":{\"column\":\"[^\"]*\",\"functionName\":\"newMessage\",\"line\":\"[^\"]*\"}}"
         },
         {
+          "Convey":"3. Geting List of messages without creating room",
             "Zome":"messages",
-            "FnName":"listMessages",
+            "FnName":"getMessages",
             "Input":"",
-            "Output":{"errorMessage":"input isn't valid multihash","function":"getLinks","name":"HolochainError","source":{"column":"15","functionName":"listMessages","line":"41"}},
+            "Regexp":"{\"errorMessage\":\"input isn't valid multihash\",\"function\":\"getLinks\",\"name\":\"HolochainError\",\"source\":{\"column\":\"[^\"]*\",\"functionName\":\"listMessages\",\"line\":\"[^\"]*\"}}",
             "Err":""
         },
         {
+            "Convey":"4. Register User **Needs more testing**",
             "Zome":"profiles",
             "FnName":"register",
             "Input":{"username":"cnorris", "firstName":"Chuck", "lastName":"Norris", "email":"chuck@norris.com"},
-            "Output":"%h2%",
+            "Output":"%h1%",
             "Err":""
         },
         {
+            "Convey":"5. Get Profile of the user. ",
             "Zome":"profiles",
-            "FnName":"myProfile",
+            "FnName":"getProfile",
             "Input":"",
             "Output":{"agent_hash":"%agent%","agent_id":"%key%","email":"chuck@norris.com","firstName":"Chuck","lastName":"Norris","username":"cnorris"},
             "Err":""
-        },  {
+        },
+        {
+            "Convey":"6. Creting new room **Needs More testing**",
             "Zome":"rooms",
             "FnName":"newRoom",
             "Input":{"name":"general", "purpose":"everything goes in here"},
-            "Output":"%h1%",
+            "Output":"%h3%",
             "Err":""
         },
         {
+            "Convey":"7. Adding message to the room using the hash of the of the room ",
             "Zome":"messages",
             "FnName":"newMessage",
-            "Input":{"content":"bla", "room":"%r1%"},
+            "Input":{"content":"Cheers!!", "room_name":"general"},
             "Output":"%h1%",
             "Err":""
         },
         {
+            "Convey":"8. Get all the messages of the room by using the hash of the room as ID ",
             "Zome":"messages",
-            "FnName":"listMessages",
-            "Input":"%r2%",
-            "Regexp":"[{\"author\":\\{\"agent_hash\":\"%agent%\",\"agent_id\":\"%key%\",\"email\":\"chuck@norris.com\",\"firstName\":\"Chuck\",\"lastName\":\"Norris\",\"username\":\"cnorris\"\\},\"content\":\"bla\",\"id\":\"%r1%\",\"room\":\"%r2%\",\"timestamp\":\"[^\"]*\"}]",
+            "FnName":"getMessages",
+            "Input":{"room_name":"general"},
+            "Regexp":"{\"Entry\":{\"content\":\"Cheers!!\",\"room_name\":\"general\",\"timestamp\":\"[^\"]*\"},\"Hash\":\"[^\"]*\"}",
             "Err":""
         }
     ]

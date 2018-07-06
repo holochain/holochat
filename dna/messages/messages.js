@@ -1,64 +1,110 @@
-// Get list of posts in a Space
-function listMessages(room) {
-  var messages
-  try{
-    messages= getLinks(room, "message",{Load:true});
-  }catch(e){
-    return e;
-  }
-    var return_messages = new Array(messages.length);
-    for( i=0; i<messages.length; i++) {
-      return_messages[i] = messages[i].Entry
-      return_messages[i].id = messages[i].Hash
-// Code For the DPKI to check if its Registered
-      // var author_hash = get(messages[i].Hash,{GetMask:HC.GetMask.Sources})[0]
-      // var agent_profile_link = getLinks(author_hash, "profile", {Load: true})
-      //  return_messages[i].author = agent_profile_link[0].Entry
-      //  arr=call("identity","hasRegisteredKey",return_messages[i].author.agent_hash)
-      //      if(arr=="true"){
-      //        arr="[Registered]"
-      //      }else{
-      //        arr="[Not Registered]"
-      //      }
-           arr="[]"
-           return_messages[i].registered=arr
-
-
-    }
-    return return_messages
-
-}
-// TODO Replace edited posts. Drop deleted/invalidated ones.
-
-
 // Create a new post in a Space / Channel
 // receives content, room, [inReplyTo]
 function newMessage(x) {
     x.timestamp = new Date();
-    var key;
-    try{
-      key = commit("message", x);
-      commit("room_message_link",{Links:[{Base:x.room,Link:key,Tag:"message"}]})
-    }catch(e){
-      return e;
-    }
-    debug("Starting HASHtag search");
-    call("hashtag","callingHashTag",x);
+     var key;
+     try{
+       key = commit("message", x);
+       //commit("message_links",{Links:[{Base:anchor("Room",x.room_name),Link:key,Tag:"message"}]})
+       commit("message_links",{Links:[{Base:anchor("Room",x.room_name),Link:key,Tag:"messages"}]})
+
+
+     }catch(e){
+       return e;
+     }
+
+
+    // TODO INDEXING -hashTag
+   //  debug("Starting HASHtag search");
+  //  call("hashtag","callingHashTag",x);
   return key
 }
 
 
+// function getMessages(x){
+//   messages=getLinks(anchor("Room",x.room_name),"messages",{Load:true});
+//   debug("Messages::"+JSON.stringify(messages))
+//   var return_messages=[];
+//   messages.forEach(function (element){
+//     var tempMessage={Hash:"",Entry:""};
+//     tempMessage.Hash=element.Hash;
+//     tempMessage.Entry=element.Entry
+//     return_messages.push(tempMessage);
+//   });
+//   debug("Messages::"+JSON.stringify(return_messages))
+//   return return_messages;
+// }
+
+function getMessages(x){
+  messages=getLinks(anchor("Room",x.room_name),"messages",{Load:true});
+  debug("Messages::"+JSON.stringify(messages))
+  var return_messages=[];
+  messages.forEach(function (element){
+    var tempMessage={Hash:"",Entry:""};
+    tempMessage.Hash=element.Hash;
+    tempMessage.Entry=element.Entry
+    return_messages.push(tempMessage);
+  });
+  debug("Messages::"+JSON.stringify(return_messages))
+  return return_messages[0];
+}
+
+
+// TODO Replace edited posts. Drop deleted/invalidated ones.
+
 // Edit a post (create new one which "replaces" the old)
 // receives message like in newMessage and old_message's hash
-function modMessage(x, old_message) {
-    var key = commit("message", x);
-    commit("room_message_link",{Links:[{Base:old_post,Link:key,Tag:"replacedBy"}]})
+//@param: x:{new_message:"",old_message:""}
+function updateMessage(x) {
+    debug(x);
+    key=update("message",x.new_message,x.old_message.Hash);
     return key
+}
+
+
+
+/*----------  Anchor API  ----------*/
+
+function anchor(anchorType, anchorText) {
+  return call('anchors', 'anchor', {
+    anchorType: anchorType,
+    anchorText: anchorText
+  }).replace(/"/g, '');
+}
+
+function anchorExists(anchorType, anchorText) {
+  return call('anchors', 'exists', {
+    anchorType: anchorType,
+    anchorText: anchorText
+  });
+}
+
+
+/********** Validation Functions *************/
+
+function genesis() {
+    debug("HoloChat App Starting...")
+  return true;
+}
+
+function isValidRoom(room) {
+  //   debug("Checking if "+room+" is a valid...")
+  //   var rooms = getLinks(anchor("Room",""), "",{Load:true});
+  //   ///debug("Rooms: " + JSON.stringify(rooms))
+  // if( rooms instanceof Error ){
+  //     return false
+  // } else {
+  //   for( i=0; i<rooms.length; i++) {
+  //     if( rooms[i].Entry.anchorText === room.room_name) return true
+  //   }
+  //   return false
+  // }
+  return true;
 }
 
 function isAllowed(author) {
     debug("Checking if "+author+" is a registered user...")
-    var registered_users = getLinks(App.DNA.Hash, "registered_users",{Load:true});
+    var registered_users = getLinks(anchor("Profiles",""), "registered_users",{Load:true});
     debug("Registered users are: "+JSON.stringify(registered_users));
     if( registered_users instanceof Error ) return false;
     for(var i=0; i < registered_users.length; i++) {
@@ -69,23 +115,19 @@ function isAllowed(author) {
     return false;
 }
 
-function isValidRoom(room) {
-    debug("Checking if "+room+" is a valid...")
-    var rooms = getLinks(App.DNA.Hash, "room",{Load:true});
-    debug("Rooms: " + JSON.stringify(rooms))
-  if( rooms instanceof Error ){
-      return false
-  } else {
-    for( i=0; i<rooms.length; i++) {
-      if( rooms[i].Hash == room) return true
-    }
-    return false
-  }
-}
-
-function genesis() {
-    debug("HoloChat App Starting...")
-  return true;
+function isValidRoomBase(room_base){
+//   debug("Checking if "+room_base+" is a valid...")
+//   var rooms = getLinks(anchor("Room",""), "",{Load:true});
+//   debug("Rooms: " + JSON.stringify(rooms))
+//   if( rooms instanceof Error ){
+//     return false
+//   } else {
+//     for( i=0; i<rooms.length; i++) {
+//       if( rooms[i].Hash === room_base) return true
+//   }
+//   return false
+// }
+return true;
 }
 
 
@@ -97,29 +139,28 @@ function validateCommit(entry_type,entry,header,pkg,sources) {
 }
 // Local validate an entry before committing ???
 function validate(entry_type,entry,header,sources) {
-//debug("entry_type::"+entry_type+"entry"+entry+"header"+header+"sources"+sources);
+debug("entry_type::"+entry_type+"entry"+JSON.stringify(entry)+"header"+header+"sources"+sources);
     if (entry_type == "hashTag_links"||entry_type == "hashTag"||entry_type=="tag_post_links"||entry_type == "tag_post") {
       return true;
     }
-    if (entry_type == "room_message_link") {
-    return isValidRoom(entry.Links[0].Base);
+    if (entry_type == "message_links") {
+    return isValidRoomBase(entry.Links[0].Base);
     }
     if( !isAllowed(sources[0]) ){
     return false;
      }
-    if( !isValidRoom(entry.room) ) {
+    if( !isValidRoom(entry) ) {
     //    debug("entry_type::"+entry_type+"entry"+entry+"header"+header+"sources"+sources);
-        debug("message not valid because room "+entry.room+" does not exist");
+        debug("message not valid because room "+entry.room_name+" does not exist");
         return false;
     }
-
     return true
 }
 
 function validateLink(linkingEntryType,baseHash,linkHash,tag,pkg,sources){
-    // this can only be "room_message_link" type which is linking from room to message
-//debug("LinkingEntry_type:"+linkingEntryType+" baseHash:"+baseHash+" linkHash:"+linkHash+" tag:"+tag+" pkg:"+pkg+" sources:"+sources);
-if(linkingEntryType=="room_message_link")
+    // this can only be "message_links" type which is linking from room to message
+debug("LinkingEntry_type:"+linkingEntryType+" baseHash:"+baseHash+" linkHash:"+linkHash+" tag:"+tag+" pkg:"+pkg+" sources:"+sources);
+if(linkingEntryType=="message_links")
 return isValidRoom(baseHash);
 if(linkingEntryType="hashTag_links")
 return true;
