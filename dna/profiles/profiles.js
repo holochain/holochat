@@ -50,6 +50,27 @@ function genesis() {
     return true;
 }
 
+
+/*----------  Anchor API  ----------*/
+
+function anchor(anchorType, anchorText) {
+  return call('anchors', 'anchor', {
+    anchorType: anchorType,
+    anchorText: anchorText
+  }).replace(/"/g, '');
+}
+
+function anchorExists(anchorType, anchorText) {
+  return call('anchors', 'exists', {
+    anchorType: anchorType,
+    anchorText: anchorText
+  });
+}
+
+
+/*----------- Validation Functions---------------*/
+
+
 function isSourcesOwnProfile(entry, sources) {
     return sources[0] == entry.agent_id;
 }
@@ -82,26 +103,6 @@ function validateCommit(entry_type,entry,header,pkg,sources) {
     // nobody can add somebody elses profile
     return isSourcesOwnProfile(entry, sources);
 }
-
-
-/*----------  Anchor API  ----------*/
-
-function anchor(anchorType, anchorText) {
-  return call('anchors', 'anchor', {
-    anchorType: anchorType,
-    anchorText: anchorText
-  }).replace(/"/g, '');
-}
-
-function anchorExists(anchorType, anchorText) {
-  return call('anchors', 'exists', {
-    anchorType: anchorType,
-    anchorText: anchorText
-  });
-}
-
-
-
 
 function validateLink(linkingEntryType,baseHash,linkHash,pkg,sources){
     // registration_link all must happen on the DNA
