@@ -1,7 +1,7 @@
 {
     "Tests":[
         {
-            "Convey":"newRoom should fail when room schema not fulfilled",
+            "Convey":"0. newRoom should fail when room schema not fulfilled",
             "Zome":"rooms",
             "FnName":"newRoom",
             "Input":{"name":"asdf"},
@@ -9,7 +9,7 @@
             "Err":""
         },
         {
-            "Convey":"listRooms should return an empty list of rooms when there are none",
+            "Convey":"1. listRooms should return an empty list of rooms when there are none",
             "Zome":"rooms",
             "FnName":"listRooms",
             "Input":"",
@@ -17,21 +17,21 @@
             "Err":""
         },
         {
-            "Convey":"newRoom should fail when not created by a registered user",
+            "Convey":"2. newRoom should fail when not created by a registered user",
             "Zome":"rooms",
             "FnName":"newRoom",
             "Input":{"name":"general", "purpose":"everything goes in here"},
             "Regexp":"{\"errorMessage\":\"Validation Failed\",\"function\":\"commit\",\"name\":\"HolochainError\",\"source\":{\"column\":\"[^\"]*\",\"functionName\":\"newRoom\",\"line\":\"[^\"]*\"}}"
         },
         {
-            "Convey":"Register User ",
+            "Convey":"3. Register User ",
             "Zome":"profiles",
             "FnName":"register",
             "Input":{"username":"cnorris", "firstName":"Chuck", "lastName":"Norris", "email":"chuck@norris.com"},
             "Output":"%h1%",
             "Err":""
         },{
-            "Convey":"Check if hes registered",
+            "Convey":"4. Check if hes registered",
             "Zome":"profiles",
             "FnName":"isRegistered",
             "Input":"",
@@ -39,7 +39,7 @@
             "Err":""
         },
         {
-            "Convey":"newRoom should return the room's hash",
+            "Convey":"5. newRoom should return the room's hash",
             "Zome":"rooms",
             "FnName":"newRoom",
             "Input":{"name":"general", "purpose":"everything goes in here"},
@@ -47,7 +47,7 @@
             "Err":""
         },
         {
-            "Convey":"listRooms should return a list of rooms",
+            "Convey":"6. listRooms should return a list of rooms",
             "Zome":"rooms",
             "FnName":"listRooms",
             "Input":"",
