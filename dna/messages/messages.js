@@ -57,6 +57,7 @@ function getMessages(x){
 //@param: x:{new_message:"",old_Hash:""}
 function updateMessage(x) {
     debug(x);
+    x.new_message.timestamp=new Date();
     key=update("message",x.new_message,x.old_Hash);
     return key
 }
@@ -169,7 +170,7 @@ return true;
 
 return true;
 }
-function validateMod(entry_type,hash,newHash,pkg,sources) {return false;}
+function validateMod(entry_type,hash,newHash,pkg,sources) {return true;}
 function validateDel(entry_type,hash,pkg,sources) {return false;}
 function validatePutPkg(entry_type) {return null}
 function validateModPkg(entry_type) { return null}

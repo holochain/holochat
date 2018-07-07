@@ -48,6 +48,23 @@
             "Output":"",
             "Regexp":"{\"Entry\":{\"author\":\"QmNU6Gynfi33qknXvKn19NqLzRHEvb3Wea14rpJc7En1xK\",\"content\":{\"text\":\"Cheers!!\"},\"room_name\":\"general\",\"timestamp\":\"[^\"]*\"},\"Hash\":\"[^\"]*\"}",
             "Err":""
+        },
+        {
+            "Convey":"6. Update the messages of the room",
+            "Zome":"messages",
+            "FnName":"updateMessage",
+            "Input":{"new_message":{"author":"%agent%","content":{"text":"Updated Cheers!!"}, "room_name":"general"},"old_Hash":"%r2%"},
+            "Output":"%h%",
+            "Err":""
+        },
+        {
+            "Convey":"7. Get all the messages of the room by using the hash of the room as name ",
+            "Zome":"messages",
+            "FnName":"getMessages",
+            "Input":{"room_name":"general"},
+            "Output":"",
+            "Regexp":"{\"Entry\":{\"author\":\"QmNU6Gynfi33qknXvKn19NqLzRHEvb3Wea14rpJc7En1xK\",\"content\":{\"text\":\"Updated Cheers!!\"},\"room_name\":\"general\",\"timestamp\":\"[^\"]*\"},\"Hash\":\"[^\"]*\"}",
+            "Err":""
         }
     ]
 }
