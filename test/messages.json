@@ -4,32 +4,16 @@
             "Convey":"0. Adding New messages without any room",
             "Zome":"messages",
             "FnName":"newMessage",
-            "Input":{"content":"hallo"},
+            "Input":{"author":"%agent%","content":{"text":"Cheers!!"}},
             "Regexp":"{\"errorMessage\":\"Validation Failed: validator message failed: object property 'room_name' is required\",\"function\":\"commit\",\"name\":\"HolochainError\",\"source\":{\"column\":\"[^\"]*\",\"functionName\":\"newMessage\",\"line\":\"[^\"]*\"}}",
-            "Err":""
-        },
-        {
-            "Convey":"1.Getting List of messages without creating room",
-            "Zome":"messages",
-            "FnName":"getMessages",
-            "Input":"",
-            "Regexp":"{\"errorMessage\":\"input isn't valid multihash\",\"function\":\"getLinks\",\"name\":\"HolochainError\",\"source\":{\"column\":\"[^\"]*\",\"functionName\":\"getMessages\",\"line\":\"[^\"]*\"}}",
             "Err":""
         },
         {
             "Convey":"2. Adding message without creating room",
             "Zome":"messages",
             "FnName":"newMessage",
-            "Input":{"content":"hallo","room_name":"asdf"},
+            "Input":{"author":"%agent%","content":{"text":"Cheers!!"},"room_name":"asdf"},
             "Regexp":"{\"errorMessage\":\"Validation Failed\",\"function\":\"commit\",\"name\":\"HolochainError\",\"source\":{\"column\":\"[^\"]*\",\"functionName\":\"newMessage\",\"line\":\"[^\"]*\"}}"
-        },
-        {
-          "Convey":"3. Geting List of messages without creating room",
-            "Zome":"messages",
-            "FnName":"getMessages",
-            "Input":"",
-            "Regexp":"{\"errorMessage\":\"input isn't valid multihash\",\"function\":\"getLinks\",\"name\":\"HolochainError\",\"source\":{\"column\":\"[^\"]*\",\"functionName\":\"getMessages\",\"line\":\"[^\"]*\"}}",
-            "Err":""
         },
         {
             "Convey":"4. Register User **Needs more testing**",
@@ -52,7 +36,7 @@
             "Zome":"rooms",
             "FnName":"newRoom",
             "Input":{"name":"general", "purpose":"everything goes in here"},
-            "Output":"%h3%",
+            "Output":"%h5%",
             "Err":""
         },
         {

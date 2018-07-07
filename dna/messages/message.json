@@ -5,18 +5,12 @@
 		"author":{
 			"type": "string"
 		},
-		"avatar":{
-			"type": "string"
-		},
 		"content": {
 			"properties":{
 				"text":{
 					"type": "string"
 				},
-				"imageLink":{
-					"type": "string"
-				},
-				"videoLink":{
+				"mediaLink":{
 					"type": "string"
 				}
 			}
@@ -25,9 +19,6 @@
 			"type": "string"
 		},
 		"room_name": {
-			"type": "string"
-		},
-		"inReplyTo": {
 			"type": "string"
 		}
 	},

@@ -36,7 +36,11 @@ function newMessage(x) {
 // }
 
 function getMessages(x){
-  messages=getLinks(anchor("Room",x.room_name),"messages",{Load:true});
+  try{
+    messages=getLinks(anchor("Room",x.room_name),"messages",{Load:true});4
+  }catch(e){
+    return e;
+  }
   debug("Messages::"+JSON.stringify(messages))
   var return_messages=[];
   messages.forEach(function (element){
@@ -89,17 +93,19 @@ function genesis() {
 }
 
 function isValidRoom(room) {
-  //   debug("Checking if "+room+" is a valid...")
-  //   var rooms = getLinks(anchor("Room",""), "",{Load:true});
-  //   ///debug("Rooms: " + JSON.stringify(rooms))
-  // if( rooms instanceof Error ){
-  //     return false
-  // } else {
-  //   for( i=0; i<rooms.length; i++) {
-  //     if( rooms[i].Entry.anchorText === room.room_name) return true
-  //   }
-  //   return false
-  // }
+    debug("Checking if "+room+" is a valid...")
+  var rooms = getLinks(anchor("Room",""), "",{Load:true});
+    ///debug("Rooms: " + JSON.stringify(rooms))
+  if( rooms instanceof Error ){
+      return false
+  } else {
+    for( i=0; i<rooms.length; i++) {
+      if( rooms[i].Entry.anchorText === room.room_name)
+      debug("Room "+room.room_name+"is Valid . . ")
+      return true
+    }
+    return false
+  }
   return true;
 }
 
@@ -117,18 +123,21 @@ function isAllowed(author) {
 }
 
 function isValidRoomBase(room_base){
-//   debug("Checking if "+room_base+" is a valid...")
-//   var rooms = getLinks(anchor("Room",""), "",{Load:true});
-//   debug("Rooms: " + JSON.stringify(rooms))
-//   if( rooms instanceof Error ){
-//     return false
-//   } else {
-//     for( i=0; i<rooms.length; i++) {
-//       if( rooms[i].Hash === room_base) return true
-//   }
-//   return false
-// }
-return true;
+  debug("Checking if "+room_base+" is a valid...")
+  var rooms = getLinks(anchor("Room",""), "",{Load:true});
+  debug("Rooms: " + JSON.stringify(rooms))
+  if( rooms instanceof Error ){
+    return false
+  } else {
+    for( i=0; i<rooms.length; i++) {
+      if( rooms[i].Hash === room_base){
+        debug("isValidRoomBase: "+rooms[i].Hash +" "+ room_base)
+        return true
+      }
+  }
+  return false
+}
+
 }
 
 
@@ -140,7 +149,7 @@ function validateCommit(entry_type,entry,header,pkg,sources) {
 }
 // Local validate an entry before committing ???
 function validate(entry_type,entry,header,sources) {
-debug("entry_type::"+entry_type+"entry"+JSON.stringify(entry)+"header"+header+"sources"+sources);
+debug("entry_type:"+entry_type+"entry"+JSON.stringify(entry)+"header"+header+"sources"+sources);
     if (entry_type == "hashTag_links"||entry_type == "hashTag"||entry_type=="tag_post_links"||entry_type == "tag_post") {
       return true;
     }
