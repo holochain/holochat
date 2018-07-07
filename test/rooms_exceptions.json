@@ -1,0 +1,58 @@
+{
+    "Tests":[
+        {
+            "Convey":"0. newRoom should fail when room schema not fulfilled",
+            "Zome":"rooms",
+            "FnName":"newRoom",
+            "Input":{"name":"asdf"},
+            "Regexp":"{\"errorMessage\":\"Validation Failed: validator room failed: object property 'purpose' is required\",\"function\":\"commit\",\"name\":\"HolochainError\",\"source\":{\"column\":\"[^\"]*\",\"functionName\":\"newRoom\",\"line\":\"[^\"]*\"}}",
+            "Err":""
+        },
+        {
+            "Convey":"1. listRooms should return an empty list of rooms when there are none",
+            "Zome":"rooms",
+            "FnName":"listRooms",
+            "Input":"",
+            "Output":[],
+            "Err":""
+        },
+        {
+            "Convey":"2. newRoom should fail when not created by a registered user",
+            "Zome":"rooms",
+            "FnName":"newRoom",
+            "Input":{"name":"general", "purpose":"everything goes in here"},
+            "Regexp":"{\"errorMessage\":\"Validation Failed\",\"function\":\"commit\",\"name\":\"HolochainError\",\"source\":{\"column\":\"[^\"]*\",\"functionName\":\"newRoom\",\"line\":\"[^\"]*\"}}"
+        },
+        {
+            "Convey":"3. Register User ",
+            "Zome":"profiles",
+            "FnName":"register",
+            "Input":{"username":"cnorris", "firstName":"Chuck", "lastName":"Norris", "email":"chuck@norris.com"},
+            "Output":"%h1%",
+            "Err":""
+        },{
+            "Convey":"4. Check if hes registered",
+            "Zome":"profiles",
+            "FnName":"isRegistered",
+            "Input":"",
+            "Output":true,
+            "Err":""
+        },
+        {
+            "Convey":"5. newRoom should return the room's hash",
+            "Zome":"rooms",
+            "FnName":"newRoom",
+            "Input":{"name":"general", "purpose":"everything goes in here"},
+            "Output":"%h3%",
+            "Err":""
+        },
+        {
+            "Convey":"6. listRooms should return a list of rooms",
+            "Zome":"rooms",
+            "FnName":"listRooms",
+            "Input":"",
+            "Output":[{"id":"%r1%","name":"general","purpose":"everything goes in here"}],
+            "Err":""
+        }
+    ]
+}
