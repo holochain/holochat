@@ -2,8 +2,24 @@
 	"title": "Message Schema",
 	"type": "object",
 	"properties": {
-		"content": {
+		"author":{
 			"type": "string"
+		},
+		"avatar":{
+			"type": "string"
+		},
+		"content": {
+			"properties":{
+				"text":{
+					"type": "string"
+				},
+				"imageLink":{
+					"type": "string"
+				},
+				"videoLink":{
+					"type": "string"
+				}
+			}
 		},
 		"timestamp": {
 			"type": "string"
@@ -15,5 +31,5 @@
 			"type": "string"
 		}
 	},
-    "required": ["room_name","content", "timestamp"]
+    "required": ["author","room_name","content", "timestamp"]
 }

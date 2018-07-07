@@ -36,7 +36,7 @@
             "Convey":"4. Adding message to the room using the hash of the of the room ",
             "Zome":"messages",
             "FnName":"newMessage",
-            "Input":{"content":"Cheers!!", "room_name":"general"},
+            "Input":{"author":"%agent%","content":{"text":"Cheers!!"}, "room_name":"general"},
             "Output":"%h1%",
             "Err":""
         },
@@ -46,7 +46,7 @@
             "FnName":"getMessages",
             "Input":{"room_name":"general"},
             "Output":"",
-            "Regexp":"{\"Entry\":{\"content\":\"Cheers!!\",\"room_name\":\"general\",\"timestamp\":\"[^\"]*\"},\"Hash\":\"[^\"]*\"}",
+            "Regexp":"{\"Entry\":{\"author\":\"QmNU6Gynfi33qknXvKn19NqLzRHEvb3Wea14rpJc7En1xK\",\"content\":{\"text\":\"Cheers!!\"},\"room_name\":\"general\",\"timestamp\":\"[^\"]*\"},\"Hash\":\"[^\"]*\"}",
             "Err":""
         }
     ]

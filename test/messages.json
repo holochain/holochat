@@ -13,7 +13,7 @@
             "Zome":"messages",
             "FnName":"getMessages",
             "Input":"",
-            "Regexp":"{\"errorMessage\":\"input isn't valid multihash\",\"function\":\"getLinks\",\"name\":\"HolochainError\",\"source\":{\"column\":\"[^\"]*\",\"functionName\":\"listMessages\",\"line\":\"[^\"]*\"}}",
+            "Regexp":"{\"errorMessage\":\"input isn't valid multihash\",\"function\":\"getLinks\",\"name\":\"HolochainError\",\"source\":{\"column\":\"[^\"]*\",\"functionName\":\"getMessages\",\"line\":\"[^\"]*\"}}",
             "Err":""
         },
         {
@@ -28,7 +28,7 @@
             "Zome":"messages",
             "FnName":"getMessages",
             "Input":"",
-            "Regexp":"{\"errorMessage\":\"input isn't valid multihash\",\"function\":\"getLinks\",\"name\":\"HolochainError\",\"source\":{\"column\":\"[^\"]*\",\"functionName\":\"listMessages\",\"line\":\"[^\"]*\"}}",
+            "Regexp":"{\"errorMessage\":\"input isn't valid multihash\",\"function\":\"getLinks\",\"name\":\"HolochainError\",\"source\":{\"column\":\"[^\"]*\",\"functionName\":\"getMessages\",\"line\":\"[^\"]*\"}}",
             "Err":""
         },
         {
@@ -59,7 +59,7 @@
             "Convey":"7. Adding message to the room using the hash of the of the room ",
             "Zome":"messages",
             "FnName":"newMessage",
-            "Input":{"content":"Cheers!!", "room_name":"general"},
+            "Input":{"author":"%agent%","content":{"text":"Cheers!!"}, "room_name":"general"},
             "Output":"%h1%",
             "Err":""
         },
@@ -68,7 +68,7 @@
             "Zome":"messages",
             "FnName":"getMessages",
             "Input":{"room_name":"general"},
-            "Regexp":"{\"Entry\":{\"content\":\"Cheers!!\",\"room_name\":\"general\",\"timestamp\":\"[^\"]*\"},\"Hash\":\"[^\"]*\"}",
+            "Regexp":"{\"Entry\":{\"author\":\"QmNU6Gynfi33qknXvKn19NqLzRHEvb3Wea14rpJc7En1xK\",\"content\":{\"text\":\"Cheers!!\"},\"room_name\":\"general\",\"timestamp\":\"[^\"]*\"},\"Hash\":\"[^\"]*\"}",
             "Err":""
         }
     ]
