@@ -54,10 +54,10 @@ function getMessages(x){
 
 // Edit a post (create new one which "replaces" the old)
 // receives message like in newMessage and old_message's hash
-//@param: x:{new_message:"",old_message:""}
+//@param: x:{new_message:"",old_Hash:""}
 function updateMessage(x) {
     debug(x);
-    key=update("message",x.new_message,x.old_message.Hash);
+    key=update("message",x.new_message,x.old_Hash);
     return key
 }
 

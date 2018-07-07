@@ -109,7 +109,7 @@ Returns: hash -> if succesfully updated
         "NotRegistered" -> if the user is not registered
 
 
-## ZomeName: Rooms
+## ZomeName: rooms
 
 ### listRooms()
 Details : Returns all the rooms on the App
@@ -126,3 +126,39 @@ Input :
         "purpose":"The Purpose of the Room"}
 
 Returns : Hash of the room that can be used as an ID
+
+## ZomeName: messages
+
+### newMessage()
+**Details:** used to post messages (Note: timestamp is applied from the back end)
+**Input:**
+message.json:
+ {"author":{"type": "string"},
+		"avatar":{"type": "string"},
+		"content": {
+	         "text":{"type": "string"},
+				"imageLink":{"type": "string"},
+				"videoLink":{"type": "string"}
+			},
+		"timestamp": {"type": "string"},
+		"room_name": {"type": "string"},
+		"inReplyTo": {"type": "string"}
+	},
+    "required": ["author","room_name","content"]
+}
+
+**Returns:** Hash of the entry --> us as ID of the message
+
+### getMessage()
+**Details:** get messages for a specific Room
+**Input:**{room_name:""}
+
+**Returns:** Array of messages in this format [{Entry:{},Hash:""},{Entry:{},Hash:""},...]
+
+
+### updateMessage()
+**Details:** update messages for a specific Room
+**Input:**{new_message:"",old_Hash:""}
+(Note: the old_Hash is the ID that the messaged used & new Message has the same message.json format as above)
+
+**Returns:** Array of messages in this format [{Entry:{},Hash:""},{Entry:{},Hash:""},...]
