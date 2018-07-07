@@ -4,37 +4,6 @@ The anchors for the Rooms are using anchor("Room",room.name) with tag : "room"
 the Messages can be stored to the same anchor with a diffrent tag
 */
 
-// Get list of chat Spaces / Rooms / Channels
-//Can be Optimized
-
-
-function listRooms() {
-  if(anchorExists("Room","")){
-    var rooms_anchor = getLinks(anchor("Room",""), "",{Load:true});
-    debug("rooms_anchor: " + JSON.stringify(rooms_anchor))
-    if( rooms_anchor instanceof Error ){
-      debug("throwErrors")
-        return []
-    } else {
-        var return_rooms = new Array(rooms_anchor.length);
-        return_rooms=[];
-          for( i=0; i<rooms_anchor.length; i++) {
-            debug("ROOMAnchors:: "+JSON.stringify(rooms_anchor[i]))
-            if(rooms_anchor[i].Entry.anchorText!=""){
-              rooms=getLinks(rooms_anchor[i].Hash,"room",{Load:true})
-              debug("ListRooms: "+JSON.stringify(rooms))
-              return_rooms[i] = rooms[0].Entry
-              return_rooms[i].id = rooms[0].Hash
-            }
-          }
-        debug("Something")
-        return return_rooms
-    }
-  }
-  debug("NUll")
-  return [];
-}
-
 // Create a new chat Space / Channel
 function newRoom(room) {
     var key
@@ -47,6 +16,30 @@ function newRoom(room) {
     return key;
 }
 
+// Get list of chat Spaces / Rooms / Channels
+//Can be Optimized
+function listRooms() {
+  if(anchorExists("Room","")){
+    var rooms_anchor = getLinks(anchor("Room",""), "",{Load:true});
+    // debug("rooms_anchor: " + JSON.stringify(rooms_anchor))
+    if( rooms_anchor instanceof Error ){
+        return []
+    } else {
+        var return_rooms = new Array(rooms_anchor.length);
+        return_rooms=[];
+          for( i=0; i<rooms_anchor.length; i++) {
+            if(rooms_anchor[i].Entry.anchorText!=""){
+              rooms=getLinks(rooms_anchor[i].Hash,"room",{Load:true})
+              // debug("ListRooms: "+JSON.stringify(rooms))
+              return_rooms[i] = rooms[0].Entry
+              return_rooms[i].id = rooms[0].Hash
+            }
+          }
+        return return_rooms
+    }
+  }
+  return [];
+}
 
 function getRoomByName(x){
   rooms=getLinks(anchor("Room",x.room_name),"room",{Load:true});

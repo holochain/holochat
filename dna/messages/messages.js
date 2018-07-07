@@ -1,43 +1,25 @@
 // Create a new post in a Space / Channel
-// receives content, room, [inReplyTo]
+//@param x={room_name:"",content:{text:"",mediaLink:""}}
 function newMessage(x) {
     x.timestamp = new Date();
      var key;
      try{
        key = commit("message", x);
-       //commit("message_links",{Links:[{Base:anchor("Room",x.room_name),Link:key,Tag:"message"}]})
-       commit("message_links",{Links:[{Base:anchor("Room",x.room_name),Link:key,Tag:"messages"}]})
-
-
+       commit("message_links",{Links:[{Base:anchor("Room",x.room_name),Link:key,Tag:"messages"}]});
      }catch(e){
        return e;
      }
-
-
-    // TODO INDEXING -hashTag
-   //  debug("Starting HASHtag search");
+  // TODO INDEXING -hashTag
+  //  debug("Starting HASHtag search");
   //  call("hashtag","callingHashTag",x);
   return key
 }
 
-
-// function getMessages(x){
-//   messages=getLinks(anchor("Room",x.room_name),"messages",{Load:true});
-//   debug("Messages::"+JSON.stringify(messages))
-//   var return_messages=[];
-//   messages.forEach(function (element){
-//     var tempMessage={Hash:"",Entry:""};
-//     tempMessage.Hash=element.Hash;
-//     tempMessage.Entry=element.Entry
-//     return_messages.push(tempMessage);
-//   });
-//   debug("Messages::"+JSON.stringify(return_messages))
-//   return return_messages;
-// }
-
+//Get Messages for a Rooms
+//@param x={room_name:""}
 function getMessages(x){
   try{
-    messages=getLinks(anchor("Room",x.room_name),"messages",{Load:true});4
+    messages=getLinks(anchor("Room",x.room_name),"messages",{Load:true});
   }catch(e){
     return e;
   }
@@ -54,11 +36,9 @@ function getMessages(x){
 }
 
 
-// TODO Replace edited posts. Drop deleted/invalidated ones.
-
 // Edit a post (create new one which "replaces" the old)
 // receives message like in newMessage and old_message's hash
-//@param: x:{new_message:"",old_Hash:""}
+//@param: x:{new_message:{},old_Hash:""}
 function updateMessage(x) {
     debug(x);
     x.new_message.timestamp=new Date();
@@ -86,11 +66,6 @@ function anchorExists(anchorType, anchorText) {
 
 
 /********** Validation Functions *************/
-
-function genesis() {
-    debug("HoloChat App Starting...")
-  return true;
-}
 
 function isValidRoom(room) {
     debug("Checking if "+room+" is a valid...")
@@ -134,13 +109,15 @@ function isValidRoomBase(room_base){
         debug("isValidRoomBase: "+rooms[i].Hash +" "+ room_base)
         return true
       }
-  }
+    }
   return false
+  }
 }
 
+function genesis() {
+    debug("HoloChat App Starting...")
+  return true;
 }
-
-
 function validatePut(entry_type,entry,header,pkg,sources) {
     return validate(entry_type,entry,header,sources);
 }

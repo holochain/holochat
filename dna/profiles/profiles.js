@@ -1,3 +1,5 @@
+//Register users
+//@param x={}
 function register(x) {
     x.agent_id = App.Key.Hash
     x.agent_hash=App.Agent.Hash
@@ -6,8 +8,7 @@ function register(x) {
     return key;
 }
 
-
-
+// Find out if users is registered
 function isRegistered() {
     var registered_users = getLinks(anchor("Profiles",""), 'registered_users',{Load:true})
     debug("Registered users are: "+JSON.stringify(registered_users));
@@ -46,11 +47,6 @@ function updateProfile(x) {
     return key;
 }
 
-function genesis() {
-    return true;
-}
-
-
 /*----------  Anchor API  ----------*/
 
 function anchor(anchorType, anchorText) {
@@ -69,7 +65,6 @@ function anchorExists(anchorType, anchorText) {
 
 
 /*----------- Validation Functions---------------*/
-
 
 function isSourcesOwnProfile(entry, sources) {
     return sources[0] == entry.agent_id;
@@ -90,6 +85,9 @@ function isRegistrationOnDNA(registration_entry) {
   return true;
 }
 
+function genesis() {
+    return true;
+}
 
 function validatePut(entry_type,entry,header,pkg,sources) {
     return validateCommit(entry_type,entry,header,pkg,sources)
