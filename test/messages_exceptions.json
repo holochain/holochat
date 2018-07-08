@@ -35,7 +35,7 @@
             "Convey":"6. Creting new room **Needs More testing**",
             "Zome":"rooms",
             "FnName":"newRoom",
-            "Input":{"name":"general", "purpose":"everything goes in here"},
+            "Input":{"name":"general", "access":"public"},
             "Output":"%h5%",
             "Err":""
         },

@@ -5,9 +5,12 @@
 		"name": {
 			"type": "string"
 		},
+		"access": {
+			"type": "string"
+		},
 		"purpose": {
 			"type": "string"
 		}
 	},
-	"required": ["name", "purpose"]
+	"required": ["name","access"]
 }

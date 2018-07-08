@@ -16,10 +16,10 @@
     "BasedOn": "",
     "Zomes": [
       {
-            "Name": "chat",
-            "Description": "chat code",
+            "Name": "membership",
+            "Description": "used to create membership for private Channels",
             "RibosomeType": "js",
-            "CodeFile": "chat.js",
+            "CodeFile": "membership.js",
             "Config": {
               "ErrorHandling": "throwErrors"
             },
@@ -67,7 +67,7 @@
             ],
             "Functions": [
                 {
-                    "Name": "listRooms",
+                    "Name": "getPublicRooms",
                     "CallingType": "json",
                     "Exposure": "public"
                 },{

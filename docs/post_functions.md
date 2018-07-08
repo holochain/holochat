@@ -65,7 +65,7 @@ User_details:
 
 ## ZomeName: rooms
 
-### listRooms()
+### getPublicRooms()
 **Details**: Returns all the rooms on the App
 **Input :** None
 **Returns**:
@@ -74,10 +74,10 @@ User_details:
       "purpose":"The Purpose of the Room"}
 
 ### newRoom(room)
-**Details**: Call to create new Rooms
+**Details**: Call to create new Rooms (public|private)
 **Input :**
 > {"name":"Name of the Room",
-        "purpose":"The Purpose of the Room"}
+        "access":"public|private"}
 
 **Returns**: Hash of the room that can be used as an ID
 

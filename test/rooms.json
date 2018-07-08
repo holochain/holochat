@@ -19,24 +19,24 @@
             "Convey":"2. newRoom should return the room's hash",
             "Zome":"rooms",
             "FnName":"newRoom",
-            "Input":{"name":"general", "purpose":"everything goes in here"},
+            "Input":{"name":"general", "access":"public"},
             "Output":"%h5%",
             "Err":""
         },
         {
-            "Convey":"3. listRooms should return a list of rooms",
+            "Convey":"3. getPublicRooms should return a list of rooms",
             "Zome":"rooms",
-            "FnName":"listRooms",
+            "FnName":"getPublicRooms",
             "Input":"",
-            "Output":[{"id":"%r1%","name":"general","purpose":"everything goes in here"}],
+            "Output":[{"id":"%r1%","name":"general","access":"public"}],
             "Err":""
         },
         {
-            "Convey":"4. GetRooms",
+            "Convey":"4. Get Room by name",
             "Zome":"rooms",
             "FnName":"getRoomByName",
             "Input":{"room_name":"general"},
-            "Output":{"name":"general","purpose":"everything goes in here"},
+            "Output":{"name":"general","access":"public"},
             "Err":""
         }
     ]

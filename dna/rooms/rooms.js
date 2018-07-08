@@ -7,18 +7,27 @@ the Messages can be stored to the same anchor with a diffrent tag
 // Create a new chat Space / Channel
 function newRoom(room) {
     var key
-    try{
+
+    if(room.access=="public"){
+      try{
+        key=commit("room", room);
+        commit("room_links",{Links:[{Base:anchor("Room",room.name),Link:key,Tag:"room"}]})
+      }catch(e){
+        return (e);
+      }
+      return key;
+    }else if (room.access=="private") {
       key=commit("room", room);
-      commit("room_links",{Links:[{Base:anchor("Room",room.name),Link:key,Tag:"room"}]})
-    }catch(e){
-      return (e);
+      commit("room_links",{Links:[{Base:anchor("Private_Room",room.name),Link:key,Tag:"room"}]})
+    }else {
+      return "INVALID ACCESS:"+room.access;
     }
-    return key;
+
 }
 
-// Get list of chat Spaces / Rooms / Channels
+// Get list of Public chat Spaces / Rooms / Channels
 //Can be Optimized
-function listRooms() {
+function getPublicRooms() {
   if(anchorExists("Room","")){
     var rooms_anchor = getLinks(anchor("Room",""), "",{Load:true});
     // debug("rooms_anchor: " + JSON.stringify(rooms_anchor))
@@ -30,7 +39,7 @@ function listRooms() {
           for( i=0; i<rooms_anchor.length; i++) {
             if(rooms_anchor[i].Entry.anchorText!=""){
               rooms=getLinks(rooms_anchor[i].Hash,"room",{Load:true})
-              // debug("ListRooms: "+JSON.stringify(rooms))
+              // debug("getPublicRooms: "+JSON.stringify(rooms))
               return_rooms[i] = rooms[0].Entry
               return_rooms[i].id = rooms[0].Hash
             }
@@ -41,6 +50,32 @@ function listRooms() {
   return [];
 }
 
+// Get list of Private chat Spaces / Rooms / Channels
+//Should Not Provide this Functionality
+/*
+function getPrivateRooms() {
+  if(anchorExists("Private_Room","")){
+    var rooms_anchor = getLinks(anchor("Private_Room",""), "",{Load:true});
+    // debug("rooms_anchor: " + JSON.stringify(rooms_anchor))
+    if( rooms_anchor instanceof Error ){
+        return []
+    } else {
+        var return_rooms = new Array(rooms_anchor.length);
+        return_rooms=[];
+          for( i=0; i<rooms_anchor.length; i++) {
+            if(rooms_anchor[i].Entry.anchorText!=""){
+              rooms=getLinks(rooms_anchor[i].Hash,"room",{Load:true})
+              // debug("getPublicRooms: "+JSON.stringify(rooms))
+              return_rooms[i] = rooms[0].Entry
+              return_rooms[i].id = rooms[0].Hash
+            }
+          }
+        return return_rooms
+    }
+  }
+  return [];
+}
+*/
 function getRoomByName(x){
   rooms=getLinks(anchor("Room",x.room_name),"room",{Load:true});
   return rooms[0].Entry;
