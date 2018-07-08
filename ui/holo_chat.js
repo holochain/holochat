@@ -1,11 +1,12 @@
 var activeRoom;
+var active_room_name;
 
  function getMyProfile() {
-   $.get("/fn/profiles/myProfile", "", function(profile){
+   $.get("/fn/profiles/getProfile", "", function(profile){
      $("#title-username").text(JSON.parse(profile).firstName)
    });
  }
-
+/*
  function register() {
    $.post("/fn/identity/registerDpkiKeyTo", "", function(arr){
      if(arr=="true"){
@@ -13,9 +14,9 @@ var activeRoom;
      }else{$("#varified").text("Not Registered")}
    });
  }
-
+*/
  function getRooms() {
-   $.get("/fn/rooms/listRooms", "", function(rooms){
+   $.get("/fn/rooms/getPublicRooms", "", function(rooms){
      rooms = JSON.parse(rooms)
      $("#rooms").empty()
      for(i=0;i<rooms.length;i++){
@@ -30,12 +31,12 @@ var activeRoom;
        setActiveRoom()
      }
    });
- };
+ }
 
  function addRoom() {
    var room = {
      name: $("#room-name-input").val(),
-     purpose: "..."
+     access: "public"
    }
    $("#room-name-input").val('')
    $.post("/fn/rooms/newRoom", JSON.stringify(room), getRooms)
@@ -44,6 +45,8 @@ var activeRoom;
  function selectRoom(event) {
    $("#rooms li").removeClass("selected-room")
    activeRoom = $(this).data('id')
+   active_room_name = $(this).data('name')
+
    setActiveRoom()
  }
 
@@ -55,21 +58,21 @@ var activeRoom;
  }
 
 function getMessages() {
-  var hash = activeRoom
+  var hash = {room_name:active_room_name}
   console.log("Getting messages for room: "+hash)
-  $.post("/fn/messages/listMessages", JSON.stringify(hash), function(messages){
+  $.post("/fn/messages/getMessages", JSON.stringify(hash), function(messages){
     $("#messages").empty()
     messages = JSON.parse(messages)
     messages = messages.sort(function(a,b){
-      timeA = new Date(a.timestamp)
-      timeB = new Date(b.timestamp)
+      timeA = new Date(a.Entry.timestamp)
+      timeB = new Date(b.Entry.timestamp)
       return timeA > timeB
     })
     for(var i=0;i<messages.length;i++) {
       $("#messages").append("<li class=\"list-unstyled\">"+
-         "<span class=\"timestamp\">"+messages[i].timestamp+"</span>"+
-         "<span class=\"username\">"+messages[i].author.username+messages[i].registered+"</span>"+
-         "<span class=\"message\">"+messages[i].content+"</span>"+
+         "<span class=\"timestamp\">"+messages[i].Entry.timestamp+"</span>"+
+         "<span class=\"username\">"+messages[i].Entry.author+"</span>"+
+         "<span class=\"message\">"+messages[i].Entry.content.text+"</span>"+
       "</li>")
     }
   });
@@ -78,8 +81,8 @@ function getMessages() {
  function sendMessage() {
    var text = $("#message-input").val()
    var message = {
-     content: text,
-     room: activeRoom
+     content: {"text":text},
+     room_name: active_room_name
    }
 
    $.post("/fn/messages/newMessage", JSON.stringify(message), function(){
@@ -115,6 +118,8 @@ function getMessages() {
      "json"
    );
  }
+
+/*
 //TODO this METHORD will retrive the post it has to be displayed
  function getTag (tag) {
     $.post("/fn/messages/getPostsByTag",tag,function(arr) {
@@ -132,7 +137,7 @@ function passTag() {
     getTag(hashtag);
     $('#tagDialog').modal('hide');
   }
-
+*/
  $(window).ready(function() {
     $.post("/fn/profiles/isRegistered", "",
         function(registered) {

@@ -30,7 +30,7 @@ function newRoom(room) {
 function getPublicRooms() {
   if(anchorExists("Room","")){
     var rooms_anchor = getLinks(anchor("Room",""), "",{Load:true});
-    // debug("rooms_anchor: " + JSON.stringify(rooms_anchor))
+    //debug("rooms_anchor: " + JSON.stringify(rooms_anchor))
     if( rooms_anchor instanceof Error ){
         return []
     } else {
@@ -39,7 +39,7 @@ function getPublicRooms() {
           for( i=0; i<rooms_anchor.length; i++) {
             if(rooms_anchor[i].Entry.anchorText!=""){
               rooms=getLinks(rooms_anchor[i].Hash,"room",{Load:true})
-              // debug("getPublicRooms: "+JSON.stringify(rooms))
+              //debug("getPublicRooms: "+JSON.stringify(rooms))
               return_rooms[i] = rooms[0].Entry
               return_rooms[i].id = rooms[0].Hash
             }

@@ -2,6 +2,7 @@
 //@param x={room_name:"",content:{text:"",mediaLink:""}}
 function newMessage(x) {
     x.timestamp = new Date();
+    x.author=App.Agent.Hash;
      var key;
      try{
        key = commit("message", x);
@@ -18,12 +19,13 @@ function newMessage(x) {
 //Get Messages for a Rooms
 //@param x={room_name:""}
 function getMessages(x){
+  if(anchorExists("Room","")){
   try{
     messages=getLinks(anchor("Room",x.room_name),"messages",{Load:true});
   }catch(e){
     return e;
   }
-  debug("Messages::"+JSON.stringify(messages))
+  //debug("Messages::"+JSON.stringify(messages))
   var return_messages=[];
   messages.forEach(function (element){
     var tempMessage={Hash:"",Entry:""};
@@ -31,8 +33,10 @@ function getMessages(x){
     tempMessage.Entry=element.Entry
     return_messages.push(tempMessage);
   });
-  debug("Messages::"+JSON.stringify(return_messages))
-  return return_messages[0];
+  debug("Return_messages::"+JSON.stringify(return_messages))
+  return return_messages;
+  }
+  return [];
 }
 
 
@@ -42,6 +46,7 @@ function getMessages(x){
 function updateMessage(x) {
     debug(x);
     x.new_message.timestamp=new Date();
+    x.author=App.Agent.Hash;
     key=update("message",x.new_message,x.old_Hash);
     return key
 }
@@ -68,7 +73,7 @@ function anchorExists(anchorType, anchorText) {
 /********** Validation Functions *************/
 
 function isValidRoom(room) {
-    debug("Checking if "+room+" is a valid...")
+  debug("Checking if "+room+" is a valid...")
   var rooms = getLinks(anchor("Room",""), "",{Load:true});
     ///debug("Rooms: " + JSON.stringify(rooms))
   if( rooms instanceof Error ){
@@ -87,7 +92,7 @@ function isValidRoom(room) {
 function isAllowed(author) {
     debug("Checking if "+author+" is a registered user...")
     var registered_users = getLinks(anchor("Profiles",""), "registered_users",{Load:true});
-    debug("Registered users are: "+JSON.stringify(registered_users));
+    //debug("Registered users are: "+JSON.stringify(registered_users));
     if( registered_users instanceof Error ) return false;
     for(var i=0; i < registered_users.length; i++) {
         var profile = registered_users[i].Entry
@@ -100,13 +105,13 @@ function isAllowed(author) {
 function isValidRoomBase(room_base){
   debug("Checking if "+room_base+" is a valid...")
   var rooms = getLinks(anchor("Room",""), "",{Load:true});
-  debug("Rooms: " + JSON.stringify(rooms))
+  //debug("Rooms: " + JSON.stringify(rooms))
   if( rooms instanceof Error ){
     return false
   } else {
     for( i=0; i<rooms.length; i++) {
       if( rooms[i].Hash === room_base){
-        debug("isValidRoomBase: "+rooms[i].Hash +" "+ room_base)
+        //debug("isValidRoomBase: "+rooms[i].Hash +" "+ room_base)
         return true
       }
     }
