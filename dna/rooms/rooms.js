@@ -19,6 +19,9 @@ function newRoom(room) {
     }else if (room.access=="private") {
       key=commit("room", room);
       commit("room_links",{Links:[{Base:anchor("Private_Room",room.name),Link:key,Tag:"room"}]})
+      //Setting Creator as Admin;
+      call("membership","setRoomAdmin",{"room_name":room.name});
+      return key;
     }else {
       return "INVALID ACCESS:"+room.access;
     }

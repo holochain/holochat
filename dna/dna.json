@@ -27,11 +27,20 @@
                 {
                     "Name": "membership",
                     "DataFormat": "links"
+                },
+                {
+                    "Name": "admin_link",
+                    "DataFormat": "links"
                 }
             ],
             "Functions": [
                 {
-                    "Name": "listMembers",
+                  "Name": "setRoomAdmin",
+                  "CallingType": "json",
+                  "Exposure": "public"
+                },
+                {
+                    "Name": "getRoomAdmin",
                     "CallingType": "json",
                     "Exposure": "public"
                 },
