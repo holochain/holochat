@@ -27,23 +27,9 @@
                 {
                     "Name": "membership",
                     "DataFormat": "links"
-                },
-                {
-                    "Name": "admin_link",
-                    "DataFormat": "links"
                 }
             ],
             "Functions": [
-                {
-                  "Name": "setRoomAdmin",
-                  "CallingType": "json",
-                  "Exposure": "public"
-                },
-                {
-                    "Name": "getRoomAdmin",
-                    "CallingType": "json",
-                    "Exposure": "public"
-                },
                 {
                     "Name": "listAdmins",
                     "CallingType": "json",
@@ -70,8 +56,11 @@
                 },
                 {
                     "Name": "room_links",
-                    "DataFormat": "links",
-                    "Sharing": "public"
+                    "DataFormat": "links"
+                },
+                {
+                    "Name": "admin_link",
+                    "DataFormat": "links"
                 }
             ],
             "Functions": [
@@ -79,13 +68,24 @@
                     "Name": "getPublicRooms",
                     "CallingType": "json",
                     "Exposure": "public"
-                },{
-                    "Name": "getRoomByName",
+                },
+                {
+                    "Name": "newRoom",
                     "CallingType": "json",
                     "Exposure": "public"
                 },
                 {
-                    "Name": "newRoom",
+                    "Name": "getRoomByName",
+                    "CallingType": "json",
+                    "Exposure": "private"
+                },
+                {
+                    "Name": "setRoomAdmin",
+                    "CallingType": "json",
+                    "Exposure": "private"
+                },
+                {
+                    "Name": "getRoomAdmin",
                     "CallingType": "json",
                     "Exposure": "public"
                 }

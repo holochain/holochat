@@ -32,16 +32,16 @@
             "Err":""
         },
         {
-            "Convey":"3. get admin of the private room ",
-            "Zome":"membership",
+            "Convey":"4. get admin of the private room ",
+            "Zome":"rooms",
             "FnName":"getRoomAdmin",
             "Input":{"room_name":"general"},
             "Output":"%r1%",
             "Err":""
         },
         {
-            "Convey":"3. get admin of the private room ",
-            "Zome":"membership",
+            "Convey":"5. get admin of the private room ",
+            "Zome":"rooms",
             "FnName":"getRoomAdmin",
             "Input":{"room_name":"fake"},
             "Output":"ERROR: invalid PRIVATE Room name",

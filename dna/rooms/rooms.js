@@ -20,7 +20,7 @@ function newRoom(room) {
       key=commit("room", room);
       commit("room_links",{Links:[{Base:anchor("Private_Room",room.name),Link:key,Tag:"room"}]})
       //Setting Creator as Admin;
-      call("membership","setRoomAdmin",{"room_name":room.name});
+      setRoomAdmin({"room_name":room.name});
       return key;
     }else {
       return "INVALID ACCESS:"+room.access;
@@ -85,6 +85,37 @@ function getRoomByName(x){
 }
 
 
+/*--------- Admin --------*/
+
+// Set the User as the Admin himself
+//@param : {room_name:""}
+function setRoomAdmin(x){
+  commit("admin_link",{Links:[{Base:anchor("Private_Room",x.room_name),Link:App.Agent.Hash,Tag:"admin"}]})
+}
+
+//@param : {room_name:""}
+function getRoomAdmin(x){
+  admin = getLinks(anchor("Private_Room",x.room_name), "admin",{Load:true});
+  var return_admin;
+  if(admin.length>=1){
+    admin.forEach(function (element){
+      return_admin=element.Hash;
+    });
+  }else{
+    return "ERROR: invalid PRIVATE Room name";
+  }
+
+  return return_admin;
+}
+
+// TODO:
+//Can be changed to add Admins for more features
+//@param : {room_name:"",agent_hash:""}
+function addAdmin(x){
+  commit("admin",{Links:[{Base:anchor("Private_Room",x.room_name),Link:x.agent_hash,Tag:"admin"}]})
+}
+
+
 /*----------  Anchor API  ----------*/
 
 function anchor(anchorType, anchorText) {
@@ -102,6 +133,34 @@ function anchorExists(anchorType, anchorText) {
 }
 
 /*----------Validation Functions-----------*/
+
+function isValidAdmin(entry_type,entry,header,sources){
+  if(sources==App.Key.Hash){
+    debug("Admin is Valid:"+sources)
+    return true;
+  }
+  else {
+    debug("ERROR: Admin is not valid : "+sources)
+    return false;
+  }
+}
+
+function isValidRoom(room) {
+  debug("Checking if "+room+" is a valid...")
+  var rooms = getLinks(anchor("Room",""), "",{Load:true});
+    ///debug("Rooms: " + JSON.stringify(rooms))
+  if( rooms instanceof Error ){
+      return false
+  } else {
+    for( i=0; i<rooms.length; i++) {
+      if( rooms[i].Entry.anchorText === room.room_name)
+      debug("Room "+room.room_name+"is Valid . . ")
+      return true
+    }
+    return false
+  }
+  return true;
+}
 
 function isAllowed(author) {
     debug("Checking if "+author+" is a registered user...");
@@ -130,10 +189,22 @@ function validateCommit(entry_type,entry,header,pkg,sources) {
 }
 // Local validate an entry before committing ???
 function validate(entry_type,entry,header,sources) {
+  if (entry_type == "admin_link") {
+    return isValidAdmin(entry_type,entry,header,sources);
+  }
     return isAllowed(sources[0]);
 }
 
-function validateLink(linkingEntryType,baseHash,linkHash,tag,pkg,sources){return true}
+function validateLink(linkingEntryType,baseHash,linkHash,tag,pkg,sources){
+  if(linkingEntryType=="admin_link")
+  return isValidRoom(baseHash);
+  else if (linkingEntryType=="room_links") {
+    return true;
+  }
+  else{
+    return false;
+  }
+}
 function validateMod(entry_type,hash,newHash,pkg,sources) {return true;}
 function validateDel(entry_type,hash,pkg,sources) {return true;}
 function validatePutPkg(entry_type) {return null}

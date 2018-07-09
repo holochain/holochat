@@ -87,6 +87,13 @@ User_details:
 
 **Returns**: Hash of the room that can be used as an ID
 
+### getRoomAdmin()
+**Details:** Gets you the admin of the room
+**Input:**
+>{room_name:""}
+
+**Returns:** Hash of the Admin Agent 
+
 ## ZomeName: messages
 
 ### newMessage()
@@ -122,3 +129,6 @@ message.json:
 (Note: the old_Hash is the ID that the messaged used & new Message has the same message.json format as above)
 
 **Returns:** Hash of the entry --> us as ID of the message
+
+
+## ZomeName: membership
