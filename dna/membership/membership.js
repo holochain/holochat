@@ -1,9 +1,3 @@
-
-
-// Get list of chat Users / Members
-function listMembers() {return getLinks(App.DNA.Hash, "member",{Load:true});}
-
-
 // Authorize a new agent_id to participate in this holochain
 // agent_id must match the string they use to "hc init" their holochain, and is currently their email by convention
 //@param : {room_name:"",agent_hash:""}
@@ -12,6 +6,23 @@ function addMember(x) {
     send(x.agent_key,{"type":"add_private_rooms","room_name":x.room_name});
     return key;
 }
+
+
+//@param : {room_name:""}
+function getMembers(x){
+  members = getLinks(anchor("Private_Room",x.room_name), "members",{Load:true});
+  var return_members;
+  if(members.length>=1){
+    members.forEach(function (element){
+      return_members=element.Hash;
+    });
+  }else{
+    return "ERROR: invalid PRIVATE Room name";
+  }
+
+  return return_members;
+}
+
 
 function receive(from, msg) {
   var type = msg.type;
@@ -32,20 +43,6 @@ function addRoomToMembersLocalChain(x){
 
 
 
-//@param : {room_name:""}
-function getMembers(x){
-  members = getLinks(anchor("Private_Room",x.room_name), "members",{Load:true});
-  var return_members;
-  if(members.length>=1){
-    members.forEach(function (element){
-      return_members=element.Hash;
-    });
-  }else{
-    return "ERROR: invalid PRIVATE Room name";
-  }
-
-  return return_members;
-}
 /*----------  Anchor API  ----------*/
 
 function anchor(anchorType, anchorText) {
