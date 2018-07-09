@@ -216,6 +216,11 @@
                     "Exposure": "public"
                 },
                 {
+                    "Name": "getMyAgentHash",
+                    "CallingType": "string",
+                    "Exposure": "public"
+                },
+                {
                     "Name": "getProfile",
                     "CallingType": "json",
                     "Exposure": "public"

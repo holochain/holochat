@@ -12,7 +12,7 @@
             "Convey":"1. Not able to get Profile eather",
             "Zome":"profiles",
             "FnName":"getProfile",
-            "Input":"",
+            "Input":"%agent%",
             "Output":false,
             "Err":""
         },
@@ -36,7 +36,7 @@
             "Convey":"4. Get the profile info",
             "Zome":"profiles",
             "FnName":"getProfile",
-            "Input":"",
+            "Input":"%agent%",
             "Regexp":"^\\{\"agent_hash\":\"[^\"]*\",\"agent_id\":\"[^\"]*\",\"avatar\":\"\",\"email\":\"chuck@norris.com\",\"firstName\":\"Chuck\",\"lastName\":\"Norris\",\"username\":\"cnorris\"\\}$",
             "Err":""
         },
@@ -49,10 +49,18 @@
             "Err":""
         },
         {
-            "Convey":"6. Get the updated Profile",
+            "Convey":"6. Get my agent_id",
+            "Zome":"profiles",
+            "FnName":"getMyAgentHash",
+            "Input":"",
+            "Output":"%agent%",
+            "Err":""
+        },
+        {
+            "Convey":"7. Get the updated Profile",
             "Zome":"profiles",
             "FnName":"getProfile",
-            "Input":"",
+            "Input":"%r1%",
             "Regexp":"^\\{\"agent_hash\":\"[^\"]*\",\"agent_id\":\"[^\"]*\",\"avatar\":\"\",\"email\":\"dark@vader.com\",\"firstName\":\"dark\",\"lastName\":\"vader\",\"username\":\"darK_V\"\\}$",
             "Err":""
         }

@@ -26,9 +26,15 @@ User_details:
 **Input :** None
 **Return**: true - > if User is register | false - > if User is not-register
 
-### getProfile()
-**Detail**: Get the users profile details
+### getMyAgentHash()
+**Details**: Get App.Agent.Hash of the User
 **Input :** None
+**Return**: Agent_Hash
+
+
+### getProfile(agent_hash)
+**Detail**: Get the users profile details
+**Input :** App.Agent.Hash
 **Return**:
 > {{
     "agent_id": {"type": "string"},

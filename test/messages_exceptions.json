@@ -27,7 +27,7 @@
             "Convey":"5. Get Profile of the user. ",
             "Zome":"profiles",
             "FnName":"getProfile",
-            "Input":"",
+            "Input":"%agent%",
             "Output":{"agent_hash":"%agent%","agent_id":"%key%","email":"chuck@norris.com","firstName":"Chuck","lastName":"Norris","username":"cnorris"},
             "Err":""
         },

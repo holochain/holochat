@@ -21,16 +21,20 @@ function isRegistered() {
     return false;
 }
 
+//Returns your agent Hash
+function getMyAgentHash(){
+  return App.Agent.Hash;
+}
 
 // Get profile information for a user
-function getProfile() {
+function getProfile(agent_hash) {
     var registered_users = getLinks(anchor("Profiles",""), "registered_users",{Load:true});
     debug("registration entry:"+JSON.stringify(registered_users));
     if( registered_users instanceof Error ) return false
     for(var i=0; i < registered_users.length; i++) {
         var profile = registered_users[i].Entry
         debug("Registered user "+i+" is " + profile.username)
-        if( profile.agent_id == App.Key.Hash) return profile;
+        if( profile.agent_hash == agent_hash) return profile;
     }
     return false;
 }
@@ -39,7 +43,7 @@ function getProfile() {
 function updateProfile(x) {
     x.agent_id = App.Key.Hash
     x.agent_hash=App.Agent.Hash
-    var oldHash = makeHash("profile",getProfile());
+    var oldHash = makeHash("profile",getProfile(x.agent_hash));
     if(oldHash==false){
       return "NotRegistered";
     }
