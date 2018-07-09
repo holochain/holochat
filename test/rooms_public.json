@@ -30,14 +30,6 @@
             "Input":"",
             "Output":[{"id":"%r1%","name":"general","access":"public"}],
             "Err":""
-        },
-        {
-            "Convey":"4. Get Room by name",
-            "Zome":"rooms",
-            "FnName":"getRoomByName",
-            "Input":{"room_name":"general"},
-            "Output":{"name":"general","access":"public"},
-            "Err":""
         }
     ]
 }

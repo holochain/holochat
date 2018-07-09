@@ -23,6 +23,7 @@ function isRegistered() {
 
 //Returns your agent Hash
 function getMyAgentHash(){
+  debug("App.Agent.Hash : "+App.Agent.Hash)
   return App.Agent.Hash;
 }
 

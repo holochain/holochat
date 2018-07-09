@@ -25,18 +25,32 @@
             },
             "Entries": [
                 {
-                    "Name": "membership",
+                    "Name": "membership_link",
+                    "DataFormat": "links"
+                },
+                {
+                  "Name": "local_private_room",
+                  "DataFormat": "string",
+                  "Sharing": "private"
+                },
+                {
+                    "Name": "local_membership_link",
                     "DataFormat": "links"
                 }
             ],
             "Functions": [
                 {
-                    "Name": "listAdmins",
+                    "Name": "addMember",
                     "CallingType": "json",
                     "Exposure": "public"
                 },
                 {
-                    "Name": "addMember",
+                    "Name": "getMembers",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "addRoomToMembersLocalChain",
                     "CallingType": "json",
                     "Exposure": "public"
                 }
@@ -78,6 +92,11 @@
                     "Name": "getRoomByName",
                     "CallingType": "json",
                     "Exposure": "private"
+                },
+                {
+                    "Name": "getMyPrivateRooms",
+                    "CallingType": "json",
+                    "Exposure": "public"
                 },
                 {
                     "Name": "setRoomAdmin",

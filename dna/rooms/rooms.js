@@ -21,6 +21,10 @@ function newRoom(room) {
       commit("room_links",{Links:[{Base:anchor("Private_Room",room.name),Link:key,Tag:"room"}]})
       //Setting Creator as Admin;
       setRoomAdmin({"room_name":room.name});
+      //Setting the Creator as Member of the room
+
+      call("membership","addRoomToMembersLocalChain",{"room_name":room.name});
+
       return key;
     }else {
       return "INVALID ACCESS:"+room.access;
@@ -84,6 +88,16 @@ function getRoomByName(x){
   return rooms[0].Entry;
 }
 
+function getMyPrivateRooms(){
+  my_private_rooms=getLinks(App.Agent.Hash,"my_private_rooms");
+  var my_private_room_list;
+  my_private_rooms.forEach(function (element){
+    my_private_room_list=get(element.Hash,{Local:true});
+  });
+  debug("------>"+my_private_room_list);
+  return my_private_room_list;
+}
+
 
 /*--------- Admin --------*/
 
@@ -104,7 +118,7 @@ function getRoomAdmin(x){
   }else{
     return "ERROR: invalid PRIVATE Room name";
   }
-
+debug("Admins are : "+return_admin);
   return return_admin;
 }
 

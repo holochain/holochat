@@ -92,7 +92,16 @@ User_details:
 **Input:**
 >{room_name:""}
 
-**Returns:** Hash of the Admin Agent 
+**Returns:** Hash of the Admin Agent
+
+
+### getMyPrivateRooms()
+**Details:** Gets the private rooms you a member of, that is stored locally.
+**Input:** None
+
+**Returns:** names of the private rooms that the user is a member of
+
+
 
 ## ZomeName: messages
 
@@ -132,3 +141,17 @@ message.json:
 
 
 ## ZomeName: membership
+
+### addMember()
+**Details:** add members to a private room
+**Input:**
+> {room_name:"","agent_key":"%key%","agent_hash":"%agent%"}
+
+**Returns:** Hash
+
+### getMembers()
+**Details:** get members of the private room
+**Input:**
+> {room_name:""}
+
+**Returns:** List Of members
