@@ -108,17 +108,18 @@ User_details:
 ### newMessage()
 **Details:** used to post messages (Note: timestamp is applied from the back end)
 **Input:**
-message.json:
->  {{"author":{"type": "string"},
-		"content": {
-	         "text":{"type": "string"},
-				"mediaLink":{"type": "string"}
-			},
-		"timestamp": {"type": "string"},
-		"room_name": {"type": "string"}
-	},
-    "required": ["author","room_name","content"]
-}
+message.json: {"access":"public | private",
+              "message":{{"author":{"type": "string"},
+                      		"content": {
+                      	         "text":{"type": "string"},
+                      				"mediaLink":{"type": "string"}
+                      			},
+                      		"timestamp": {"type": "string"},
+                      		"room_name": {"type": "string"}
+                      	},
+                          "required": ["author","room_name","content"]
+                      }}
+>  
 
 **Returns:** Hash of the entry --> us as ID of the message
 
