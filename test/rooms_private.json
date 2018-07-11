@@ -20,7 +20,7 @@
             "Zome":"rooms",
             "FnName":"newRoom",
             "Input":{"name":"general", "access":"private"},
-            "Output":"%h12%",
+            "Output":"%h13%",
             "Err":""
         },
         {

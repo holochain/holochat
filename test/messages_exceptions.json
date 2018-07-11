@@ -51,7 +51,7 @@
             "Convey":"6. Get all the messages of the room by using the hash of the room as ID ",
             "Zome":"messages",
             "FnName":"getMessages",
-            "Input":{"room_name":"general"},
+            "Input":{"room_name":"general","access":"public"},
             "Regexp":"{\"Entry\":{\"author\":\"QmNU6Gynfi33qknXvKn19NqLzRHEvb3Wea14rpJc7En1xK\",\"content\":{\"text\":\"Cheers!!\"},\"room_name\":\"general\",\"timestamp\":\"[^\"]*\"},\"Hash\":\"[^\"]*\"}",
             "Err":""
         }

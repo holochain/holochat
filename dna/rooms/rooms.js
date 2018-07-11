@@ -22,8 +22,7 @@ function newRoom(room) {
       //Setting Creator as Admin;
       setRoomAdmin({"room_name":room.name});
       //Setting the Creator as Member of the room
-
-      call("membership","addRoomToMembersLocalChain",{"room_name":room.name});
+      call("membership","addMember",{"room_name":room.name,"agent_hash":App.Agent.Hash,"agent_key":App.Key.Hash});
 
       return key;
     }else {

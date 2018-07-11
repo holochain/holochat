@@ -1,6 +1,6 @@
 // Authorize a new agent_id to participate in this holochain
 // agent_id must match the string they use to "hc init" their holochain, and is currently their email by convention
-//@param : {room_name:"",agent_hash:""}
+//@param : {room_name:"",agent_hash:"",agent_key:""}
 function addMember(x) {
     key = commit("membership_link",{Links:[{Base:anchor("Private_Room",x.room_name),Link:x.agent_hash,Tag:"members"}]});
     send(x.agent_key,{"type":"add_private_rooms","room_name":x.room_name});
@@ -10,17 +10,24 @@ function addMember(x) {
 
 //@param : {room_name:""}
 function getMembers(x){
-  members = getLinks(anchor("Private_Room",x.room_name), "members",{Load:true});
-  var return_members;
-  if(members.length>=1){
-    members.forEach(function (element){
-      return_members=element.Hash;
-    });
-  }else{
-    return "ERROR: invalid PRIVATE Room name";
-  }
+  if(anchorExists("Private_Room",x.room_name)){
+    members = getLinks(anchor("Private_Room",x.room_name), "members",{Load:true});
+    var return_members;
+    var i_Am_A_Member=false;
+      members.forEach(function (element){
+        if(element.Hash==App.Agent.Hash)
+          i_Am_A_Member=true;
+        return_members=element.Hash;
+      });
+      if(i_Am_A_Member){
+          return return_members;
+      }else{
+        return "ERROR: You are not a Member of "+x.room_name;
+      }
 
-  return return_members;
+  }else{
+    return "ERROR: invalid PRIVATE Room name "+x.room_name;
+  }
 }
 
 
