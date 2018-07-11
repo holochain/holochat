@@ -129,7 +129,7 @@
 
             ],
             "Functions": [
-                {
+              {
                     "Name": "newMessage",
                     "CallingType": "json",
                     "Exposure": "public"

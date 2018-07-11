@@ -45,16 +45,16 @@ function anchor(anchor) {
 }
 
 function exists(anchor){
-  //debug('<mermaid>' + App.Agent.String + '-->>DHT:Check to see if ' + anchor.anchorText + ' exists</mermaid>');
-  // //debug('does it exist?');
-  // //debug(get(makeHash('anchor', anchor)));
+  debug('<mermaid>' + App.Agent.String + '-->>DHT:Check to see if ' + anchor.anchorText + ' exists</mermaid>');
+  debug('does it exist?');
+  debug(get(makeHash('anchor', anchor)));
   var key = get(makeHash('anchor', anchor));
-  // //debug(key);
+  debug(key);
   if(key !== null){
-    //debug('<mermaid>DHT-->>' + App.Agent.String + ':' + anchor.anchorText + ' exists</mermaid>');
+    debug('<mermaid>DHT-->>' + App.Agent.String + ':' + anchor.anchorText + ' exists</mermaid>');
     return true;
   }
-  //debug('<mermaid>DHT-->>' + App.Agent.String + ':' + anchor.anchorText + ' does not exist</mermaid>');
+  debug('<mermaid>DHT-->>' + App.Agent.String + ':' + anchor.anchorText + ' does not exist</mermaid>');
   return false;
 }
 

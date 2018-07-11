@@ -4,27 +4,27 @@
             "Convey":"0. Adding New messages without any room",
             "Zome":"messages",
             "FnName":"newMessage",
-            "Input":{"author":"%agent%","content":{"text":"Cheers!!"}},
-            "Regexp":"{\"errorMessage\":\"Validation Failed: validator message failed: object property 'room_name' is required\",\"function\":\"commit\",\"name\":\"HolochainError\",\"source\":{\"column\":\"[^\"]*\",\"functionName\":\"newMessage\",\"line\":\"[^\"]*\"}}",
+            "Input":{"access":"public","message":{"author":"%agent%","content":{"text":"Cheers!!"}}},
+            "Output":"ERROR: Room undefined doesn't exist",
             "Err":""
         },
         {
-            "Convey":"2. Adding message without creating room",
+            "Convey":"1. Adding message without creating room",
             "Zome":"messages",
             "FnName":"newMessage",
-            "Input":{"author":"%agent%","content":{"text":"Cheers!!"},"room_name":"asdf"},
-            "Regexp":"{\"errorMessage\":\"Validation Failed\",\"function\":\"commit\",\"name\":\"HolochainError\",\"source\":{\"column\":\"[^\"]*\",\"functionName\":\"newMessage\",\"line\":\"[^\"]*\"}}"
+            "Input":{"access":"public","message":{"author":"%agent%","content":{"text":"Cheers!!"}, "room_name":"Asdf"}},
+            "Output":"ERROR: Room Asdf doesn't exist"
         },
         {
-            "Convey":"4. Register User **Needs more testing**",
+            "Convey":"2. Register User **Needs more testing**",
             "Zome":"profiles",
             "FnName":"register",
             "Input":{"username":"cnorris", "firstName":"Chuck", "lastName":"Norris", "email":"chuck@norris.com"},
-            "Output":"%h1%",
+            "Output":"%h6%",
             "Err":""
         },
         {
-            "Convey":"5. Get Profile of the user. ",
+            "Convey":"3. Get Profile of the user. ",
             "Zome":"profiles",
             "FnName":"getProfile",
             "Input":"%agent%",
@@ -32,7 +32,7 @@
             "Err":""
         },
         {
-            "Convey":"6. Creting new room **Needs More testing**",
+            "Convey":"4. Creting new room **Needs More testing**",
             "Zome":"rooms",
             "FnName":"newRoom",
             "Input":{"name":"general", "access":"public"},
@@ -40,15 +40,15 @@
             "Err":""
         },
         {
-            "Convey":"7. Adding message to the room using the hash of the of the room ",
+            "Convey":"5. Adding message to the room using the hash of the of the room ",
             "Zome":"messages",
             "FnName":"newMessage",
-            "Input":{"author":"%agent%","content":{"text":"Cheers!!"}, "room_name":"general"},
+            "Input":{"access":"public","message":{"author":"%agent%","content":{"text":"Cheers!!"}, "room_name":"general"}},
             "Output":"%h1%",
             "Err":""
         },
         {
-            "Convey":"8. Get all the messages of the room by using the hash of the room as ID ",
+            "Convey":"6. Get all the messages of the room by using the hash of the room as ID ",
             "Zome":"messages",
             "FnName":"getMessages",
             "Input":{"room_name":"general"},

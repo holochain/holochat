@@ -1,25 +1,36 @@
 // Create a new post in a Space / Channel
-//@param x={room_name:"",content:{text:"",mediaLink:""}}
+//@param x={acccess:"public|private","message":{room_name:"",content:{text:"",mediaLink:""}}}
 function newMessage(x) {
-    x.timestamp = new Date();
-    x.author=App.Agent.Hash;
+  if(x.access=="public"){
+    x.message.timestamp = new Date();
+    x.message.author=App.Agent.Hash;
      var key;
      try{
-       key = commit("message", x);
-       commit("message_links",{Links:[{Base:anchor("Room",x.room_name),Link:key,Tag:"messages"}]});
-     }catch(e){
+          if(anchorExists("Room",x.message.room_name)=="true"){
+           key = commit("message", x.message);
+           commit("message_links",{Links:[{Base:anchor("Room",x.message.room_name),Link:key,Tag:"messages"}]});
+         }else{
+           return "ERROR: Room "+x.message.room_name+" doesn't exist";
+         }
+        }catch(e){
        return e;
      }
   // TODO INDEXING -hashTag
   //  debug("Starting HASHtag search");
   //  call("hashtag","callingHashTag",x);
-  return key
+  return key;
+  }else if(x.access=="private"){
+    // TODO
+    return "//TODO: private messages";
+  }else {
+    return ("ERROR Invalid Access: "+x.access);
+  }
 }
 
 //Get Messages for a Rooms
 //@param x={room_name:""}
 function getMessages(x){
-  if(anchorExists("Room","")){
+  if(anchorExists("Room","")=="true"){
   try{
     messages=getLinks(anchor("Room",x.room_name),"messages",{Load:true});
   }catch(e){

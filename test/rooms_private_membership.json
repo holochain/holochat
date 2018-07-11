@@ -46,6 +46,30 @@
             "Input":"",
             "Output":"general",
             "Err":""
+        },
+        {
+            "Convey":"6. Adding message to the room thats not created ",
+            "Zome":"messages",
+            "FnName":"newMessage",
+            "Input":{"access":"public","message":{"author":"%agent%","content":{"text":"Cheers!!"}, "room_name":"general"}},
+            "Output":"ERROR: Room general doesn't exist",
+            "Err":""
+        },
+        {
+            "Convey":"6. Adding message to the room with wrong access ",
+            "Zome":"messages",
+            "FnName":"newMessage",
+            "Input":{"access":"WrongAccess","message":{"author":"%agent%","content":{"text":"Cheers!!"}, "room_name":"general"}},
+            "Output":"ERROR Invalid Access: WrongAccess",
+            "Err":""
+        },
+        {
+            "Convey":"7. Adding message to the room thats not created ",
+            "Zome":"messages",
+            "FnName":"newMessage",
+            "Input":{"access":"private","message":{"author":"%agent%","content":{"text":"Cheers!!"}, "room_name":"general"}},
+            "Output":"ERROR: Room james doesn't exist",
+            "Err":""
         }
     ]
 }
