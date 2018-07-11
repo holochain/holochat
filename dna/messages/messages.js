@@ -25,7 +25,6 @@ function postPrivateMessage(x){
      return e;
    }
 // TODO - INDEXING #HASHTAG
-debug("--------------------->"+key)
   return key;
 }
 
@@ -289,18 +288,21 @@ function validateLink(linkingEntryType,baseHash,linkHash,tag,pkg,sources){
 
     return true;
 }
-function validateMod(entry_type,hash,newHash,pkg,sources) {
-  debug("MODIFIED: entry_type: "+entry_type+" hash: "+JSON.stringify(hash)+" newHash: "+JSON.stringify(newHash)+" pkg: "+pkg+" sources: "+JSON.stringify(sources));
-  // var valid = false
-  // if (entry_type === "message") {
-  //   var orig_sources = get(newHash, { GetMask: HC.GetMask.Sources })
-  //   // Note: error checking on this is removed for simplicity
-  //   valid = (orig_sources.length === 1 && orig_sources[0] == sources[0])
-  // }
-  // return valid
-
-  return true;
+function validateMod(entry_type, entry, header, replaces, pkg, sources) {
+  //debug("MODIFIED: entry_type: "+entry_type+" entry: "+JSON.stringify(entry)+" header: "+JSON.stringify(header)+" replaces: "+replaces+" pkg: "+pkg+" sources: "+JSON.stringify(sources));
+  var valid = false;
+  var orig_sources;
+  if (entry_type === "message") {
+    try{
+      orig_sources = get(replaces, { GetMask: HC.GetMask.Sources })
+    }catch(e){
+      return false;
+    }
+    valid = (orig_sources.length === 1 && orig_sources[0] == sources[0])
+  }
+  return valid
 }
+
 function validateDel(entry_type,hash,pkg,sources) {return false;}
 function validatePutPkg(entry_type) {return null}
 function validateModPkg(entry_type) { return null}

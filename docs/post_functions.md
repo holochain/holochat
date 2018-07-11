@@ -126,7 +126,7 @@ message.json: {"access":"public | private",
 ### getMessage()
 **Details:** get messages for a specific Room
 **Input:**
-> {room_name:"","access":"public|private"}
+> {room_name:"","access":"public|privated"}
 
 **Returns:** Array of messages in this format [{Entry:{},Hash:""},{Entry:{},Hash:""},...]
 

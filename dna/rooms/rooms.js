@@ -93,7 +93,7 @@ function getMyPrivateRooms(){
   my_private_rooms.forEach(function (element){
     my_private_room_list=get(element.Hash,{Local:true});
   });
-  debug("------>"+my_private_room_list);
+  debug("My_Private_Rooms:"+my_private_room_list);
   return my_private_room_list;
 }
 
