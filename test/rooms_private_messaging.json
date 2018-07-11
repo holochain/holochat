@@ -71,6 +71,22 @@
             "Input":{"room_name":"general","access":"private"},
             "Regexp":"{\"Entry\":{\"author\":\"%agent%\",\"content\":{\"text\":\"Cheers!!\"},\"room_name\":\"general\",\"timestamp\":\"[^\"]*\"},\"Hash\":\"[^\"]*\"}",
             "Err":""
+        },
+        {
+            "Convey":"9. Update the messages of the room",
+            "Zome":"messages",
+            "FnName":"updateMessage",
+            "Input":{"new_message":{"author":"%agent%","content":{"text":"Updated Cheers!!"}, "room_name":"general"},"old_Hash":"%r3%"},
+            "Output":"%h%",
+            "Err":""
+        },
+        {
+            "Convey":"10. get updated Private room messages",
+            "Zome":"messages",
+            "FnName":"getMessages",
+            "Input":{"room_name":"general","access":"private"},
+            "Regexp":"{\"Entry\":{\"author\":\"%agent%\",\"content\":{\"text\":\"Updated Cheers!!\"},\"room_name\":\"general\",\"timestamp\":\"[^\"]*\"},\"Hash\":\"[^\"]*\"}",
+            "Err":""
         }
     ]
 }

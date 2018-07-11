@@ -65,7 +65,6 @@ function getMessages(x){
 }
 
 function getPrivateMessages(x){
-  debug(isValidPrivateProfile(anchor("Private_Room",x.room_name)));
   if(isValidPrivateProfile(anchor("Private_Room",x.room_name)))
   {
     if(anchorExists("Private_Room",x.room_name)=="true"){
@@ -274,23 +273,34 @@ debug("entry_type:"+entry_type+"entry"+JSON.stringify(entry)+"header"+header+"so
 
 function validateLink(linkingEntryType,baseHash,linkHash,tag,pkg,sources){
     // this can only be "message_links" type which is linking from room to message
-debug("LinkingEntry_type:"+linkingEntryType+" baseHash:"+baseHash+" linkHash:"+linkHash+" tag:"+tag+" pkg:"+pkg+" sources:"+sources);
-if(linkingEntryType=="message_links")
-return isValidRoomBase(baseHash);
-if(linkingEntryType=="private_message_links"){
-  if(isValidPrivateRoomBase(baseHash) && isValidPrivateProfile(baseHash))
+    debug("LinkingEntry_type:"+linkingEntryType+" baseHash:"+baseHash+" linkHash:"+linkHash+" tag:"+tag+" pkg:"+pkg+" sources:"+sources);
+    if(linkingEntryType=="message_links")
+    return isValidRoomBase(baseHash);
+    if(linkingEntryType=="private_message_links"){
+      if(isValidPrivateRoomBase(baseHash) && isValidPrivateProfile(baseHash))
+        return true;
+    return false;
+    }
+
+    if(linkingEntryType="hashTag_links")
     return true;
-return false;
-}
+    if(linkingEntryType="tag_post_links")
+    return true;
 
-if(linkingEntryType="hashTag_links")
-return true;
-if(linkingEntryType="tag_post_links")
-return true;
-
-return true;
+    return true;
 }
-function validateMod(entry_type,hash,newHash,pkg,sources) {return true;}
+function validateMod(entry_type,hash,newHash,pkg,sources) {
+  debug("MODIFIED: entry_type: "+entry_type+" hash: "+JSON.stringify(hash)+" newHash: "+JSON.stringify(newHash)+" pkg: "+pkg+" sources: "+JSON.stringify(sources));
+  // var valid = false
+  // if (entry_type === "message") {
+  //   var orig_sources = get(newHash, { GetMask: HC.GetMask.Sources })
+  //   // Note: error checking on this is removed for simplicity
+  //   valid = (orig_sources.length === 1 && orig_sources[0] == sources[0])
+  // }
+  // return valid
+
+  return true;
+}
 function validateDel(entry_type,hash,pkg,sources) {return false;}
 function validatePutPkg(entry_type) {return null}
 function validateModPkg(entry_type) { return null}
