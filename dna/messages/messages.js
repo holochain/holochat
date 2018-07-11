@@ -144,15 +144,7 @@ function anchorExists(anchorType, anchorText) {
 
 
 /********** Validation Functions *************/
-/*
-function isValidPrivateProfile(room){
-  debug("Checking if Profile is a Member of the Room "+room)
-  if(call("membership","getMembers",{"room_name":room.room_name})==("ERROR: You are not a Member of "+room.room_name)){
-    return true;
-  }
-  return false;
-}
-*/
+
 function isValidPrivateProfile(room_base){
   try{
     members = getLinks(room_base, "members",{Load:true});
