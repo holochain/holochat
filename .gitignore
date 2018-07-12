@@ -2,7 +2,7 @@ node_modules/
 yarn-error.log
 yarn.lock
 videos/
-ui/
+
 .DS_Store
 package-lock.json
 screenshots/
