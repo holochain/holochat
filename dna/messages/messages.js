@@ -149,8 +149,6 @@ function isValidPrivateProfile(room_base){
   try{
     members = getLinks(room_base, "members",{Load:true});
     members.forEach(function (element){
-      debug("------------------------------------->"+JSON.stringify(element))
-      debug("------------------------------------->"+element.Hash+" == "+App.Agent.Hash)
       if(element.Hash==App.Agent.Hash){
         i_Am_A_Member=true;
       }
@@ -159,11 +157,9 @@ function isValidPrivateProfile(room_base){
     return false;
   }
   if(i_Am_A_Member){
-    debug("---------------> I am A Member of room"+room_base);
     return true;
   }
   else{
-    debug("---------------> I am NOT A Member of room"+room_base);
     return false;
   }
 
