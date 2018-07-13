@@ -1,30 +1,69 @@
 {
-    "Tests":[
-        {
-            "Convey":"register person 2",
-            "Zome":"profiles",
-            "FnName":"register",
-            "Input":{"username":"person2", "firstName":"Jane", "lastName":"Person2", "email":"jane@example.com"},
-            "Output":"%h2%",
-            "Err":""
-        },
-        {
-            "Convey":"room created by person 1 should be visible at 50ms",
-            "Zome":"rooms",
-            "FnName":"listRooms",
-            "Input":"",
-            "Regexp":"^\\[\\{\"id\":\"(.*)\",\"name\":\"general\",\"purpose\":\"everything goes in here\"\\}\\]$",
-            "Err":"",
-            "Time":2900
-        },
-        {
-            "Convey":"message created by person 1 should be visible at 50ms",
-            "Zome":"messages",
-            "FnName":"listMessages",
-            "Input":"%m1.1%",
-            "Regexp":"^\\[\\{\"author\":\\{\"agent_hash\":\".*\",\"agent_id\":\".*\",\"email\":\"joe@example.com\",\"firstName\":\"Joe\",\"lastName\":\"Person1\",\"username\":\"person1\"\\},\"content\":\"bla\",\"id\":\".*\",\"room\":\".*\",\"timestamp\":\"[^\"]*\"\\}\\]$",
-            "Err":"",
-            "Time":3500
-        }
-    ]
+  "Tests": [
+    {
+        "Time": 500,
+        "Convey":"0. Register you user Chuck",
+        "Zome":"profiles",
+        "FnName":"register",
+        "Input":{"username":"PinkHair",
+          "firstName":"Sakura",
+          "lastName":"Haruno",
+          "email":"Sakura@Haruno.com",
+          "avatar":""},
+        "Output":"%h6%",
+        "Err":""
+    },
+    {
+        "Time": 900,
+        "Convey":"1. newRoom should return the room's hash",
+        "Zome":"rooms",
+        "FnName":"newRoom",
+        "Input":{"name":"Medical",
+          "access":"public"},
+        "Output":"%h5%",
+        "Err":""
+    },
+    {
+        "Time": 1500,
+        "Convey":"2. Adding message to the room  ",
+        "Zome":"messages",
+        "FnName":"newMessage",
+        "Input":{"access":"public",
+          "message":{
+            "author":"%agent%",
+            "content":{
+              "text":"Hi I am Sakura"
+            },
+            "room_name":"Medical"}
+          },
+        "Output":"%h1%",
+        "Err":""
+    },
+    {
+        "Time": 1700,
+        "Convey":"3. Adding message to the room created by the other person",
+        "Zome":"messages",
+        "FnName":"newMessage",
+        "Input":{"access":"public",
+          "message":{
+            "author":"%agent%",
+            "content":{
+              "text":"Hi Kakashi, I am Sakura"
+            },
+            "room_name":"Hatake_clan"}
+          },
+        "Output":"%h1%",
+        "Err":""
+    },
+    {
+        "Time": 3000,
+        "Convey":"3. Get all the messages of the room by using the hash of the room as ID ",
+        "Zome":"messages",
+        "FnName":"getMessages",
+        "Input":{"room_name":"Medical",
+          "access":"public"},
+        "Regexp":"{\"Entry\":{\"author\":\"%agent%\",\"content\":{\"text\":\"Hi I am Sakura\"},\"room_name\":\"Medical\",\"timestamp\":\"[^\"]*\"},\"Hash\":\"[^\"]*\"}",
+        "Err":""
+    }
+  ]
 }
