@@ -16,8 +16,8 @@ function postPrivateMessage(x){
    var key;
    try{
      if(anchorExists("Private_Room",x.message.room_name)=="true"){
-         key = commit("message", x.message);
-         commit("private_message_links",{Links:[{Base:anchor("Private_Room",x.message.room_name),Link:key,Tag:"messages"}]});
+         key = commit("private_message", x.message);
+         link=commit("private_message_links",{Links:[{Base:anchor("Private_Room",x.message.room_name),Link:key,Tag:"messages"}]});
        }else{
          return "ERROR: Room "+x.message.room_name+" doesn't exist";
        }
@@ -25,7 +25,7 @@ function postPrivateMessage(x){
      return e;
    }
 // TODO - INDEXING #HASHTAG
-  return key;
+  return link;
 }
 
 function postPublicMessage(x){
@@ -80,7 +80,7 @@ function getPrivateMessages(x){
       tempMessage.Entry=element.Entry
       return_messages.push(tempMessage);
     });
-    //debug("Return_messages::"+JSON.stringify(return_messages))
+    debug("Return_messages::"+JSON.stringify(return_messages))
     return return_messages;
     }
     return [];
@@ -144,10 +144,13 @@ function anchorExists(anchorType, anchorText) {
 /********** Validation Functions *************/
 
 function isValidPrivateProfile(room_base){
+
+  var i_Am_A_Member=false;
   try{
     members = getLinks(room_base, "members",{Load:true});
-    var i_Am_A_Member=false;
     members.forEach(function (element){
+      debug("------------------------------------->"+JSON.stringify(element))
+      debug("------------------------------------->"+element.Hash+" == "+App.Agent.Hash)
       if(element.Hash==App.Agent.Hash){
         i_Am_A_Member=true;
       }
@@ -155,10 +158,15 @@ function isValidPrivateProfile(room_base){
   }catch(e){
     return false;
   }
-  if(i_Am_A_Member)
-      return true;
-  else
+  if(i_Am_A_Member){
+    debug("---------------> I am A Member of room"+room_base);
+    return true;
+  }
+  else{
+    debug("---------------> I am NOT A Member of room"+room_base);
     return false;
+  }
+
 }
 
 function isValidRoom(room) {
@@ -253,6 +261,10 @@ function validateCommit(entry_type,entry,header,pkg,sources) {
 // Local validate an entry before committing ???
 function validate(entry_type,entry,header,sources) {
 debug("entry_type:"+entry_type+"entry"+JSON.stringify(entry)+"header"+header+"sources"+sources);
+
+    if (entry_type == "private_message") {
+    return  isValidPrivateProfile(anchor("Private_Room",entry.room_name));
+    }
     if (entry_type == "message_links") {
     return isValidRoomBase(entry.Links[0].Base);
     }
@@ -276,16 +288,11 @@ function validateLink(linkingEntryType,baseHash,linkHash,tag,pkg,sources){
     if(linkingEntryType=="message_links")
     return isValidRoomBase(baseHash);
     if(linkingEntryType=="private_message_links"){
-      if(isValidPrivateRoomBase(baseHash) && isValidPrivateProfile(baseHash))
+      if(isValidPrivateRoomBase(baseHash) && isValidPrivateProfile(baseHash)){
         return true;
-    return false;
+      }
+      return false;
     }
-
-    if(linkingEntryType="hashTag_links")
-    return true;
-    if(linkingEntryType="tag_post_links")
-    return true;
-
     return true;
 }
 function validateMod(entry_type, entry, header, replaces, pkg, sources) {

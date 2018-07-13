@@ -1,0 +1,70 @@
+{
+  "Tests": [
+    {
+        "Time": 200,
+        "Convey":"0. Register you user Chuck",
+        "Zome":"profiles",
+        "FnName":"register",
+        "Input":{"username":"WhiteFang",
+          "firstName":"Kakashi",
+          "lastName":"Hatake",
+          "email":"Kakashi@Hatake.com",
+          "avatar":""},
+        "Output":"%h6%",
+        "Err":""
+    },
+    {
+        "Time": 1000,
+        "Convey":"1. newRoom should return the room's hash",
+        "Zome":"rooms",
+        "FnName":"newRoom",
+        "Input":{"name":"Hatake_clan_private",
+          "access":"private"},
+        "Output":"%h7%",
+        "Err":""
+    },
+    {
+        "Time": 1200,
+        "Convey":"2. Adding message to the room",
+        "Zome":"messages",
+        "FnName":"newMessage",
+        "Input":{"access":"private",
+          "message":{
+            "author":"%agent%",
+            "content":{
+              "text":"Hi I am Kakashi"
+            },
+            "room_name":"Hatake_clan_private"}
+          },
+        "Output":"%h%",
+        "Err":""
+    },
+    {
+        "Time": 4000,
+        "Convey":"3. Adding message to the room created by the other person",
+        "Zome":"messages",
+        "FnName":"newMessage",
+        "Input":{"access":"private",
+          "message":{
+            "author":"%agent%",
+            "content":{
+              "text":"Hi,Sakura, I am Kakashi"
+            },
+            "room_name":"Medical_private"}
+          },
+        "Output":"",
+        "Err":{"errorMessage":"Validation Failed","function":"commit","name":"HolochainError","source":{"column":"16","functionName":"postPrivateMessage","line":"55"}}
+    },
+    {
+        "Time": 4500,
+        "Convey":"4. Get all the messages of the room by using the hash of the room as ID ",
+        "Zome":"messages",
+        "FnName":"getMessages",
+        "Input":{"room_name":"Hatake_clan_private",
+          "access":"private"},
+        "Output":"",
+        "Regexp":"{\"Entry\":{\"author\":\"%agent%\",\"content\":{\"text\":\"Hi I am Kakashi\"},\"room_name\":\"Hatake_clan_private\",\"timestamp\":\"[^\"]*\"},\"Hash\":\"[^\"]*\"}",
+        "Err":""
+    }
+  ]
+}

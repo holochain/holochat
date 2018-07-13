@@ -123,6 +123,12 @@
                     "Sharing": "public"
                 },
                 {
+                    "Name": "private_message",
+                    "DataFormat": "json",
+                    "SchemaFile": "message.json",
+                    "Sharing": "public"
+                },
+                {
                     "Name": "message_links",
                     "DataFormat": "links",
                     "Sharing":"public"
