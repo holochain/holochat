@@ -24,16 +24,35 @@ function createCoustomRoom(members: string[]): string {
   return uuid;
 }
 
-
+//TODO : Test for non creator of the room adding a member in the room
 //Adds Members to a room using the UUID of the room
 function addMembers(uuid: string, members: string[]) {
   let uuid_hash: string = makeHash("coustom_room_uuid", uuid);
   members.forEach((member) => {
-    //commit("coustom_room_members",member);
-    commit("coustom_room_link", { Links: [{ Base: uuid_hash, Link: member, Tag: "room_members" }] });
+    try {
+      commit("room_to_member_link", { Links: [{ Base: uuid_hash, Link: member, Tag: "room_members" }] });
+    } catch (e) {
+      debug(e)
+      return e
+    }
+    commit("member_to_room_link", { Links: [{ Base: member, Link: uuid_hash, Tag: "my_rooms" }] });
   });
-  //debug(JSON.stringify(getLinks(uuid_hash,"room_members")))
+}
 
+//Returns the rooms that you are part of 
+function getMyRooms() {
+  let my_rooms: any;
+  try {
+    my_rooms = getLinks(App.Key.Hash, "my_rooms", { Load: true });
+  } catch (e) {
+    return e;
+  }
+  debug("My Room Chats : " + JSON.stringify(my_rooms));
+  let return_my_rooms: string[] = my_rooms.map((room) => {
+    return room.Entry
+  });
+  debug("UUID's: " + JSON.stringify(return_my_rooms));
+  return return_my_rooms;
 }
 
 // Call to get all the member for a perticual UUID
@@ -52,7 +71,7 @@ function getMembers(uuid: string): string[] {
 function getRoomDetails(uuid: string): string[] {
   let details: any;
   try {
-    details = getLinks(makeHash("coustom_room_uuid", uuid), "room_details",{Load:true});
+    details = getLinks(makeHash("coustom_room_uuid", uuid), "room_details", { Load: true });
   } catch (e) {
     return e;
   }
@@ -71,7 +90,10 @@ function uuidGenerator() {
     return v.toString(16);
   });
 }
-
+//For Testing
+function getKey() {
+  return App.Key.Hash;
+}
 // -----------------------------------------------------------------
 //  The Genesis Function https://developer.holochain.org/genesis
 // -----------------------------------------------------------------
@@ -85,7 +107,7 @@ function genesis() {
 // -----------------------------------------------------------------
 
 function validateCommit(entryName, entry, header, pkg, sources) {
-  //debug("entry_type:" + entryName + "entry" + JSON.stringify(entry) + "header" + JSON.stringify(header) + "PKG: " + JSON.stringify(pkg) + "sources" + sources);
+  debug("entry_type:" + entryName + "entry" + JSON.stringify(entry) + "header" + JSON.stringify(header) + "PKG: " + JSON.stringify(pkg) + "sources" + sources);
   return validate(entryName, entry, header, pkg, sources);
 }
 
@@ -93,17 +115,52 @@ function validate(entryName, entry, header, pkg, sources) {
   switch (entryName) {
     case "coustom_room_uuid":
       return true;
+    case "coustom_room_details":
+      return true;
     case "coustom_room_link":
       return true;
-    case "coustom_room_details":
+    case "room_to_member_link":
+      return isValidAdmin(entry.Links[0].Base, sources);
+    case "member_to_room_link":
+      //isValidAdmin(entry);
       return true;
     default:
       return false;
   }
 }
 
+// Check if the pub_hash is a member of the
+function isValidAdmin(base_hash: string, entry_source: string): boolean {
+  debug("Checking if Agent is an Admin..");
+  //Checking if the Creator is trying to add people to the room
+  let source: any;
+  try {
+    source = get(base_hash, { GetMask: HC.GetMask.Sources });
+  } catch (e) {
+    return false;
+  }
+  //debug("UUID source" + source)
+  //Added the creater of the room as a member of the room
+  if (JSON.stringify(source) === JSON.stringify(entry_source)) {
+    //debug("Adding Room Creator as a member of the room")
+    return true;
+  }
+  //Checking to see if members are trying to add new members to the room
+  let members: any;
+  try {
+    members = getLinks(base_hash, "room_members", { Load: true });
+  } catch (e) {
+    debug("Rooms Dosnt Exist " + e);
+    return false;
+  }
+  let access: boolean = members.some((member) => {
+    member.Hash == entry_source
+  });
+  return access;
+}
+
 function validatePut(entryName, entry, header, pkg, sources) {
-  return validate(entryName, entry, header, pkg, sources);
+  return true;
 
 }
 
@@ -116,8 +173,13 @@ function validateDel(entryName, hash, pkg, sources) {
 }
 
 function validateLink(entryName, baseHash, links, pkg, sources) {
+  //debug("entryName: "+entryName+" baseHash: "+ baseHash+" links: "+ links+" sources: "+ sources);
   switch (entryName) {
     case "coustom_room_link":
+      return true;
+    case "room_to_member_link":
+      return true;
+    case "member_to_room_link":
       return true;
     default:
       return false;

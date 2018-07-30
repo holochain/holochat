@@ -35,12 +35,15 @@
                   "Sharing": "public"
                 },
                 {
-                  "Name": "coustom_room_members",
-                  "DataFormat": "string",
-                  "Sharing": "public"
+                  "Name": "coustom_room_link",
+                  "DataFormat": "links"
                 },
                 {
-                  "Name": "coustom_room_link",
+                  "Name": "room_to_member_link",
+                  "DataFormat": "links"
+                },
+                {
+                  "Name": "member_to_room_link",
                   "DataFormat": "links"
                 }
             ],
@@ -67,6 +70,16 @@
                 },
                 {
                   "Name": "getRoomDetails",
+                  "CallingType": "string",
+                  "Exposure": "public"
+                },
+                {
+                  "Name": "getMyRooms",
+                  "CallingType": "string",
+                  "Exposure": "public"
+                },
+                {
+                  "Name": "getKey",
                   "CallingType": "string",
                   "Exposure": "public"
                 }

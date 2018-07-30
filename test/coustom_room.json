@@ -9,16 +9,25 @@
             "Err":""
         },
         {
-            "Convey":"1. Get member for the room (UUID)",
+            "Convey":"1. Get the rooms|chats you are part of (UUID)",
             "Zome":"coustom_room",
-            "FnName":"getMembers",
-            "Input":"%r1%"
+            "FnName":"getMyRooms",
+            "Input":"",
+            "Output":"%r1%"
         },
         {
-            "Convey":"1. Get member for the room (UUID)",
+            "Convey":"2. Get member for the room (UUID)",
+            "Zome":"coustom_room",
+            "FnName":"getMembers",
+            "Input":"%r2%",
+            "RegExp":"(?s).*"
+          },
+        {
+            "Convey":"3. Get the room details by UUID",
             "Zome":"coustom_room",
             "FnName":"getRoomDetails",
-            "Input":"%r2%"
+            "Input":"%r3%",
+            "RegExp":"(?s).*"
         }
     ]
 }
