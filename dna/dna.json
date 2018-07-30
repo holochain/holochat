@@ -45,6 +45,15 @@
                 {
                   "Name": "member_to_room_link",
                   "DataFormat": "links"
+                },
+                {
+                  "Name": "cr_message",
+                  "DataFormat": "json",
+                  "Sharing":"public"
+                },
+                {
+                  "Name": "cr_message_link",
+                  "DataFormat": "links"
                 }
             ],
             "Functions": [
@@ -81,6 +90,21 @@
                 {
                   "Name": "getKey",
                   "CallingType": "string",
+                  "Exposure": "public"
+                },
+                {
+                  "Name": "postMessage",
+                  "CallingType": "json",
+                  "Exposure": "public"
+                },
+                {
+                  "Name": "getMessages",
+                  "CallingType": "json",
+                  "Exposure": "public"
+                },
+                {
+                  "Name": "updateMessage",
+                  "CallingType": "json",
                   "Exposure": "public"
                 }
             ]
