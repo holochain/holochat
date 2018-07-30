@@ -1,0 +1,24 @@
+{
+    "Tests":[
+        {
+            "Convey":"0. Create new Room",
+            "Zome":"coustom_room",
+            "FnName":"createCoustomRoom",
+            "Input":[],
+            "RegExp":"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+            "Err":""
+        },
+        {
+            "Convey":"1. Get member for the room (UUID)",
+            "Zome":"coustom_room",
+            "FnName":"getMembers",
+            "Input":"%r1%"
+        },
+        {
+            "Convey":"1. Get member for the room (UUID)",
+            "Zome":"coustom_room",
+            "FnName":"getRoomDetails",
+            "Input":"%r2%"
+        }
+    ]
+}

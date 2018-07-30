@@ -1,8 +1,5 @@
-node_modules/
-yarn-error.log
-yarn.lock
-videos/
-
-.DS_Store
-package-lock.json
-screenshots/
+.txt
+.key
+agent.txt
+restart.sh
+ui-src/node_modules

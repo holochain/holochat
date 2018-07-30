@@ -16,6 +16,63 @@
     "BasedOn": "",
     "Zomes": [
       {
+            "Name": "coustom_room",
+            "Description": "used to create rooms when members start a converstion | can add members",
+            "RibosomeType": "js",
+            "CodeFile": "coustom_room.js",
+            "Config": {
+              "ErrorHandling": "throwErrors"
+            },
+            "Entries": [
+              {
+                "Name": "coustom_room_uuid",
+                "DataFormat": "string",
+                "Sharing": "public"
+              },
+              {
+                  "Name": "coustom_room_details",
+                  "DataFormat": "json",
+                  "Sharing": "public"
+                },
+                {
+                  "Name": "coustom_room_members",
+                  "DataFormat": "string",
+                  "Sharing": "public"
+                },
+                {
+                  "Name": "coustom_room_link",
+                  "DataFormat": "links"
+                }
+            ],
+            "Functions": [
+                {
+                    "Name": "createCoustomRoom",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                  "Name": "getCoustomRoom",
+                  "CallingType": "json",
+                  "Exposure": "public"
+                },
+                {
+                  "Name": "addMembers",
+                  "CallingType": "json",
+                  "Exposure": "public"
+                },
+                {
+                  "Name": "getMembers",
+                  "CallingType": "string",
+                  "Exposure": "public"
+                },
+                {
+                  "Name": "getRoomDetails",
+                  "CallingType": "string",
+                  "Exposure": "public"
+                }
+            ]
+        },
+      {
             "Name": "membership",
             "Description": "used to create membership for private Channels",
             "RibosomeType": "js",
