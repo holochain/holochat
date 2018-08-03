@@ -4,7 +4,7 @@
 
 // Creates new rooms when users decides to start a conversation
 //@param members : list of members Public.Hash
-function createCoustomRoom(members: string[]): string {
+function createCoustomRoom(members: Hash[]): UUID {
   members.push(App.Key.Hash)
   let uuid: string = uuidGenerator();
   var coustom_room_details: any = {
@@ -26,7 +26,7 @@ function createCoustomRoom(members: string[]): string {
 
 //TODO : Test for non creator of the room adding a member in the room
 //Adds Members to a room using the UUID of the room
-function addMembers(uuid: string, members: string[]) {
+function addMembers(uuid: UUID, members: Hash[]) {
   let uuid_hash: string = makeHash("coustom_room_uuid", uuid);
   members.forEach((member) => {
     try {
@@ -47,16 +47,16 @@ function getMyRooms() {
   } catch (e) {
     return e;
   }
-  debug("My Room Chats : " + JSON.stringify(my_rooms));
+  // debug("My Room Chats : " + JSON.stringify(my_rooms));
   let return_my_rooms: string[] = my_rooms.map((room) => {
     return room.Entry
   });
-  debug("UUID's: " + JSON.stringify(return_my_rooms));
+  // debug("UUID's: " + JSON.stringify(return_my_rooms));
   return return_my_rooms;
 }
 
 // Call to get all the member for a perticual UUID
-function getMembers(uuid: string): string[] {
+function getMembers(uuid: UUID): string[] {
   let members: any;
   try {
     members = getLinks(makeHash("coustom_room_uuid", uuid), "room_members", { Load: true });
@@ -68,7 +68,7 @@ function getMembers(uuid: string): string[] {
 }
 
 // Call to get details for a perticual UUID
-function getRoomDetails(uuid: string): string[] {
+function getRoomDetails(uuid: UUID): string[] {
   let details: any;
   try {
     details = getLinks(makeHash("coustom_room_uuid", uuid), "room_details", { Load: true });
@@ -80,13 +80,13 @@ function getRoomDetails(uuid: string): string[] {
 }
 
 //@param payload:{uuid:string,message:any}
-function postMessage(payload: any): string {
+function postMessage(payload: message): Hash {
   debug(payload)
   payload.message.timestamp = new Date();
   payload.message.author = App.Key.Hash;
   debug(payload.message)
 
-  let hash: string;
+  let hash: Hash;
   try {
     hash = commit("cr_message", payload.message);
     commit("cr_message_link", { Links: [{ Base: makeHash("coustom_room_uuid", payload.uuid), Link: hash, Tag: "messages" }] });
@@ -96,7 +96,7 @@ function postMessage(payload: any): string {
   return hash;
 }
 
-function getMessages(uuid: any): any {
+function getMessages(uuid: UUID): any {
   let messages: any;
   try {
     messages = getLinks(makeHash("coustom_room_uuid", uuid), "messages", { Load: true });
@@ -109,11 +109,11 @@ function getMessages(uuid: any): any {
 }
 
 //@param payload:{new_message:"",old_hash:""}
-function updateMessage(payload:any): string {
+function updateMessage(payload: updateMessage): Hash {
   debug(payload);
   payload.new_message.timestamp = new Date();
   payload.new_message.author = App.Key.Hash;
-  let hash:string = update("cr_message", payload.new_message, payload.old_hash);
+  let hash: Hash = update("cr_message", payload.new_message, payload.old_hash);
   return hash;
 }
 
@@ -168,29 +168,29 @@ function isValidAdmin(base_hash: string, entry_source: string): boolean {
     return false;
   }
   let access: boolean = members.some((member) => {
-    member.Hash == entry_source
+    return member.Hash == entry_source
   });
   return access;
 }
 // Check to validate if the same user that created the message is modifying the message
-function isValidModifier(replaces:string,sources:any):boolean{
-  let old_message:any;
-  try{
-    old_message=get(replaces)
-  }catch(e){
-    debug("ERROR: isValidModifier() "+e)
+function isValidModifier(replaces: string, sources: any): boolean {
+  let old_message: any;
+  try {
+    old_message = get(replaces)
+  } catch (e) {
+    debug("ERROR: isValidModifier() " + e)
   }
-  if(old_message.author==sources[0])
-  return true;
+  if (old_message.author == sources[0])
+    return true;
   else
-  return false;
+    return false;
 }
-function validateCommit(entryName, entry, header, pkg, sources) {
+function validateCommit(entryName: any, entry: any, header: any, pkg: any, sources: any): boolean {
   debug("entry_type:" + entryName + "entry" + JSON.stringify(entry) + "header" + JSON.stringify(header) + "PKG: " + JSON.stringify(pkg) + "sources" + sources);
   return validate(entryName, entry, header, pkg, sources);
 }
 
-function validate(entryName, entry, header, pkg, sources) {
+function validate(entryName: any, entry: any, header: any, pkg: any, sources: any): boolean {
   switch (entryName) {
     case "coustom_room_uuid":
       return true;
@@ -212,25 +212,25 @@ function validate(entryName, entry, header, pkg, sources) {
   }
 }
 
-function validatePut(entryName, entry, header, pkg, sources) {
+function validatePut(entryName: any, entry: any, header: any, pkg: any, sources: any): boolean {
   return true;
 }
 
-function validateMod(entryName, entry, header, replaces, pkg, sources) {
-  debug("entry_type:" + entryName + "entry" + JSON.stringify(entry) + "header" + JSON.stringify(header)+"replaces: "+replaces + "PKG: " + JSON.stringify(pkg) + "sources" + sources);
+function validateMod(entryName: any, entry: any, header: any, replaces: any, pkg: any, sources: any): boolean {
+  debug("entry_type:" + entryName + "entry" + JSON.stringify(entry) + "header" + JSON.stringify(header) + "replaces: " + replaces + "PKG: " + JSON.stringify(pkg) + "sources" + sources);
   switch (entryName) {
     case "cr_message":
-      return isValidModifier(replaces,sources);
+      return isValidModifier(replaces, sources);
     default:
       return false;
   }
 }
 
-function validateDel(entryName, hash, pkg, sources) {
+function validateDel(entryName: any, hash: any, pkg: any, sources: any): boolean {
   return false;
 }
 
-function validateLink(entryName, baseHash, links, pkg, sources) {
+function validateLink(entryName: any, baseHash: any, links: any, pkg: any, sources: any): boolean {
   //debug("entryName: "+entryName+" baseHash: "+ baseHash+" links: "+ links+" sources: "+ sources);
   switch (entryName) {
     case "coustom_room_link":

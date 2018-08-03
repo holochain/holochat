@@ -43,11 +43,11 @@ function getMyRooms() {
     catch (e) {
         return e;
     }
-    debug("My Room Chats : " + JSON.stringify(my_rooms));
+    // debug("My Room Chats : " + JSON.stringify(my_rooms));
     var return_my_rooms = my_rooms.map(function (room) {
         return room.Entry;
     });
-    debug("UUID's: " + JSON.stringify(return_my_rooms));
+    // debug("UUID's: " + JSON.stringify(return_my_rooms));
     return return_my_rooms;
 }
 // Call to get all the member for a perticual UUID
@@ -159,7 +159,7 @@ function isValidAdmin(base_hash, entry_source) {
         return false;
     }
     var access = members.some(function (member) {
-        member.Hash == entry_source;
+        return member.Hash == entry_source;
     });
     return access;
 }
