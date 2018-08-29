@@ -3,26 +3,26 @@
 //------------------------------
 // Creates new rooms when users decides to start a conversation
 //@param members : list of members Public.Hash
-function createCoustomRoom(members) {
+function createcustomRoom(members) {
     members.push(App.Key.Hash);
     var uuid = uuidGenerator();
-    var coustom_room_details = {
+    var custom_room_details = {
         name: uuid
     };
     debug("Your Room UUID: " + uuid);
-    var uuid_hash = commit("coustom_room_uuid", uuid);
+    var uuid_hash = commit("custom_room_uuid", uuid);
     //debug("uuid_hash: " + uuid_hash);
-    commit("coustom_room_link", { Links: [{ Base: App.DNA.Hash, Link: uuid_hash, Tag: "room_uuid" }] });
-    var details_hash = commit("coustom_room_details", coustom_room_details);
+    commit("custom_room_link", { Links: [{ Base: App.DNA.Hash, Link: uuid_hash, Tag: "room_uuid" }] });
+    var details_hash = commit("custom_room_details", custom_room_details);
     //debug("details_hash: " + details_hash);
-    commit("coustom_room_link", { Links: [{ Base: uuid_hash, Link: details_hash, Tag: "room_details" }] });
+    commit("custom_room_link", { Links: [{ Base: uuid_hash, Link: details_hash, Tag: "room_details" }] });
     addMembers(uuid, members);
     return uuid;
 }
 //TODO : Test for non creator of the room adding a member in the room
 //Adds Members to a room using the UUID of the room
 function addMembers(uuid, members) {
-    var uuid_hash = makeHash("coustom_room_uuid", uuid);
+    var uuid_hash = makeHash("custom_room_uuid", uuid);
     members.forEach(function (member) {
         try {
             commit("room_to_member_link", { Links: [{ Base: uuid_hash, Link: member, Tag: "room_members" }] });
@@ -54,7 +54,7 @@ function getMyRooms() {
 function getMembers(uuid) {
     var members;
     try {
-        members = getLinks(makeHash("coustom_room_uuid", uuid), "room_members", { Load: true });
+        members = getLinks(makeHash("custom_room_uuid", uuid), "room_members", { Load: true });
     }
     catch (e) {
         return e;
@@ -66,7 +66,7 @@ function getMembers(uuid) {
 function getRoomDetails(uuid) {
     var details;
     try {
-        details = getLinks(makeHash("coustom_room_uuid", uuid), "room_details", { Load: true });
+        details = getLinks(makeHash("custom_room_uuid", uuid), "room_details", { Load: true });
     }
     catch (e) {
         return e;
@@ -83,7 +83,7 @@ function postMessage(payload) {
     var hash;
     try {
         hash = commit("cr_message", payload.message);
-        commit("cr_message_link", { Links: [{ Base: makeHash("coustom_room_uuid", payload.uuid), Link: hash, Tag: "messages" }] });
+        commit("cr_message_link", { Links: [{ Base: makeHash("custom_room_uuid", payload.uuid), Link: hash, Tag: "messages" }] });
     }
     catch (e) {
         return e;
@@ -93,7 +93,7 @@ function postMessage(payload) {
 function getMessages(uuid) {
     var messages;
     try {
-        messages = getLinks(makeHash("coustom_room_uuid", uuid), "messages", { Load: true });
+        messages = getLinks(makeHash("custom_room_uuid", uuid), "messages", { Load: true });
     }
     catch (e) {
         debug("ERROR: " + e);
@@ -183,11 +183,11 @@ function validateCommit(entryName, entry, header, pkg, sources) {
 }
 function validate(entryName, entry, header, pkg, sources) {
     switch (entryName) {
-        case "coustom_room_uuid":
+        case "custom_room_uuid":
             return true;
-        case "coustom_room_details":
+        case "custom_room_details":
             return true;
-        case "coustom_room_link":
+        case "custom_room_link":
             return true;
         case "room_to_member_link":
             return isValidAdmin(entry.Links[0].Base, sources);
@@ -220,7 +220,7 @@ function validateDel(entryName, hash, pkg, sources) {
 function validateLink(entryName, baseHash, links, pkg, sources) {
     //debug("entryName: "+entryName+" baseHash: "+ baseHash+" links: "+ links+" sources: "+ sources);
     switch (entryName) {
-        case "coustom_room_link":
+        case "custom_room_link":
             return true;
         case "room_to_member_link":
             return true;

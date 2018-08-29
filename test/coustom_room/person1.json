@@ -3,7 +3,7 @@
     {
       "Time":0,
       "Convey": "0. Gets Keys and initialize",
-      "Zome": "coustom_room",
+      "Zome": "custom_room",
       "FnName": "getKey",
       "Input": "",
       "Output": "%key%"
@@ -11,8 +11,8 @@
     {
       "Time":10,
       "Convey": "1. Create new Room",
-      "Zome": "coustom_room",
-      "FnName": "createCoustomRoom",
+      "Zome": "custom_room",
+      "FnName": "createcustomRoom",
       "Input": ["QmcWesmzNkvv2jSKo1msv8xNo5h7NxoyPJL8KCtm7cfzzx"],
       "RegExp": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
       "Err": ""

@@ -16,26 +16,26 @@
     "BasedOn": "",
     "Zomes": [
       {
-            "Name": "coustom_room",
+            "Name": "custom_room",
             "Description": "used to create rooms when members start a converstion | can add members",
             "RibosomeType": "js",
-            "CodeFile": "coustom_room.js",
+            "CodeFile": "custom_room.js",
             "Config": {
               "ErrorHandling": "throwErrors"
             },
             "Entries": [
               {
-                "Name": "coustom_room_uuid",
+                "Name": "custom_room_uuid",
                 "DataFormat": "string",
                 "Sharing": "public"
               },
               {
-                  "Name": "coustom_room_details",
+                  "Name": "custom_room_details",
                   "DataFormat": "json",
                   "Sharing": "public"
                 },
                 {
-                  "Name": "coustom_room_link",
+                  "Name": "custom_room_link",
                   "DataFormat": "links"
                 },
                 {
@@ -58,12 +58,12 @@
             ],
             "Functions": [
                 {
-                    "Name": "createCoustomRoom",
+                    "Name": "createcustomRoom",
                     "CallingType": "json",
                     "Exposure": "public"
                 },
                 {
-                  "Name": "getCoustomRoom",
+                  "Name": "getcustomRoom",
                   "CallingType": "json",
                   "Exposure": "public"
                 },

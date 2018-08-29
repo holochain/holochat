@@ -4,20 +4,20 @@
 
 // Creates new rooms when users decides to start a conversation
 //@param members : list of members Public.Hash
-function createCoustomRoom(members: Hash[]): UUID {
+function createCustomRoom(members: Hash[]): UUID {
   members.push(App.Key.Hash)
   let uuid: string = uuidGenerator();
-  var coustom_room_details: any = {
+  var custom_room_details: any = {
     name: uuid
   }
   debug("Your Room UUID: " + uuid);
-  let uuid_hash = commit("coustom_room_uuid", uuid);
+  let uuid_hash = commit("custom_room_uuid", uuid);
   //debug("uuid_hash: " + uuid_hash);
-  commit("coustom_room_link", { Links: [{ Base: App.DNA.Hash, Link: uuid_hash, Tag: "room_uuid" }] });
+  commit("custom_room_link", { Links: [{ Base: App.DNA.Hash, Link: uuid_hash, Tag: "room_uuid" }] });
 
-  let details_hash = commit("coustom_room_details", coustom_room_details);
+  let details_hash = commit("custom_room_details", custom_room_details);
   //debug("details_hash: " + details_hash);
-  commit("coustom_room_link", { Links: [{ Base: uuid_hash, Link: details_hash, Tag: "room_details" }] });
+  commit("custom_room_link", { Links: [{ Base: uuid_hash, Link: details_hash, Tag: "room_details" }] });
 
   addMembers(uuid, members);
 
@@ -27,7 +27,7 @@ function createCoustomRoom(members: Hash[]): UUID {
 //TODO : Test for non creator of the room adding a member in the room
 //Adds Members to a room using the UUID of the room
 function addMembers(uuid: UUID, members: Hash[]) {
-  let uuid_hash: string = makeHash("coustom_room_uuid", uuid);
+  let uuid_hash: string = makeHash("custom_room_uuid", uuid);
   members.forEach((member) => {
     try {
       commit("room_to_member_link", { Links: [{ Base: uuid_hash, Link: member, Tag: "room_members" }] });
@@ -59,7 +59,7 @@ function getMyRooms() {
 function getMembers(uuid: UUID): string[] {
   let members: any;
   try {
-    members = getLinks(makeHash("coustom_room_uuid", uuid), "room_members", { Load: true });
+    members = getLinks(makeHash("custom_room_uuid", uuid), "room_members", { Load: true });
   } catch (e) {
     return e;
   }
@@ -71,7 +71,7 @@ function getMembers(uuid: UUID): string[] {
 function getRoomDetails(uuid: UUID): string[] {
   let details: any;
   try {
-    details = getLinks(makeHash("coustom_room_uuid", uuid), "room_details", { Load: true });
+    details = getLinks(makeHash("custom_room_uuid", uuid), "room_details", { Load: true });
   } catch (e) {
     return e;
   }
@@ -89,7 +89,7 @@ function postMessage(payload: message): Hash {
   let hash: Hash;
   try {
     hash = commit("cr_message", payload.message);
-    commit("cr_message_link", { Links: [{ Base: makeHash("coustom_room_uuid", payload.uuid), Link: hash, Tag: "messages" }] });
+    commit("cr_message_link", { Links: [{ Base: makeHash("custom_room_uuid", payload.uuid), Link: hash, Tag: "messages" }] });
   } catch (e) {
     return e;
   }
@@ -99,7 +99,7 @@ function postMessage(payload: message): Hash {
 function getMessages(uuid: UUID): any {
   let messages: any;
   try {
-    messages = getLinks(makeHash("coustom_room_uuid", uuid), "messages", { Load: true });
+    messages = getLinks(makeHash("custom_room_uuid", uuid), "messages", { Load: true });
   } catch (e) {
     debug("ERROR: " + e);
     return e;
@@ -192,11 +192,11 @@ function validateCommit(entryName: any, entry: any, header: any, pkg: any, sourc
 
 function validate(entryName: any, entry: any, header: any, pkg: any, sources: any): boolean {
   switch (entryName) {
-    case "coustom_room_uuid":
+    case "custom_room_uuid":
       return true;
-    case "coustom_room_details":
+    case "custom_room_details":
       return true;
-    case "coustom_room_link":
+    case "custom_room_link":
       return true;
     case "room_to_member_link":
       return isValidAdmin(entry.Links[0].Base, sources);
@@ -233,7 +233,7 @@ function validateDel(entryName: any, hash: any, pkg: any, sources: any): boolean
 function validateLink(entryName: any, baseHash: any, links: any, pkg: any, sources: any): boolean {
   //debug("entryName: "+entryName+" baseHash: "+ baseHash+" links: "+ links+" sources: "+ sources);
   switch (entryName) {
-    case "coustom_room_link":
+    case "custom_room_link":
       return true;
     case "room_to_member_link":
       return true;
