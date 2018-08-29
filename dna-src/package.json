@@ -1,0 +1,14 @@
+{
+  "name": "dna-src",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "holochain-proto-types": "^0.1.0"
+  }
+}
