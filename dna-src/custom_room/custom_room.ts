@@ -3,7 +3,7 @@
 //------------------------------
 
 export = 0;
-let module = {};
+let module = {}
 
 
 type message = any;

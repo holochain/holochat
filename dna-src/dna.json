@@ -1,19 +1,17 @@
 {
-    "Version": 0,
+    "Version": 0.1,
     "UUID": "00000000-0000-0000-0000-000000000000",
     "Name": "chat",
-    "RequiresVersion": 18,
+    "RequiresVersion": 26,
     "Properties": {
         "name": "My Chat",
         "purpose": "chatting up a storm",
         "language": "en",
-        "initial_admin": "chuck@norris.com"
     },
     "PropertiesSchemaFile": "properties_schema.json",
     "DHTConfig": {
         "HashType": "sha2-256"
     },
-    "BasedOn": "",
     "Zomes": [
       {
             "Name": "custom_room",
@@ -106,47 +104,6 @@
                   "Name": "updateMessage",
                   "CallingType": "json",
                   "Exposure": "public"
-                }
-            ]
-        },
-      {
-            "Name": "membership",
-            "Description": "used to create membership for private Channels",
-            "RibosomeType": "js",
-            "CodeFile": "membership.js",
-            "Config": {
-              "ErrorHandling": "throwErrors"
-            },
-            "Entries": [
-                {
-                    "Name": "membership_link",
-                    "DataFormat": "links"
-                },
-                {
-                  "Name": "local_private_room",
-                  "DataFormat": "string",
-                  "Sharing": "private"
-                },
-                {
-                    "Name": "local_membership_link",
-                    "DataFormat": "links"
-                }
-            ],
-            "Functions": [
-                {
-                    "Name": "addMember",
-                    "CallingType": "json",
-                    "Exposure": "public"
-                },
-                {
-                    "Name": "getMembers",
-                    "CallingType": "json",
-                    "Exposure": "public"
-                },
-                {
-                    "Name": "addRoomToMembersLocalChain",
-                    "CallingType": "json",
-                    "Exposure": "public"
                 }
             ]
         },
@@ -251,119 +208,6 @@
                     "Exposure": "public"
                 }
 
-            ]
-        },{
-            "Name": "hashtag",
-            "Description": "hashtag code code",
-            "RibosomeType": "js",
-            "CodeFile": "hashtag.js",
-            "Entries": [
-              {
-                "Name": "hashTag",
-                "DataFormat": "string",
-                "Sharing": "public"
-              },
-              {
-                  "Name": "hashTag_links",
-                  "DataFormat": "links"
-              },
-              {
-                  "Name": "tag_post_links",
-                  "DataFormat": "links"
-              },
-              {
-                  "Name": "tag_post",
-                  "DataFormat": "json",
-                  "Sharing": "public",
-                  "SchemaFile": "tag_post.json"
-              }
-            ],
-            "Functions": [
-              {
-                    "Name": "callingHashTag",
-                    "CallingType": "json",
-                    "Exposure":"public"
-                },{
-                    "Name": "getHashTag",
-                    "CallingType": "string",
-                    "Exposure":"public"
-                },
-                {
-                    "Name": "detectHashtag",
-                    "CallingType": "string",
-                    "Exposure":"public"
-                },
-                {
-                    "Name": "createHashTag",
-                    "CallingType": "string",
-                    "Exposure":"public"
-                },
-                {
-                    "Name": "addHashTag",
-                    "CallingType": "string",
-                    "Exposure":"public"
-                },
-                {
-                    "Name": "linkHashTags",
-                    "CallingType": "string",
-                    "Exposure":"public"
-                }
-                ,{
-                    "Name": "linkHashTags",
-                    "CallingType": "string",
-                    "Exposure":"public"
-                }
-            ]
-        },
-        {
-            "Name": "profiles",
-            "Description": "Profiles controller",
-            "RibosomeType": "js",
-            "CodeFile": "profiles.js",
-            "Entries": [
-                {
-                    "Name": "registration_link",
-                    "DataFormat": "links",
-                    "Sharing":"public"
-                },
-                {
-                    "Name": "agent_profile_link",
-                    "DataFormat": "links",
-                    "Sharing":"public"
-                },
-                {
-                    "Name": "profile",
-                    "DataFormat": "json",
-                    "SchemaFile": "profile.json",
-                    "Sharing": "public"
-                }
-            ],
-            "Functions": [
-                {
-                    "Name": "register",
-                    "CallingType": "json",
-                    "Exposure": "public"
-                },
-                {
-                    "Name": "isRegistered",
-                    "CallingType": "json",
-                    "Exposure": "public"
-                },
-                {
-                    "Name": "getMyAgentHash",
-                    "CallingType": "string",
-                    "Exposure": "public"
-                },
-                {
-                    "Name": "getProfile",
-                    "CallingType": "json",
-                    "Exposure": "public"
-                },
-                {
-                    "Name": "updateProfile",
-                    "CallingType": "json",
-                    "Exposure": "public"
-                }
             ]
         },
         {
