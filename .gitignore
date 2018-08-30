@@ -10,13 +10,15 @@ ui-src/node_modules
 ui-automation/cypress/screenshots
 ui-automation/cypress/videos
 ui-automation/node_modules
-ui
+
+dna-src/node_modules
 
 # testing
 /coverage
 
 # production
-/build
+/dna
+/ui
 
 # misc
 .DS_Store

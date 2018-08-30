@@ -2,6 +2,14 @@
 // Public Functions
 //------------------------------
 
+export = 0;
+let module = {};
+
+
+type message = any;
+type updateMessageType = any;
+type UUID = string;
+
 // Creates new rooms when users decides to start a conversation
 //@param members : list of members Public.Hash
 function createCustomRoom(members: Hash[]): UUID {
@@ -80,7 +88,7 @@ function getRoomDetails(uuid: UUID): string[] {
 }
 
 //@param payload:{uuid:string,message:any}
-function postMessage(payload: message): Hash {
+function _postMessage(payload: message): Hash {
   debug(payload)
   payload.message.timestamp = new Date();
   payload.message.author = App.Key.Hash;
@@ -109,7 +117,7 @@ function getMessages(uuid: UUID): any {
 }
 
 //@param payload:{new_message:"",old_hash:""}
-function updateMessage(payload: updateMessage): Hash {
+function updateMessage(payload: updateMessageType): Hash {
   debug(payload);
   payload.new_message.timestamp = new Date();
   payload.new_message.author = App.Key.Hash;
