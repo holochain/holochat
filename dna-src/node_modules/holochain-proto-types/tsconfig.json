@@ -1,5 +1,0 @@
-{
-  "compilerOptions": {
-    "exclude": "holochain.ts"
-  }
-}

@@ -10,9 +10,12 @@ type message = any;
 type updateMessageType = any;
 type UUID = string;
 
-// Creates new rooms when users decides to start a conversation
-//@param members : list of members Public.Hash
-function createCustomRoom(members: Hash[]): UUID {
+/*=============================================
+=            Public Zome Functions            =
+=============================================*/
+
+
+function createCustomRoom(members: holochain.Hash[]): UUID {
   members.push(App.Key.Hash)
   let uuid: string = uuidGenerator();
   var custom_room_details: any = {
@@ -32,9 +35,11 @@ function createCustomRoom(members: Hash[]): UUID {
   return uuid;
 }
 
+
+
 //TODO : Test for non creator of the room adding a member in the room
 //Adds Members to a room using the UUID of the room
-function addMembers(uuid: UUID, members: Hash[]) {
+function addMembers(uuid: UUID, members: holochain.Hash[]): boolean | holochain.HolochainError {
   let uuid_hash: string = makeHash("custom_room_uuid", uuid);
   members.forEach((member) => {
     try {
@@ -45,23 +50,24 @@ function addMembers(uuid: UUID, members: Hash[]) {
     }
     commit("member_to_room_link", { Links: [{ Base: member, Link: uuid_hash, Tag: "my_rooms" }] });
   });
+  return true;
 }
 
-//Returns the rooms that you are part of
-function getMyRooms() {
+
+
+
+function getMyRooms(): Array<any> | holochain.HolochainError {
   let my_rooms: any;
   try {
     my_rooms = getLinks(App.Key.Hash, "my_rooms", { Load: true });
   } catch (e) {
     return e;
   }
-  // debug("My Room Chats : " + JSON.stringify(my_rooms));
-  let return_my_rooms: string[] = my_rooms.map((room) => {
-    return room.Entry
-  });
-  // debug("UUID's: " + JSON.stringify(return_my_rooms));
-  return return_my_rooms;
+  debug("My Room Chats : " + JSON.stringify(my_rooms));
+  return my_rooms.map((room) => { return room.Entry });
 }
+
+
 
 // Call to get all the member for a perticual UUID
 function getMembers(uuid: UUID): string[] {
@@ -88,13 +94,13 @@ function getRoomDetails(uuid: UUID): string[] {
 }
 
 //@param payload:{uuid:string,message:any}
-function _postMessage(payload: message): Hash {
+function postMessage(payload: message): holochain.Hash | holochain.HolochainError {
   debug(payload)
   payload.message.timestamp = new Date();
   payload.message.author = App.Key.Hash;
   debug(payload.message)
 
-  let hash: Hash;
+  let hash: holochain.Hash;
   try {
     hash = commit("cr_message", payload.message);
     commit("cr_message_link", { Links: [{ Base: makeHash("custom_room_uuid", payload.uuid), Link: hash, Tag: "messages" }] });
@@ -104,30 +110,36 @@ function _postMessage(payload: message): Hash {
   return hash;
 }
 
-function getMessages(uuid: UUID): any {
-  let messages: any;
+function getMessages(uuid: UUID): Array<holochain.GetLinksResponse> | holochain.HolochainError {
+  let messages;
   try {
-    messages = getLinks(makeHash("custom_room_uuid", uuid), "messages", { Load: true });
+    let messages = getLinks(makeHash("custom_room_uuid", uuid), "messages", { Load: true });
+    debug("Messages : " + JSON.stringify(messages))
+    return messages;
   } catch (e) {
     debug("ERROR: " + e);
     return e;
   }
-  debug("Messages : " + JSON.stringify(messages))
-  return messages;
+
 }
 
 //@param payload:{new_message:"",old_hash:""}
-function updateMessage(payload: updateMessageType): Hash {
+function updateMessage(payload: updateMessageType): holochain.Hash {
   debug(payload);
   payload.new_message.timestamp = new Date();
   payload.new_message.author = App.Key.Hash;
-  let hash: Hash = update("cr_message", payload.new_message, payload.old_hash);
+  let hash: holochain.Hash = update("cr_message", payload.new_message, payload.old_hash);
   return hash;
 }
 
-//------------------------------
-// Helper Functions
-//------------------------------
+/*=====  End of Public Zome Functions  ======*/
+
+
+
+
+/*=========================================
+=            Private Functions            =
+=========================================*/
 
 //Generates new UUID ()
 function uuidGenerator() {
@@ -140,17 +152,19 @@ function uuidGenerator() {
 function getKey() {
   return App.Key.Hash;
 }
-// -----------------------------------------------------------------
-//  The Genesis Function https://developer.holochain.org/genesis
-// -----------------------------------------------------------------
+
+/*=====  End of Private Functions  ======*/
+
+
+
+
+/*==================================
+=            Validation            =
+==================================*/
 
 function genesis() {
   return true;
 }
-
-// -----------------------------------------------------------------
-//  Validation functions for every change to the local chain or DHT
-// -----------------------------------------------------------------
 
 // Check if the pub_hash is a member of the
 function isValidAdmin(base_hash: string, entry_source: string): boolean {
@@ -269,3 +283,6 @@ function validateDelPkg(entryName) {
 function validateLinkPkg(entryName) {
   return null;
 }
+
+
+/*=====  End of Validation  ======*/

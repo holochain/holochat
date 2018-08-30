@@ -2,7 +2,7 @@
   "Tests": [{
       "Convey": "0. Create new Room",
       "Zome": "custom_room",
-      "FnName": "createcustomRoom",
+      "FnName": "createCustomRoom",
       "Input": [],
       "RegExp": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
       "Err": ""
@@ -48,7 +48,7 @@
       "Zome": "custom_room",
       "FnName": "getMessages",
       "Input": "%r1%",
-      "RegExp": "[{\"Entry\":{\"author\":\"QmUAfnSCvwhgHhrJ71YswaXgfPcheNicft4BHXPnp1UzGb\",\"content\":{\"text\":\"Testing out the First message!!\"},\"timestamp\":\"[^\"]*\"},\"EntryType\":\"cr_message\",\"Hash\":\"[^\"]*\",\"Source\":\"QmUAfnSCvwhgHhrJ71YswaXgfPcheNicft4BHXPnp1UzGb\"}]"
+      "RegExp": "[{\"Entry\":{\"author\":\"%key%\",\"content\":{\"text\":\"Testing out the First message!!\"},\"timestamp\":\"[^\"]*\"},\"EntryType\":\"cr_message\",\"Hash\":\"[^\"]*\",\"Source\":\"%key%\"}]"
     },
     {
       "Convey": "7. update message of the room",
@@ -70,7 +70,7 @@
       "Zome": "custom_room",
       "FnName": "getMessages",
       "Input": "%r1%",
-      "RegExp": "[{\"Entry\":{\"author\":\"QmUAfnSCvwhgHhrJ71YswaXgfPcheNicft4BHXPnp1UzGb\",\"content\":{\"text\":\"Testing out the First message Update !!\"},\"timestamp\":\"[^\"]*\"},\"EntryType\":\"cr_message\",\"Hash\":\"[^\"]*\",\"Source\":\"QmUAfnSCvwhgHhrJ71YswaXgfPcheNicft4BHXPnp1UzGb\"}]"
+      "RegExp": "[{\"Entry\":{\"author\":\"%key%\",\"content\":{\"text\":\"Testing out the First message Update !!\"},\"timestamp\":\"[^\"]*\"},\"EntryType\":\"cr_message\",\"Hash\":\"[^\"]*\",\"Source\":\"%key%\"}]"
     }
   ]
 }

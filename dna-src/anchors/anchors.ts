@@ -11,14 +11,14 @@ interface Anchor {
 =            Public Zome Functions            =
 =============================================*/
 
-function anchor(anchor: Anchor): Hash {
+function anchor(anchor: Anchor): holochain.Hash {
 
   // create the root and type anchors if needed
   createRootAnchor();
   const typeAnchorHash = createTypeAnchor(anchor.anchorType);
 
   // finally create the new anchor if it doesn't already exist and link it to the type anchor
-  let anchorHash: Hash = makeHash('anchor', anchor);
+  let anchorHash: holochain.Hash = makeHash('anchor', anchor);
   if(get(anchorHash) === null) {
     commit('anchor', anchor);
     commit('anchor_link',  { Links:[{Base: typeAnchorHash, Link: anchorHash, Tag: anchor.anchorText}]});
@@ -32,7 +32,7 @@ function exists(anchor: Anchor): boolean{
 }
 
 
-function anchors(type: string): Array<GetLinksResponse> {
+function anchors(type: string): Array<holochain.GetLinksResponse> {
   return getLinks(makeHash('anchor', {anchorType: type, anchorText: ''}), '');
 }
 
@@ -43,19 +43,19 @@ function anchors(type: string): Array<GetLinksResponse> {
 =            Private Functions            =
 =========================================*/
 
-function createRootAnchor(): Hash {
+function createRootAnchor(): holochain.Hash {
   // define the root anchor. Check if it exists and if not create it
   const rootAnchor: Anchor = {anchorType: 'anchorTypes', anchorText: ''};
-  const rootAnchorHash: Hash = makeHash('anchor', rootAnchor);
+  const rootAnchorHash: holochain.Hash = makeHash('anchor', rootAnchor);
   if (get(rootAnchorHash) === null){
     commit('anchor', rootAnchor);
   }
   return rootAnchorHash;
 }
 
-function createTypeAnchor(anchorType: string): Hash {
+function createTypeAnchor(anchorType: string): holochain.Hash {
   const typeAnchor: Anchor = {anchorType: anchorType, anchorText: ''};
-  const typeAnchorHash: Hash = makeHash('anchor', anchorType);
+  const typeAnchorHash: holochain.Hash = makeHash('anchor', anchorType);
   if (get(typeAnchorHash) === null){
     commit('anchor', typeAnchor);
     commit('anchor_link', { Links:[{Base: typeAnchorHash, Link: typeAnchorHash, Tag: typeAnchor.anchorType}]});

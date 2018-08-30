@@ -10,6 +10,6 @@
   "license": "ISC",
   "devDependencies": {
     "cpx": "^1.5.0",
-    "holochain-proto-types": "^0.1.0"
+    "holochain-proto-types": "^0.2.0"
   }
 }
