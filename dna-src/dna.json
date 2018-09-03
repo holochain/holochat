@@ -14,54 +14,54 @@
     },
     "Zomes": [
       {
-            "Name": "custom_room",
-            "Description": "used to create rooms when members start a converstion | can add members",
+            "Name": "custom_channel",
+            "Description": "used to create channels when members start a converstion | can add members",
             "RibosomeType": "js",
-            "CodeFile": "custom_room.js",
+            "CodeFile": "custom_channel.js",
             "Config": {
               "ErrorHandling": "throwErrors"
             },
             "Entries": [
               {
-                "Name": "custom_room_uuid",
+                "Name": "custom_channel_uuid",
                 "DataFormat": "string",
                 "Sharing": "public"
               },
               {
-                  "Name": "custom_room_details",
+                  "Name": "custom_channel_details",
                   "DataFormat": "json",
                   "Sharing": "public"
                 },
                 {
-                  "Name": "custom_room_link",
+                  "Name": "custom_channel_link",
                   "DataFormat": "links"
                 },
                 {
-                  "Name": "room_to_member_link",
+                  "Name": "channel_to_member_link",
                   "DataFormat": "links"
                 },
                 {
-                  "Name": "member_to_room_link",
+                  "Name": "member_to_channel_link",
                   "DataFormat": "links"
                 },
                 {
-                  "Name": "cr_message",
+                  "Name": "message",
                   "DataFormat": "json",
                   "Sharing":"public"
                 },
                 {
-                  "Name": "cr_message_link",
+                  "Name": "message_link",
                   "DataFormat": "links"
                 }
             ],
             "Functions": [
                 {
-                    "Name": "createCustomRoom",
+                    "Name": "createCustomChannel",
                     "CallingType": "json",
                     "Exposure": "public"
                 },
                 {
-                  "Name": "getcustomRoom",
+                  "Name": "getcustomChannel",
                   "CallingType": "json",
                   "Exposure": "public"
                 },
@@ -76,12 +76,12 @@
                   "Exposure": "public"
                 },
                 {
-                  "Name": "getRoomDetails",
+                  "Name": "getChannelDetails",
                   "CallingType": "string",
                   "Exposure": "public"
                 },
                 {
-                  "Name": "getMyRooms",
+                  "Name": "getMyChannels",
                   "CallingType": "string",
                   "Exposure": "public"
                 },
@@ -106,144 +106,6 @@
                   "Exposure": "public"
                 }
             ]
-        },
-        {
-            "Name": "rooms",
-            "Description": "Rooms controller",
-            "RibosomeType": "js",
-            "CodeFile": "rooms.js",
-            "Entries": [
-                {
-                    "Name": "room",
-                    "DataFormat": "json",
-                    "SchemaFile": "room.json",
-                    "Sharing": "public"
-                },
-                {
-                    "Name": "room_links",
-                    "DataFormat": "links"
-                },
-                {
-                    "Name": "admin_link",
-                    "DataFormat": "links"
-                }
-            ],
-            "Functions": [
-                {
-                    "Name": "getPublicRooms",
-                    "CallingType": "json",
-                    "Exposure": "public"
-                },
-                {
-                    "Name": "newRoom",
-                    "CallingType": "json",
-                    "Exposure": "public"
-                },
-                {
-                    "Name": "getRoomByName",
-                    "CallingType": "json",
-                    "Exposure": "private"
-                },
-                {
-                    "Name": "getMyPrivateRooms",
-                    "CallingType": "json",
-                    "Exposure": "public"
-                },
-                {
-                    "Name": "setRoomAdmin",
-                    "CallingType": "json",
-                    "Exposure": "private"
-                },
-                {
-                    "Name": "getRoomAdmin",
-                    "CallingType": "json",
-                    "Exposure": "public"
-                }
-            ]
-        },
-        {
-            "Name": "messages",
-            "Description": "Messages controller",
-            "RibosomeType": "js",
-            "CodeFile": "messages.js",
-            "Entries": [
-                {
-                    "Name": "message",
-                    "DataFormat": "json",
-                    "SchemaFile": "message.json",
-                    "Sharing": "public"
-                },
-                {
-                    "Name": "private_message",
-                    "DataFormat": "json",
-                    "SchemaFile": "message.json",
-                    "Sharing": "public"
-                },
-                {
-                    "Name": "message_links",
-                    "DataFormat": "links",
-                    "Sharing":"public"
-                },
-                {
-                    "Name": "private_message_links",
-                    "DataFormat": "links",
-                    "Sharing":"public"
-                }
-
-            ],
-            "Functions": [
-              {
-                    "Name": "newMessage",
-                    "CallingType": "json",
-                    "Exposure": "public"
-                },
-                {
-                    "Name": "getMessages",
-                    "CallingType": "json",
-                    "Exposure": "public"
-                },
-                {
-                    "Name": "updateMessage",
-                    "CallingType": "json",
-                    "Exposure": "public"
-                }
-
-            ]
-        },
-        {
-          "Name": "anchors",
-          "Description": "anchors mixin",
-          "RibosomeType": "js",
-          "CodeFile": "anchors.js",
-          "Config": {
-            "ErrorHandling": "throwErrors"
-          },
-          "Entries": [
-            {
-              "Name": "anchor",
-              "DataFormat": "json",
-              "SchemaFile": "anchor.json",
-              "Sharing": "public"
-            },
-            {
-              "Name": "anchor_link",
-              "DataFormat": "links"
-            }
-          ],
-          "Functions": [
-            {
-              "Name": "anchor",
-              "CallingType": "json"
-            },
-            {
-              "Name": "exists",
-              "CallingType": "json"
-            },
-            {
-              "Name": "anchors",
-              "CallingType": "string"
-            }
-          ]
-      }
+        }
     ]
 }
