@@ -19,7 +19,8 @@ type UUID = string;
  * @param  {holochain.Hash[]} - Array of public key hashes of members to add to channel
  * @return {UUID} - Channel UUID
  */
-function createCustomChannel(members: holochain.Hash[]): UUID {
+function createCustomChannel(payload: {members: holochain.Hash[]}): UUID {
+  const {members} = payload
   members.push(App.Key.Hash)
   let uuid: string = uuidGenerator();
   var custom_channel_details: any = {
@@ -34,7 +35,7 @@ function createCustomChannel(members: holochain.Hash[]): UUID {
   //debug("details_hash: " + details_hash);
   commit("custom_channel_link", { Links: [{ Base: uuid_hash, Link: details_hash, Tag: "channel_details" }] });
 
-  addMembers(uuid, members);
+  addMembers({uuid, members});
 
   return uuid;
 }
@@ -48,7 +49,8 @@ function createCustomChannel(members: holochain.Hash[]): UUID {
  * @param  {holochain.Hash[]} - Array of members to add
  * @return {boolean} - Returns true if successful otherwise returns an error
  */
-function addMembers(uuid: UUID, members: holochain.Hash[]): boolean | holochain.HolochainError {
+function addMembers(payload: {uuid: UUID, members: holochain.Hash[]}): boolean | holochain.HolochainError {
+  const {uuid, members} = payload
   let uuid_hash: string = makeHash("custom_channel_uuid", uuid);
   members.forEach((member) => {
     try {
@@ -86,7 +88,8 @@ function getMyChannels(): Array<any> | holochain.HolochainError {
  * @param  {UUID} - Channel UUID
  * @return {string[]} - Array of key hashes of members in channel
  */
-function getMembers(uuid: UUID): holochain.Hash[] | holochain.HolochainError {
+function getMembers(payload: {uuid: UUID}): holochain.Hash[] | holochain.HolochainError {
+  const {uuid} = payload
   let members: any;
   try {
     members = getLinks(makeHash("custom_channel_uuid", uuid), "channel_members", { Load: true });
@@ -102,7 +105,8 @@ function getMembers(uuid: UUID): holochain.Hash[] | holochain.HolochainError {
  * @param  {UUID} - Channel UUID
  * @return {string[]} - TODO: Write spec for channel details
  */
-function getChannelDetails(uuid: UUID): string[] {
+function getChannelDetails(payload: {uuid: UUID}): string[] {
+  const {uuid} = payload
   let details: any;
   try {
     details = getLinks(makeHash("custom_channel_uuid", uuid), "channel_details", { Load: true });
@@ -140,7 +144,8 @@ function postMessage(payload: message): holochain.Hash | holochain.HolochainErro
  * @param  {UUID} - Channel UUID
  * @return {Array<holochain.GetLinksResponse>} - Array of messages
  */
-function getMessages(uuid: UUID): Array<holochain.GetLinksResponse> | holochain.HolochainError {
+function getMessages(payload: {uuid: UUID}): Array<holochain.GetLinksResponse> | holochain.HolochainError {
+  const {uuid} = payload
   let messages;
   try {
     let messages = getLinks(makeHash("custom_channel_uuid", uuid), "messages", { Load: true });

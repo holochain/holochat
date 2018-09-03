@@ -3,7 +3,7 @@
       "Convey": "0. Create new Channel",
       "Zome": "custom_channel",
       "FnName": "createCustomChannel",
-      "Input": [],
+      "Input": {"members": []},
       "RegExp": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
       "Err": ""
     },
@@ -18,7 +18,7 @@
       "Convey": "2. Get member for the channel (UUID)",
       "Zome": "custom_channel",
       "FnName": "getMembers",
-      "Input": "%r2%",
+      "Input": {"uuid": "%r2%"},
       "RegExp": "(?s).*"
     },
     {
@@ -47,7 +47,7 @@
       "Convey": "6. get message of the channel",
       "Zome": "custom_channel",
       "FnName": "getMessages",
-      "Input": "%r1%",
+      "Input": {"uuid": "%r1%"},
       "RegExp": "[{\"Entry\":{\"author\":\"%key%\",\"content\":{\"text\":\"Testing out the First message!!\"},\"timestamp\":\"[^\"]*\"},\"EntryType\":\"message\",\"Hash\":\"[^\"]*\",\"Source\":\"%key%\"}]"
     },
     {
@@ -69,7 +69,7 @@
       "Convey": "9. get message of the channel",
       "Zome": "custom_channel",
       "FnName": "getMessages",
-      "Input": "%r1%",
+      "Input": {"uuid": "%r1%"},
       "RegExp": "[{\"Entry\":{\"author\":\"%key%\",\"content\":{\"text\":\"Testing out the First message Update !!\"},\"timestamp\":\"[^\"]*\"},\"EntryType\":\"message\",\"Hash\":\"[^\"]*\",\"Source\":\"%key%\"}]"
     }
   ]
