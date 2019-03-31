@@ -1,4 +1,4 @@
-# holochat
+# holochat - [![Deprecation](https://img.shields.io/badge/Status-deprecated-red.svg) in favor of holochain-basic-chat](https://github.com/holochain/holochain-basic-chat)
 
 [![Build Status](https://travis-ci.org/Holochain/holochat.svg?branch=master)](https://travis-ci.org/Holochain/holochat)
 [![Code Status](https://img.shields.io/badge/Code-Pre--Alpha-orange.svg)](https://github.com/Holochain/holochat#feature-roadmap-and-current-progress)
